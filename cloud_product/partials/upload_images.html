@@ -1,0 +1,21 @@
+<md-dialog aria-label="Upload Images"  ng-cloak>
+    <form name="editForm" ng-submit="submit()">
+        <md-toolbar class="modal-header">
+            <div class="md-toolbar-tools">
+                <h2>Upload Images</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="Close">
+                    <ng-md-icon icon="close" style="fill:white;" size="24px" style="color:#8D8D8D"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:800px;max-height:810px; ">
+            <div class="md-dialog-content">
+                    <md-input-container>
+                        <file-up-loader os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>
+                        </file-up-loader>
+                    </md-input-container>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

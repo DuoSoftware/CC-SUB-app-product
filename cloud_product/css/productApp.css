@@ -1,0 +1,60 @@
+.drop-down-container
+{
+    padding-right: 96px;
+}
+.status
+{
+    padding-right: 137px;
+}
+.brand
+{
+    padding-right: 117px;
+}
+#md-button-childimage
+{
+    left: 280px;
+    top:-20px;
+    /*background-color:#e64a19;*/
+}
+
+.input-text-width
+{
+    width: 150px;
+}
+.input-textarea-width
+{
+    width: 311px;
+    height: 200px;
+}
+.md-content-width
+{
+    width: 653px;
+    max-height: 310px;
+}
+.p-word-wrap-spec
+{
+    word-wrap: break-word;
+}
+#md-icon-spinner
+{
+    position: absolute;
+    left: 50%;
+    top: 57%;
+    margin-left: -32px; /* -1 * image width / 2 */
+    margin-top: -32px;  /* -1 * image height / 2 */
+    display: block;
+    height:75px;
+    width:75px;
+}
+
+.div-spinner
+{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1000;
+    background-color:#959595;
+    opacity: .8;
+}

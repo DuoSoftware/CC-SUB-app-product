@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width">
+	<title>angular-vs-repeat example</title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/angular-material/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/child_app_styles.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/directive_library.css">
+	<link rel="stylesheet" type="text/css" href="css/cloudCharge.css">
+	<link rel="stylesheet" type="text/css" href="css/productApp.css">
+	<!--<link rel="stylesheet" type="text/css" href="css/custom_ui_styles.css">-->
+	
+
+</head>
+<body ng-controller="AppCtrl as ctrl" layout="column" ng-cloak>
+
+	<!--Background banner with parallax effect>
+	<md-background-banner color="#252a34" height="100%"> </md-background-banner-->
+	<md-content style="background:transparent">
+		<div ui-view ng-init="viewPortHeight='700px'"></div>
+	</md-content>
+
+
+
+	<script src="../js/jquery-2.1.4.min.js"></script>
+	<script src="../bower_components/angular/angular.min.js"></script>
+	<script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+	<script src="../bower_components/angular-material/angular-material.min.js"></script>
+	<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+	<script src="../bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+
+	<script src="../js/directivelibrary.js"></script>
+	<script src="js/controllers/js.js"></script>
+	<script src="js/controllers/addUOMCtrl.js"></script>
+    <script src="js/controllers/addCurrencyCtrl.js"></script>
+	<script src="js/controllers/uploadImageCtrl.js"></script>
+	<script src="../js/cloudcharge.js"></script>
+    <script src="../js/producthandler.js"></script>
+	<script src="../uimicrokernel/uimicrokernel.js"></script>
+</body>
+</html>

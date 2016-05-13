@@ -1,0 +1,14 @@
+{
+  "product":{
+    "domain":"cloudcharge.com/services",
+    "url":"d"
+  },
+  "uom":{
+    "domain":"localhost:8012/PHP",
+    "url":"d"
+  },
+  "commondata":{
+    "domain":"cloudcharge.com/services",
+    "url":"d"
+  }
+}
