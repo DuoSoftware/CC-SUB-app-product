@@ -90,7 +90,7 @@
                     <div layout-gt-sm="row">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>QUANTITY OF UNIT</label>
-                            <input ng-required="false" minlength="null" md-maxlength="null" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">
+                            <input ng-required="false" minlength="null" md-maxlength="null" min="0" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">
                         </md-input-container>
                         <div hide-xs hide-sm flex-gt-sm="5">
                         </div>
@@ -167,7 +167,7 @@
 						</div>
 						<md-input-container ng-show="content.sku == true" class="md-block" flex-gt-sm>
 							<label>MINIMUM STOCK LEVEL</label>
-							<input ng-required="content.sku" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
+							<input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
 						</md-input-container>
 					</div>
 				</div>
