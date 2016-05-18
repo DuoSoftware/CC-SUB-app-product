@@ -4,11 +4,11 @@
     "url":"d"
   },
   "uom":{
-    "domain":"localhost:8012/PHP",
+    "domain":"cloudcharge.com/services",
     "url":"d"
   },
   "commondata":{
-    "domain":"localhost:8012/PHP",
+    "domain":"cloudcharge.com/services",
     "url":"d"
   }
 }

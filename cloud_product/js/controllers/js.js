@@ -546,11 +546,11 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     {
         debugger;
         var editReq=$scope.changeProduct;
-        if(editReq.status="false")
+        if(editReq.status=="false")
         {
             editReq.status=false;
         }
-        else if(editReq.status="true")
+        else if(editReq.status=="true")
         {
             editReq.status=true;
         }
