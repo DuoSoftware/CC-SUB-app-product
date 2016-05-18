@@ -131,7 +131,7 @@
                     <div layout-gt-sm="row">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>COST PRICE</label>
-                            <input ng-required="true" minlength="null" md-maxlength="null" min="0" type="" name="CostPrice" ng-pattern="/^[0-9]{1,7}$/" ng-model="content.cost_price">
+                            <input ng-required="true" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
                             <div ng-messages="editForm.CostPrice.$error">
                                 <!--<div ng-message="required">Price is required.</div>-->
                                 <!--<div ng-message="pattern">Please enter a valid Price.</div>-->
