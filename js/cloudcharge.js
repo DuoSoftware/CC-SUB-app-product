@@ -47,7 +47,7 @@
                     $h(reqObj).
                       success(function(data, status, headers, config) {
                                 //debugger;
-                                console.log(data);
+                                //console.log(data);
                     	if (status == 200) sfn(data);
                     	else ffn(data);
                       }).
@@ -135,6 +135,7 @@
         p.getUOMConversionByUOMId=function(s){p.p(handler + "/commondata/getUOMConversionByUOMId/",service).qp({"skip":s}); return p;}
         p.getUOMAppMapperByUOMId=function(s){p.p(handler + "/commondata/getUOMAppMapperByUOMId/",service).qp({"skip":s}); return p;}
         p.insertDuoBaseValuesAddition=function(i){p.p(handler + "/commondata/insertDuoBaseValuesAdditional",service).b(i); return p;}
+        p.getIDByRecord=function(s){p.p(handler + "/commondata/getIDByRecordName/",service).qp({"name":s}); return p;}
         return p;
     }
 
