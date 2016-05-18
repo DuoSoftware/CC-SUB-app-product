@@ -269,7 +269,6 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
         var results=[];
         for (i = 0, len = $scope.productlist.length; i<len; ++i){
             //console.log($scope.allBanks[i].value.value);
-            debugger;
             if($scope.productlist[i].product_name.toLowerCase().indexOf(query.toLowerCase()) !=-1)
             {
                 if($scope.productlist[i].product_name.toLowerCase().startsWith(query.toLowerCase()))
@@ -358,6 +357,19 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 	{
 		location.href = "#/main";
 	}
+
+    $scope.validateProduct=function (ev)
+    {
+        var products=$scope.productlist;
+        var txtEntered=ev;
+        products.forEach(function(product){
+            if(product.product_name.toLowerCase()==txtEntered.toLowerCase())
+            {
+                notifications.toast(txtEntered +" has been already added" , "error");
+                self.searchText="";
+            }
+        });
+    }
 	
 })//END OF AddCtrl
 
