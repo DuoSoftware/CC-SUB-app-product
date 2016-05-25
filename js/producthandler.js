@@ -1,6 +1,7 @@
 (function(pm){
-    pm.factory('$productHandler', function($http,$charge){
+    pm.factory('$productHandler', function($http,$charge,$productCacheHandler){
         var productArray=[];
+        var cache;
         //var skipProd=0;
         //var takeProd=7;
 
@@ -12,23 +13,34 @@
              */
             var skip = 0;
             var take = 100;
+
             function loadProduct() {
+                cache=$productCacheHandler.get('productCache');
                 $charge.product().all(skip, take, 'asc')
                     .success(function (data) {
-                        //debugger;
-                        //console.log(data);
-                        //while (data.length > 0) {
+                        if(sessionStorage.getItem('productCache'))
+                        {
+                            //productArray=cache;
+                            productArray=JSON.parse(sessionStorage.getItem('productCache'));
+                            onComplete(productArray);
+                        }
+                        else {
                             for (var i = 0; i < data.length; i++) {
                                 productArray.push(data[i]);
                                 //debugger;
                             }
+
                             skip += take;
                             loadProduct();
-                        //}
+                        }
                     }).error(function (data) {
                         console.log(data);
                         if (data.hasOwnProperty("error"))
-                            if (onComplete) onComplete(productArray);
+                            if (onComplete) {
+                                $productCacheHandler.put('productCache',productArray);
+                                sessionStorage.setItem('productCache', JSON.stringify(productArray));
+                                onComplete(productArray);
+                            }
                     });
             }
             /*
@@ -79,4 +91,4 @@
             }
         }
     });
-})(angular.module('productModule', ['cloudcharge']))
+})(angular.module('productModule', ['cloudcharge','productCacheFactory']))

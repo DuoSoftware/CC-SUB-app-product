@@ -1,5 +1,5 @@
 (function(cc){
-	var $h;
+    var $h;
     //var service;
     function gst(name) {
         var nameEQ = name + "=";
@@ -15,8 +15,8 @@
         var _st = gst("securityToken");
         return (_st != null) ? _st : "N/A";
     }
-	function BP(){
-		var sfn,ffn, u,endpoint,domain, b, p,host;
+    function BP(){
+        var sfn,ffn, u,endpoint,domain, b, p,host;
         function call(){
             //debugger;
             var domainReq = {
@@ -45,71 +45,71 @@
                     if (p) reqObj.params = p;
                     //console.log(reqObj);
                     $h(reqObj).
-                      success(function(data, status, headers, config) {
-                                //debugger;
-                                //console.log(data);
-                    	if (status == 200) sfn(data);
-                    	else ffn(data);
-                      }).
-                      error(function(data, status, headers, config) {
+                        success(function(data, status, headers, config) {
+                            //debugger;
+                            //console.log(data);
+                            if (status == 200) sfn(data);
+                            else ffn(data);
+                        }).
+                        error(function(data, status, headers, config) {
 
-                    	ffn(data);
-                      });
+                            ffn(data);
+                        });
 
                 }
             }).error(function(data)
             {
                 //console.log(data);
             });
-			//if (sfn && ffn){
-			//var reqObj = {
-             //   method: b ? "POST" : "GET" ,
-             //   url: "http://" + ipAddress + u,
-             //   headers: {'Content-Type': 'application/json', 'securityToken': getSecurityToken()}
+            //if (sfn && ffn){
+            //var reqObj = {
+            //   method: b ? "POST" : "GET" ,
+            //   url: "http://" + ipAddress + u,
+            //   headers: {'Content-Type': 'application/json', 'securityToken': getSecurityToken()}
             //};
-			//if (b) reqObj.data = b;
+            //if (b) reqObj.data = b;
             //if (p) reqObj.params = p;
-             //   console.log(reqObj);
-			////$h(reqObj).
-			////  success(function(data, status, headers, config) {
-			////	if (status == 200) sfn(data);
-			////	else ffn(data);
-			////  }).
-			////  error(function(data, status, headers, config) {
-		  	////	ffn(data);
-			////  });
+            //   console.log(reqObj);
+            ////$h(reqObj).
+            ////  success(function(data, status, headers, config) {
+            ////	if (status == 200) sfn(data);
+            ////	else ffn(data);
+            ////  }).
+            ////  error(function(data, status, headers, config) {
+            ////	ffn(data);
+            ////  });
             //
-			//}
-		}
-		return {
-			success: function(f){sfn=f;call();return this;},
-			error: function(f){ffn=f;return this;},
-			p: function(ur,rr){u=ur;endpoint=rr;return this;},
-			b: function(j){b =j;return this;},
+            //}
+        }
+        return {
+            success: function(f){sfn=f;call();return this;},
+            error: function(f){ffn=f;return this;},
+            p: function(ur,rr){u=ur;endpoint=rr;return this;},
+            b: function(j){b =j;return this;},
             qp: function(po){p=po;return this;}
-		}
-	}
+        }
+    }
 
-	cc.factory('$charge', function($http){
-		$h = $http;
-		return {
-			product: function(){ return new ProductProxy();},
+    cc.factory('$charge', function($http){
+        $h = $http;
+        return {
+            product: function(){ return new ProductProxy();},
             uom: function(){ return new UomProxy();},
             commondata:function(){return new CommonDataProxy();}
-		}	
-	});
+        }
+    });
 
-	function ProductProxy(){
+    function ProductProxy(){
         //debugger;
         var p = BP();
         var service="product";
-		var handler = "/duosoftware.product.service";
-		p.all = function(s,t,o){p.p(handler + "/products/getAll/",service).qp({"skip":s,"take":t,"order":o}); return p;}
-		p.store = function(i){p.p(handler + "/products/insert",service).b(i); return p;}
+        var handler = "/duosoftware.product.service";
+        p.all = function(s,t,o){p.p(handler + "/products/getAll/",service).qp({"skip":s,"take":t,"order":o}); return p;}
+        p.store = function(i){p.p(handler + "/products/insert",service).b(i); return p;}
         p.getByID=function(s){p.p(handler + "/products/getById/",service).qp({"skip":s}); return p;}
-		p.update=function(i){p.p(handler + "/products/update",service).b(i); return p;}
-		return p;
-	}
+        p.update=function(i){p.p(handler + "/products/update",service).b(i); return p;}
+        return p;
+    }
 
     function UomProxy(){
         var p = BP();
