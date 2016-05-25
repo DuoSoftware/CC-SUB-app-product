@@ -21,6 +21,7 @@
                         if(sessionStorage.getItem('productCache'))
                         {
                             //productArray=cache;
+                            //debugger;
                             productArray=JSON.parse(sessionStorage.getItem('productCache'));
                             onComplete(productArray);
                         }

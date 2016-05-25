@@ -183,10 +183,15 @@
                  </div>
              </md-content>
              <md-content layout="row" layout-align="space-between center" style="background:#f1f1f1;padding:10px;">
-                 <div ng-show="editOff"><text style="color:#989898;font-weight: 600">Minimum Stock</text></div>
+                 <div ng-show="editOff"><text style="color:#989898;font-weight: 600">Minimum Stock Level</text></div>
                  <div ng-hide="editOff"><input type="checkbox" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-checked="enableStockLevel(changeProduct.sku)" ng-hide="editOff"/><text style="color:#989898;font-weight: 600">Track Inventory</text></div>
                  <div><text style="font-weight:600" ng-show="editOff">{{selectedProduct.minimun_stock_level}}</text>
                      <input id="txtMinStock" ng-model="changeProduct.minimun_stock_level" type="number" ng-hide="editOff">
+                 </div>
+             </md-content>
+             <md-content layout="row" layout-align="space-between center" style="background:#f1f1f1;padding:10px;">
+                 <div ng-show="editOff"><text style="color:#989898;font-weight: 600">Inventory Stock Level</text></div>
+                 <div><text style="font-weight:600" ng-show="editOff">{{selectedProduct.minimun_stock_level}}</text>
                  </div>
              </md-content>
               <md-divider></md-divider>

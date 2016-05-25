@@ -95,7 +95,8 @@
         return {
             product: function(){ return new ProductProxy();},
             uom: function(){ return new UomProxy();},
-            commondata:function(){return new CommonDataProxy();}
+            commondata:function(){return new CommonDataProxy();},
+            stock:function(){return new StockProxy();}
         }
     });
 
@@ -136,6 +137,16 @@
         p.getUOMAppMapperByUOMId=function(s){p.p(handler + "/commondata/getUOMAppMapperByUOMId/",service).qp({"skip":s}); return p;}
         p.insertDuoBaseValuesAddition=function(i){p.p(handler + "/commondata/insertDuoBaseValuesAdditional",service).b(i); return p;}
         p.getIDByRecord=function(s){p.p(handler + "/commondata/getIDByRecordName/",service).qp({"name":s}); return p;}
+        return p;
+    }
+
+    function StockProxy(){
+        var p = BP();
+        //debugger;
+        var service="stock";
+        var handler = "/duosoftware.stock.service";
+        p.getStock = function(s){p.p(handler + "/stock/getAvailableStock/",service).qp({"itemID":s}); return p;}
+        //p.store = function(i){p.p(handler + "/uoms/insert",service).b(i); return p;}
         return p;
     }
 

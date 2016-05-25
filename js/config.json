@@ -1,6 +1,6 @@
 {
   "product":{
-    "domain":"cloudcharge.com/services",
+    "domain":"104.197.234.9/services",
     "url":"d"
   },
   "uom":{
@@ -8,6 +8,10 @@
     "url":"d"
   },
   "commondata":{
+    "domain":"cloudcharge.com/services",
+    "url":"d"
+  },
+  "stock":{
     "domain":"cloudcharge.com/services",
     "url":"d"
   }

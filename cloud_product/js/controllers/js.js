@@ -79,8 +79,14 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 	{
         debugger;
         $rootScope.selectedProduct = product;
-        angular.element('#viewAllWhiteframe').css('margin', '0');
-        angular.element('#viewAllWhiteframe').css('max-width', '600px');
+        $charge.stock().getStock(product.productId).success(function(data) {
+            debugger;
+            angular.element('#viewAllWhiteframe').css('margin', '0');
+            angular.element('#viewAllWhiteframe').css('max-width', '600px');
+        }).error(function(data) {
+
+        })
+
 	}
 
 	$scope.change_ref = function(id)
@@ -310,9 +316,13 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
             var req=$scope.content;
             debugger;
             $charge.product().store(req).success(function(data) {
-                if(data.IsSuccess) {
+                if(data.id) {
                     console.log(data);
-                    notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+                    notifications.toast("Record Inserted, Product ID " + data.id , "success");
+                    var millisecondsToWait = 1000;
+                    setTimeout(function() {
+                        $window.location.reload();
+                    }, millisecondsToWait);
                     //$scope.content.product_name='';
                     ////$scope.content.attachment='../img/contacts.png';
                     //$scope.content.descroption="";
@@ -468,6 +478,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                     $scope.products.push(data[i]);
                 }
             }
+            debugger;
             $scope.loading = false;
             skip += take;
             $scope.isSpinnerShown=false;
@@ -569,7 +580,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
         $charge.product().update(editReq).success(function(data) {
             debugger;
-            if(data.IsSuccess) {
+            if(data.count) {
                 debugger;
                 console.log(data);
                 for(var i=0;i<$scope.products.length;i++)
@@ -582,11 +593,11 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                 $rootScope.selectedProduct = editReq;
                 debugger;
                 $rootScope.editOff = !$rootScope.editOff;
-                notifications.toast("Record Updated, Product ID "+ data.Data[0].ID, "success");
+                notifications.toast("Record Updated, Product ID "+ data.id, "success");
             }
         }).error(function(data) {
             console.log(data);
-            notifications.toast("Error when updating record, Product ID " + data.Data[0].ID , "error");
+            notifications.toast("Error when updating record, Product ID " + data.id , "error");
         })
 
     }
