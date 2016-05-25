@@ -18,14 +18,14 @@
                 cache=$productCacheHandler.get('productCache');
                 $charge.product().all(skip, take, 'asc')
                     .success(function (data) {
-                        if(sessionStorage.getItem('productCache'))
-                        {
-                            //productArray=cache;
-                            //debugger;
-                            productArray=JSON.parse(sessionStorage.getItem('productCache'));
-                            onComplete(productArray);
-                        }
-                        else {
+                        //if(sessionStorage.getItem('productCache'))
+                        //{
+                        //    //productArray=cache;
+                        //    //debugger;
+                        //    productArray=JSON.parse(sessionStorage.getItem('productCache'));
+                        //    onComplete(productArray);
+                        //}
+                        //else {
                             for (var i = 0; i < data.length; i++) {
                                 productArray.push(data[i]);
                                 //debugger;
@@ -33,13 +33,13 @@
 
                             skip += take;
                             loadProduct();
-                        }
+                        //}
                     }).error(function (data) {
                         console.log(data);
                         if (data.hasOwnProperty("error"))
                             if (onComplete) {
-                                $productCacheHandler.put('productCache',productArray);
-                                sessionStorage.setItem('productCache', JSON.stringify(productArray));
+                          //      $productCacheHandler.put('productCache',productArray);
+                            //    sessionStorage.setItem('productCache', JSON.stringify(productArray));
                                 onComplete(productArray);
                             }
                     });
