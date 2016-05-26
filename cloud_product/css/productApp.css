@@ -58,3 +58,12 @@
     background-color:#959595;
     opacity: .8;
 }
+
+md-checkbox .md-label {
+    padding-top: 0px !important;
+}
+
+.fieldset-padding-down
+{
+    padding-bottom: 0px;
+}

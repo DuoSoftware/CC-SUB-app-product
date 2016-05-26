@@ -398,7 +398,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     //debugger;
     $scope.includeStatus = function(status) {
         var i = $.inArray(status, $scope.statusArray);
-        debugger;
+        //debugger;
         if (i > -1) {
             $scope.statusArray.splice(i, 1);
         } else {
@@ -409,7 +409,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
     $scope.statusFilter = function(product) {
         if ($scope.statusArray.length > 0) {
-            debugger;
+            //debugger;
             if ($.inArray(product.status, $scope.statusArray) < 0)
                 return;
         }
@@ -478,7 +478,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                     $scope.products.push(data[i]);
                 }
             }
-            debugger;
+            //debugger;
             $scope.loading = false;
             skip += take;
             $scope.isSpinnerShown=false;
