@@ -519,7 +519,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     {
         //console.log(ev);
         if(ev=="Add UOM") {
-            $scope.changeProduct.uom = "";
+            //$scope.changeProduct.uom = "";
 
             $mdDialog.show({
                 controller: 'addUOMCtrl',
