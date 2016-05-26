@@ -78,9 +78,9 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 	$scope.openProduct = function(product)
 	{
         debugger;
-        $rootScope.selectedProduct = product;
         $charge.stock().getStock(product.productId).success(function(data) {
             debugger;
+            $rootScope.selectedProduct = product;
             angular.element('#viewAllWhiteframe').css('margin', '0');
             angular.element('#viewAllWhiteframe').css('max-width', '600px');
         }).error(function(data) {
@@ -398,7 +398,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     //debugger;
     $scope.includeStatus = function(status) {
         var i = $.inArray(status, $scope.statusArray);
-        //debugger;
+        debugger;
         if (i > -1) {
             $scope.statusArray.splice(i, 1);
         } else {
@@ -409,7 +409,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
     $scope.statusFilter = function(product) {
         if ($scope.statusArray.length > 0) {
-            //debugger;
+            debugger;
             if ($.inArray(product.status, $scope.statusArray) < 0)
                 return;
         }
