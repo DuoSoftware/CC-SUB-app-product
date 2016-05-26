@@ -81,10 +81,14 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         $charge.stock().getStock(product.productId).success(function(data) {
             debugger;
             $rootScope.selectedProduct = product;
+            $rootScope.selectedProduct.inventoryStock=data.qty;
             angular.element('#viewAllWhiteframe').css('margin', '0');
             angular.element('#viewAllWhiteframe').css('max-width', '600px');
         }).error(function(data) {
-
+            $rootScope.selectedProduct = product;
+            $rootScope.selectedProduct.inventoryStock="0";
+            angular.element('#viewAllWhiteframe').css('margin', '0');
+            angular.element('#viewAllWhiteframe').css('max-width', '600px');
         })
 
 	}
