@@ -156,7 +156,7 @@
                  <div><text style="color:#989898;font-weight: 600">Unit Of Measure</text></div>
                  <div><text style="font-weight:600" ng-show="editOff">{{selectedProduct.uom}}</text>
                      <select class="select-flow" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom" ng-hide="editOff">
-                         <option value="">Add UOM</option>
+                         <option value="Add UOM">Add UOM</option>
                          <md-divider></md-divider>
                          <option ng-repeat="value in UOMs" value="{{value}}">{{value}}</option>
                      </select>

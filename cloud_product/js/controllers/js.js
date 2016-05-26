@@ -517,22 +517,23 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
     $scope.editUOM = function(ev)
     {
-        //console.log("yes");
-        $scope.changeProduct.uom = "";
+        //console.log(ev);
+        if(ev=="Add UOM") {
+            $scope.changeProduct.uom = "";
 
-        $mdDialog.show({
-            controller: 'addUOMCtrl',
-            templateUrl: 'partials/add_uom.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose:true
-        })
-            .then(function(uom) {
-                //debugger;
-                $scope.UOMs.push(uom);
-                $scope.changeProduct.uom  = uom
+            $mdDialog.show({
+                controller: 'addUOMCtrl',
+                templateUrl: 'partials/add_uom.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
             })
-
+                .then(function (uom) {
+                    //debugger;
+                    $scope.UOMs.push(uom);
+                    $scope.changeProduct.uom = uom
+                })
+        }
     }
 
     $scope.editCat = function(ev)
@@ -571,7 +572,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
     $scope.saveEdit = function(model)
     {
-        debugger;
+        //debugger;
         var editReq=$scope.changeProduct;
         if(editReq.status=="false")
         {
@@ -583,9 +584,9 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         }
 
         $charge.product().update(editReq).success(function(data) {
-            debugger;
+            //debugger;
             if(data.count) {
-                debugger;
+                //debugger;
                 console.log(data);
                 for(var i=0;i<$scope.products.length;i++)
                 {
@@ -595,13 +596,13 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                     }
                 }
                 $rootScope.selectedProduct = editReq;
-                debugger;
+                //debugger;
                 $rootScope.editOff = !$rootScope.editOff;
-                notifications.toast("Record Updated, Product ID "+ data.id, "success");
+                notifications.toast("Record Updated, Product ID "+ editReq.productId, "success");
             }
         }).error(function(data) {
             console.log(data);
-            notifications.toast("Error when updating record, Product ID " + data.id , "error");
+            notifications.toast("Error when updating record, Product ID " + editReq.productId , "error");
         })
 
     }
