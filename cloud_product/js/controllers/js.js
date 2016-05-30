@@ -159,7 +159,6 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
     $scope.content.files=[];
     $scope.productlist=[];
     $scope.content.attachment='../img/noimage.png';
-    //$scope.content.attachment='../img/contacts.png';
     $scope.content.descroption="";
     $scope.content.category="";
     $scope.content.brand="";
@@ -268,35 +267,36 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
     });
 
 
-    var self = this;
-    self.selectedItem  = '';
-    self.searchText    = null;
-    self.querySearch   = querySearch;
-
-    function querySearch (query) {
-
-        //Custom Filter
-        var results=[];
-        for (i = 0, len = $scope.productlist.length; i<len; ++i){
-            //console.log($scope.allBanks[i].value.value);
-            if($scope.productlist[i].product_name.toLowerCase().indexOf(query.toLowerCase()) !=-1)
-            {
-                if($scope.productlist[i].product_name.toLowerCase().startsWith(query.toLowerCase()))
-                {
-                    results.push($scope.productlist[i]);
-                }
-
-            }
-        }
-        return results;
-    }
+    //var self = this;
+    //self.selectedItem  = '';
+    //self.searchText    = null;
+    //self.querySearch   = querySearch;
+    //
+    //function querySearch (query) {
+    //
+    //    //Custom Filter
+    //    var results=[];
+    //    for (i = 0, len = $scope.productlist.length; i<len; ++i){
+    //        //console.log($scope.allBanks[i].value.value);
+    //        if($scope.productlist[i].product_name.toLowerCase().indexOf(query.toLowerCase()) !=-1)
+    //        {
+    //            if($scope.productlist[i].product_name.toLowerCase().startsWith(query.toLowerCase()))
+    //            {
+    //                results.push($scope.productlist[i]);
+    //            }
+    //
+    //        }
+    //    }
+    //    return results;
+    //}
 
 
     //debugger;
 	$scope.submit = function(){
 		if($scope.editForm.$valid == true)
 		{
-            $scope.content.product_name=self.searchText;
+            $scope.spinnerAdd=true;
+            //$scope.content.product_name=self.searchText;
             debugger;
             if($scope.content.quantity_of_unit==null ||$scope.content.quantity_of_unit=="")
                 $scope.content.quantity_of_unit=0;
@@ -321,23 +321,27 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
             debugger;
             $charge.product().store(req).success(function(data) {
                 if(data.id) {
-                    console.log(data);
-                    notifications.toast("Record Inserted, Product ID " + data.id , "success");
-                    var millisecondsToWait = 1000;
-                    setTimeout(function() {
-                        $window.location.reload();
-                    }, millisecondsToWait);
-                    //$scope.content.product_name='';
-                    ////$scope.content.attachment='../img/contacts.png';
-                    //$scope.content.descroption="";
-                    //$scope.content.code="";
-                    //$scope.content.quantity_of_unit="";
-                    //$scope.content.price_of_unit=null;
-                    //$scope.content.cost_price=null;
-                    //$scope.content.tax="";
-                    //$scope.content.sku="false";
-                    //$scope.content.applyTax=false;
-                    //$scope.content.status=true;
+                    //console.log(data);
+                    notifications.toast("Record Inserted, Product Code " + req.code , "success");
+                    $scope.spinnerAdd=false;
+                    $scope.editForm.$setPristine();
+                    $scope.editForm.$setUntouched();
+                    $productHandler.getClient().LoadProduct().onComplete(function(data)
+                    {
+                        $scope.productlist=data;
+                    });
+                    $scope.content.product_name='';
+                    //self.searchText='';
+                    $scope.content.files=[];
+                    $scope.content.descroption="";
+                    $scope.content.code="";
+                    $scope.content.quantity_of_unit="";
+                    $scope.content.price_of_unit=null;
+                    $scope.content.cost_price=null;
+                    $scope.content.tax="0";
+                    $scope.content.sku="false";
+                    $scope.content.applyTax=false;
+                    $scope.content.status=true;
                 }
             }).error(function(data) {
                 console.log(data);
@@ -374,13 +378,14 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 
     $scope.validateProduct=function (ev)
     {
+        //debugger;
         var products=$scope.productlist;
         var txtEntered=ev;
         products.forEach(function(product){
-            if(product.product_name.toLowerCase()==txtEntered.toLowerCase())
+            if(product.code.toLowerCase()==txtEntered.toLowerCase())
             {
                 notifications.toast(txtEntered +" has been already added" , "error");
-                self.searchText="";
+                $scope.content.code="";
             }
         });
     }

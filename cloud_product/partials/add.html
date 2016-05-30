@@ -1,39 +1,42 @@
 <div class="card-container" style="padding:20px;">
 	<md-whiteframe class="md-whiteframe-2dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center" style="margin:0 auto;max-width:750px">
 		<md-content style="width:100%">
+			<div class="div-spinner" ng-show="spinnerAdd">
+				<md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>
+			</div>
 			<form name="editForm" ng-submit="submit()">
 				<div class="section_padding">
 				<div layout-gt-sm="row">
-					<!--<md-input-container class="md-block" flex-gt-sm>-->
-						<!--<label>PRODUCT NAME</label>-->
-						<!--<input ng-required="true" minlength="null" md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name" autofocus>-->
-                        <!--<div ng-messages="editForm.productName.$error">-->
-                            <!--<div ng-message="required">Product Name is required.</div>-->
-                        <!--</div>-->
-					<!--</md-input-container>-->
-					<md-autocomplete flex
-									 md-select-on-match
-									 ng-keypress="enter($event)"
-									 ng-disabled="ctrl.isDisabled"
-									 md-input-name="autocompleteField"
-									 md-no-cache="ctrl.noCache"
-									 md-selected-item="content.product_name"
-									 md-search-text="ctrl.searchText"
-									 md-selected-item-change="validateProduct(ctrl.searchText)"
-                                     md-search-text-change="validateProduct(ctrl.searchText)"
-									 md-items="item in ctrl.querySearch(ctrl.searchText)"
-									 md-item-text="item.product_name"
-									 md-floating-label="PRODUCT NAME"
-									 md-min-length="0">
-						<md-item-template>
-							<span md-highlight-text="ctrl.searchText">{{item.product_name}}</span>
-						</md-item-template>
-					</md-autocomplete>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>PRODUCT NAME</label>
+						<input ng-required="true" minlength="null"  md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name"  autofocus>
+                        <div ng-messages="editForm.productName.$error">
+                            <div ng-message="required">Product Name is required.</div>
+                        </div>
+					</md-input-container>
+					<!--<md-autocomplete flex-->
+									 <!--md-select-on-match-->
+									 <!--ng-keypress="enter($event)"-->
+									 <!--ng-disabled="ctrl.isDisabled"-->
+									 <!--md-input-name="autocompleteField"-->
+									 <!--md-no-cache="ctrl.noCache"-->
+									 <!--md-selected-item="content.product_name"-->
+									 <!--md-search-text="ctrl.searchText"-->
+									 <!--md-selected-item-change="validateProduct(ctrl.searchText)"-->
+                                     <!--md-search-text-change="validateProduct(ctrl.searchText)"-->
+									 <!--md-items="item in ctrl.querySearch(ctrl.searchText)"-->
+									 <!--md-item-text="item.product_name"-->
+									 <!--md-floating-label="PRODUCT NAME"-->
+									 <!--md-min-length="0">-->
+						<!--<md-item-template>-->
+							<!--<span md-highlight-text="ctrl.searchText">{{item.product_name}}</span>-->
+						<!--</md-item-template>-->
+					<!--</md-autocomplete>-->
 					<div hide-xs hide-sm flex-gt-sm="5">
 					</div>
 					<md-input-container class="md-block" flex-gt-sm>
 						<label>CODE</label>
-						<input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-pattern="" ng-model="content.code">
+						<input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
                         <div ng-messages="editForm.productCode.$error">
                             <div ng-message="required">Product Code is required.</div>
                         </div>
@@ -70,23 +73,23 @@
 					</md-input-container>
 				</div>
 				</div>
-				<hr/>
-				<div class="section_padding">
-					<div class="strike">
-						<span>STATUS</span>
-					</div>
-					<div class="md-block" flex-gt-sm>
-						<!--<md-radio-group ng-model="content.status" layout="row">-->
-						  <!--<md-radio-button value="true" class="md-primary" style="width: 200px;">Active</md-radio-button>-->
-						  <!--<md-radio-button value="false" style="width: 200px;">Inactive</md-radio-button>-->
-						<!--</md-radio-group>-->
+				<!--<hr/>-->
+				<!--<div class="section_padding">-->
+					<!--<div class="strike">-->
+						<!--<span>STATUS</span>-->
+					<!--</div>-->
+					<!--<div class="md-block" flex-gt-sm>-->
+						<!--&lt;!&ndash;<md-radio-group ng-model="content.status" layout="row">&ndash;&gt;-->
+						  <!--&lt;!&ndash;<md-radio-button value="true" class="md-primary" style="width: 200px;">Active</md-radio-button>&ndash;&gt;-->
+						  <!--&lt;!&ndash;<md-radio-button value="false" style="width: 200px;">Inactive</md-radio-button>&ndash;&gt;-->
+						<!--&lt;!&ndash;</md-radio-group>&ndash;&gt;-->
 
-						<md-switch ng-model="content.status" ng-change="toggleSwitch(content.status)" class="md-primary" ng-true-value="true" ng-false-value="false">
-							<label ng-show="toggleActive">Active</label>
-                            <label ng-show="toggleInActive">Inactive</label>
-						</md-switch>
-					</div>
-				</div>
+						<!--<md-switch ng-model="content.status" ng-change="toggleSwitch(content.status)" class="md-primary" ng-true-value="true" ng-false-value="false">-->
+							<!--<label ng-show="toggleActive">Active</label>-->
+                            <!--<label ng-show="toggleInActive">Inactive</label>-->
+						<!--</md-switch>-->
+					<!--</div>-->
+				<!--</div>-->
 				<hr/>
 				<div class="section_padding">
                     <div layout-gt-sm="row">
@@ -133,7 +136,7 @@
                     <div layout-gt-sm="row">
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>COST PRICE</label>
-                            <input ng-required="true" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
+                            <input ng-required="false" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
                             <div ng-messages="editForm.CostPrice.$error">
                                 <!--<div ng-message="required">Price is required.</div>-->
                                 <!--<div ng-message="pattern">Please enter a valid Price.</div>-->
@@ -147,7 +150,7 @@
                         </md-input-container>
                     </div>
 					<div layout-gt-sm="row">
-						<md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-block md-primary" flex-gt-sm>
+						<md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-primary" flex-gt-sm>
 							APPLY TAX
 						</md-checkbox>
 						<div hide-xs hide-sm flex-gt-sm="5">
@@ -162,7 +165,7 @@
 						</md-input-container>
 					</div>
 					<div layout-gt-sm="row">
-						<md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-block md-primary" flex-gt-sm>
+						<md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary" flex-gt-sm>
 							TRACK INVENTORY
 						</md-checkbox>
 						<div hide-xs hide-sm flex-gt-sm="5">
