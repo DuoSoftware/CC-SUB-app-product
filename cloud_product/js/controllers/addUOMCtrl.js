@@ -17,7 +17,7 @@ app.controller('addUOMCtrl', function ($scope,$mdDialog,$charge) {
                 "UOMCode":$scope.uom,
                 "uomApplicationMapperDetail":
                     [{
-                        "GUApplicationID":"12345"
+                        "GUApplicationID":"Product_123"
                     }],
                 "uomConversionDetails":
                     [{

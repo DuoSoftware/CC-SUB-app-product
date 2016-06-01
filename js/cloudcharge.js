@@ -122,6 +122,7 @@
         p.getUOMMasterById=function(s){p.p(handler + "/uoms/getUOMMasterById/",service).qp({"skip":s}); return p;}
         p.getUOMConversionByUOMId=function(s){p.p(handler + "/uoms/getUOMConversionByUOMId/",service).qp({"skip":s}); return p;}
         p.getUOMAppMapperByUOMId=function(s){p.p(handler + "/uoms/getUOMAppMapperByUOMId/",service).qp({"skip":s}); return p;}
+        p.getAllUOM=function(s){p.p(handler + "/uoms/getAllUOMByID/",service).qp({"GUAppID":s}); return p;}
         return p;
     }
 

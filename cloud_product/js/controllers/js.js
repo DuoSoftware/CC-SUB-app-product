@@ -32,14 +32,15 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
     $scope.taxes = ['10', '20', '30', '40'];
     $scope.brands=[];
 
-    $charge.uom().all(0,5,"asc").success(function(data) {
+    $charge.uom().getAllUOM('Product_123').success(function(data) {
         $scope.UOMs=[];
         //debugger;
         console.log(data);
         for(i=0;i<data.length;i++)
         {
             //debugger;
-            $scope.UOMs.push(data[i]["UOMCode"]);
+            $scope.UOMs.push(data[i][0]["UOMCode"]);
+            debugger;
         }
     }).error(function(data) {
         console.log(data);
