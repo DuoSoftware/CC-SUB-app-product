@@ -1,0 +1,425 @@
+/*Added Support for checkbox within row 23/03/2016*/
+.collapse-card_header_content_info,
+.tint {
+    cursor: pointer
+}
+.collapse-card_header_content_info:focus,
+ul:focus {
+    outline: 0
+}
+body,
+html {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+}
+md-radio-group {
+    margin-top: 19px!important
+}
+.md-body-1 {
+    margin-top: 13px!important
+}
+md-slider {
+    margin-top: 20px!important
+}
+.fab_button_animation {
+    width: 52px;
+    height: 52px;
+    border-radius: 100px;
+    z-index: 4
+}
+.hint {
+    /* Position the hint */
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey; 
+}
+
+/*md-checkbox .md-label
+{
+	padding-top: 28px !important;
+}*/
+
+.tab_content {
+    margin-top: 0;
+    background: #fafafa;
+    border-top: 1px solid #ececec;
+    z-index: 2
+}
+md-fab-speed-dial {
+    z-index: 4
+}
+.md-card-left:before,
+.md-card-right:before {
+    content: "";
+    top: 20px;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #fff;
+    border-bottom: 5px solid transparent;
+    right: 100%
+}
+.md-scroll-mask {
+    z-index: 0!important
+}
+.ng-cloak,
+[ng-cloak],
+[ng\:cloak] {
+    display: none!important
+}
+.iconColor {
+    color: #b5b5b5!important
+}
+.md-menu {
+    padding: 0
+}
+.md-button {
+    margin: 0!important;
+    min-width: 0!important
+}
+ul {
+    list-style: none
+}
+md-input-container.md-default-theme label {
+    color: rgba(0, 0, 0, .64)
+}
+md-select-value {
+    color: rgba(0, 0, 0, .64)!important
+}
+@media screen and (max-width: 960px) {
+    .md-whiteframe-z1 {
+        width: 100%
+    }
+}
+@media screen and (max-width: 768px) {
+    .card_container,
+    .header_container {
+        max-width: 928px;
+        margin-right: 20px!important;
+        margin-left: 20px!important
+    }
+}
+@media screen and (max-width: 599px) {
+    .blankspace {
+        display: none
+    }
+    .header_container_filter {
+        margin-top: 7px!important;
+        margin-bottom: 7px!important
+    }
+    .card_container,
+    .header_container {
+        max-width: 928px;
+        margin-right: 20px!important;
+        margin-left: 20px!important
+    }
+}
+.dialButtons {
+    height: 45px;
+    width: 70px;
+    margin: 0!important;
+    min-width: 0!important
+}
+.md-card-right {
+    position: relative;
+    margin-right: 12px
+}
+.md-card-right:before {
+    position: absolute;
+    left: 100%
+}
+.md-card-left {
+    position: relative;
+    margin-left: 12px
+}
+.md-card-left:before {
+    position: absolute;
+    transform: rotate(180deg)
+}
+md-card md-card-content {
+    padding: 10px
+}
+@keyframes fromBottom {
+    0% {
+        transform: translateY(250px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
+@keyframes fromTop {
+    0% {
+        transform: translateY(-250px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
+@-webkit-keyframes fromBottom {
+    0% {
+        transform: translateY(250px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
+@-webkit-keyframes fromTop {
+    0% {
+        transform: translateY(-250px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+#inline>* {
+    display: inline-block
+}
+.ui-view-container {
+    position: relative
+}
+[viewcss].ng-enter,
+[viewcss].ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out
+}
+[viewcss].ng-enter {
+    opacity: 0;
+    -webkit-transform: scale3d(.5, .5, .5);
+    -moz-transform: scale3d(.5, .5, .5);
+    transform: scale3d(.5, .5, .5)
+}
+[viewcss].ng-enter-active {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1)
+}
+[viewcss].ng-leave {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+}
+[viewcss].ng-leave-active {
+    opacity: 0;
+    -webkit-transform: translate3d(100px, 0, 0);
+    -moz-transform: translate3d(100px, 0, 0);
+    transform: translate3d(100px, 0, 0)
+}
+.my-animation.ng-enter {
+    transition: 1s linear all;
+    -webkit-transform: scale(0)
+}
+.my-animation.ng-enter-stagger {
+    transition-delay: .1s;
+    transition-duration: 0
+}
+.my-animation.ng-enter.ng-enter-active {
+    -webkit-transform: scale(1);
+    -webkit-transition: all .3s cubic-bezier(.55, 0, .1, 1)
+}
+.tint {
+    position: relative;
+    float: left
+}
+.tint:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(114, 114, 114, 0);
+    -moz-transition: background .3s linear;
+    -webkit-transition: background .3s linear;
+    -o-transition: background .3s linear;
+    transition: background .3s linear
+}
+.tint:hover:before {
+    background: rgba(114, 114, 114, .1)
+}
+@-webkit-keyframes scaleAnimation {
+    from {
+        -webkit-transform: scale(.1)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+@-moz-keyframes scaleAnimation {
+    from {
+        -moz-transform: scale(.1)
+    }
+    to {
+        -moz-transform: scale(1)
+    }
+}
+@-o-keyframes scaleAnimation {
+    from {
+        -o-transform: scale(.1) translate(0)
+    }
+    to {
+        -o-transform: scale(1)
+    }
+}
+.card_container{
+    animation: fromBottom .6s 1;
+    -webkit-animation: fromBottom .6s 1
+}
+.partial {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+}
+#userProfilePic {
+    -webkit-animation: scaleAnimation .5s 1 ease;
+    -moz-animation: scaleAnimation .5s 1 ease;
+    -o-animation: scaleAnimation .5s 1 ease
+}
+#backBtn {
+    animation: fromTop .4s 1;
+    -webkit-animation: fromTop .4s 1
+}
+.collapse-card {
+    background-color: #fff;
+    border-bottom: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-radius: 3px;
+    color: #777;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none
+}
+.collapse-card__heading:hover {
+    background: #EAFDFF
+}
+.collapse-card__title {
+    font-size: 1rem;
+    line-height: 2rem;
+    margin: 0 2rem 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.collapse-card__heading {
+    padding: .5rem;
+    position: relative
+}
+.collapse-card__heading:after,
+.collapse-card__heading:before {
+    content: " ";
+    display: table
+}
+.collapse-card__heading:after {
+    clear: both
+}
+.collapse-card__heading::after {
+    color: #404040;
+    font-size: 1rem;
+    line-height: 2rem;
+    padding-left: .4rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem
+}
+.collapse-card__body {
+    overflow: hidden;
+    transition: .4s;
+    max-height: 0;
+    opacity: 0
+}
+.collapse-card.active {
+    -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .18824);
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .18824);
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .18824);
+    z-index: 200;
+    margin: 1rem -1rem
+}
+.collapse-card.active .collapse-card__body {
+    max-height: 9999px;
+    opacity: 1
+}
+.header_container {
+    max-width: 928px;
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: 2;
+    margin: 20px auto 0;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .14), 0 8px 10px 1px rgba(0, 0, 0, .098), 0 3px 14px 2px rgba(0, 0, 0, .084)
+}
+.card_container {
+    max-width: 928px;
+	margin: 0 auto;
+}
+
+.first_card_top_margin_one{
+    margin-top:68px;
+}
+
+.first_card_top_margin_two{
+    margin-top:116px;
+}
+
+md-card {
+    background-color: #fafafa
+}
+.modal-header {
+    min-height: 48px;
+    max-height: 48px
+}
+.new_margin {
+    margin-top: 4px!important;
+    margin-bottom: 4px!important
+}
+
+.inputdemoErrors .inputErrorsApp 
+{
+  min-height: 48px;
+}
+  
+ .md-input-container-top
+  {
+	margin-top: 20px !important;
+ }
+ 
+md-toast.md-toast-success > .md-toast-content {
+    background-color: #4CAF50;
+}
+
+md-toast.md-toast-error > .md-toast-content {
+    background-color: #FF5252;
+}

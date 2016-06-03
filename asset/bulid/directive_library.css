@@ -1,0 +1,447 @@
+/*Made a significant change in the file uploader directive 28/03/2016*/
+/*
+_____  ___  _____ _____    _____ __  ____ __ __ _____ _____      __ _____  ___  _____ _____ 
+||  ) ||=||  ||   ||==     ||_// || ((    ||<<  ||==  ||_//     ((   ||   ||=|| ||_//  ||   
+||_// || ||  ||   ||___    ||    ||  \\__ || \\ ||___ || \\    \_))  ||   || || || \\  || 
+
+*/	
+.mdc-date-input,
+.mdc-date-input input {
+  cursor: pointer !important; }
+
+.mdc-date-picker__current-day-of-week span {
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  color: #FFFFFF;
+  line-height: 32px;
+  text-align: center;
+  text-transform: capitalize; 
+  }
+
+.mdc-date-picker__current-date {
+  padding: 8px 0; }
+  .mdc-date-picker__current-date span,
+  .mdc-date-picker__current-date strong,
+  .mdc-date-picker__current-date a {
+    display: block;
+    font-weight: 400;
+    text-align: center; }
+  .mdc-date-picker__current-date span,
+  .mdc-date-picker__current-date a {
+    font-size: 24px;
+    font-size: 1.5rem;
+    line-height: 32px; }
+  .mdc-date-picker__current-date span {
+    text-transform: uppercase; }
+  .mdc-date-picker__current-date strong {
+    font-size: 60px;
+    font-size: 3.75rem;
+    line-height: 1; }
+  .mdc-date-picker__current-date a {
+    cursor: pointer;
+    font-style: normal; }
+
+.mdc-date-picker__nav {
+  position: relative; }
+  .mdc-date-picker__nav span {
+    display: block;
+    font-size: 14px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 40px;
+    text-align: center;
+    text-transform: capitalize; }
+  .mdc-date-picker__nav button {
+    position: absolute !important;
+    top: 8px; }
+    .mdc-date-picker__nav button:first-child {
+      left: 16px; }
+    .mdc-date-picker__nav button:last-child {
+      right: 16px; }
+
+.mdc-date-picker__days-of-week {
+  padding: 0 16px; }
+  .mdc-date-picker__days-of-week span {
+    display: inline-block;
+    vertical-align: top;
+    width: 14.28571%;
+    font-size: 12px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.54);
+    line-height: 24px;
+    text-align: center;
+    text-transform: uppercase; }
+
+.mdc-date-picker__days {
+  padding: 0 16px; }
+
+.mdc-date-picker__day {
+  display: inline-block;
+  vertical-align: top;
+  width: 14.28571%;
+  padding: 4px 0; }
+  .mdc-date-picker__day a {
+    display: block;
+    height: 32px;
+    width: 32px;
+    margin: 0 auto;
+    border-radius: 50%;
+    font-size: 12px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center; }
+
+.mdc-date-picker__day--is-today a {
+  font-weight: 500;
+  color: #00796B; }
+
+.mdc-date-picker__day a:hover,
+.mdc-date-picker__day--is-selected a {
+  cursor: pointer;
+  background-color: #3f51b5;
+  color: #FFFFFF; }
+
+.mdc-date-picker__year-selector {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; }
+
+.mdc-date-picker__year {
+  display: block;
+  cursor: pointer; }
+  .mdc-date-picker__year span {
+    display: block;
+    height: 65px;
+    width: 65px;
+    margin: 0 auto;
+    border-radius: 50%;
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 65px;
+    text-align: center; }
+
+.mdc-date-picker__year:hover span {
+  color: #00796B; }
+
+.mdc-date-picker__year--is-active span {
+  background-color: #3f51b5;
+  color: #FFFFFF !important; }
+
+.mdc-date-picker__actions {
+  padding: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  text-align: center; }
+
+.mdc-date-picker {
+  width: 280px;
+  max-height: 480px; }
+
+.mdc-date-picker__nav button.md-fab {
+  width: 32px;
+  height: 32px; }
+
+.mdc-date-picker md-toolbar {
+  min-height: 0; }
+
+md-input-container.md-default-theme .md-input
+{
+	color:rgba(0,0,0,0.87) !important;
+
+}
+  /*
+_____  ___  _____ _____    _____ __  ____ __ __ _____ _____    _____ __ __  __ __   __ __  __ 
+||  ) ||=||  ||   ||==     ||_// || ((    ||<<  ||==  ||_//    ||==  || ||\\|| ||  ((  ||==|| 
+||_// || ||  ||   ||___    ||    ||  \\__ || \\ ||___ || \\    ||    || || \|| || \_)) ||  ||
+*/
+
+/*
+_____ __ __    _____    __ __ _____ __     _____   ___  _____      __ _____  ___  _____ _____ 
+||==  || ||    ||==     || || ||_// ||    ((   )) ||=|| ||  )     ((   ||   ||=|| ||_//  ||   
+||    || ||__| ||___    \\_// ||    ||__|  \\_//  || || ||_//    \_))  ||   || || || \\  || 
+*/
+
+#drop-files {
+	width: 100%;
+	min-height: 160px;
+	/*background: rgba(0,0,0,0.1);*/
+	/*border-radius: 10px;*/
+	border: 2px dashed rgba(0,0,0,0.2);
+	text-align: center;
+	/*font-size: 1.5em;
+	float: left;*/
+	/*font-weight: bold;*/
+	margin: 0 20px 20px 0;
+}
+
+#dropped-files {
+	float: left;
+	position: relative;
+}
+
+.upload-table
+{
+	/*font-size:14px;
+	padding-left:4px;
+	padding-bottom:2px;*/
+	
+	color: rgb(130,130,130);
+	text-align: left;
+	font-size:14px;
+
+	
+}
+
+/*
+_____ __ __    _____    __ __ _____ __     _____   ___  _____    _____ __ __  __ __   __ __  __ 
+||==  || ||    ||==     || || ||_// ||    ((   )) ||=|| ||  )    ||==  || ||\\|| ||  ((  ||==|| 
+||    || ||__| ||___    \\_// ||    ||__|  \\_//  || || ||_//    ||    || || \|| || \_)) ||  || 
+*/
+
+
+
+/*
+                       __                     __        ___.   .__                     __                 __   
+  ____  __ __  _______/  |_  ____   _____   _/  |______ \_ |__ |  |   ____     _______/  |______ ________/  |_ 
+_/ ___\|  |  \/  ___/\   __\/  _ \ /     \  \   __\__  \ | __ \|  | _/ __ \   /  ___/\   __\__  \\_  __ \   __\
+\  \___|  |  /\___ \  |  | (  <_> )  Y Y  \  |  |  / __ \| \_\ \  |_\  ___/   \___ \  |  |  / __ \|  | \/|  |  
+ \___  >____//____  > |__|  \____/|__|_|  /  |__| (____  /___  /____/\___  > /____  > |__| (____  /__|   |__|  
+     \/           \/                    \/             \/    \/          \/       \/            \/           
+*/
+a {
+  text-decoration: none;
+   outline: none;
+}
+
+i {
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+
+.md-breadcrumb {
+  padding-left:88px;  
+}
+
+.JCLRgrip:first-child {
+  left:105px!important;
+  display: none!important;
+}
+
+.JColResizer th:first-child {
+  width: 105px!important;
+}
+
+.md-table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.md-table tbody tr:hover, .md-table tbody tr:focus {
+  cursor:pointer;
+  background-color:rgba(63,81,181,0.2);
+}
+
+.md-table-header {
+  border-bottom: 1px solid rgb(230,230,230);
+  color: rgb(130,130,130);
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0px 16px 16px 0;
+  min-width:132px;
+}
+
+.md-table-header a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.md-table-content {
+  white-space: nowrap;
+  font-size: 0.8em;
+}
+
+.md-table-td-more {
+  max-width:72px;
+  width:72px;
+  padding:16px;
+}
+
+.md-table-thumbs {
+  max-width: 104px;
+  width: 104px;
+  padding: 16px 32px;
+}
+
+.md-table-thumbs div {
+  overflow:hidden;
+  width: 40px;
+  height:40px;
+  border-radius:20px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-size:cover;
+  box-shadow: 0 8px 10px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 8px 10px rgba(0,0,0,.1);
+}
+/*
+.md-table-footer {
+  height:40px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+*/
+.md-table-count-info {
+  line-height:40px;
+  font-size:.75em;
+}
+
+.md-table-footer-item {
+  width: 40px;
+  height: 40px;
+  vertical-align:middle;
+}
+
+.md-table-active-page {
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.grey {
+  color: grey;
+}
+
+.ps-container >.ps-scrollbar-y-rail >.ps-scrollbar-y
+{
+	width: 3px !important;
+}
+
+.ps-container >.ps-scrollbar-y-rail
+{
+	width: 3px !important;
+}
+
+/*
+                       __                     __        ___.   .__                              .___
+  ____  __ __  _______/  |_  ____   _____   _/  |______ \_ |__ |  |   ____     ____   ____    __| _/
+_/ ___\|  |  \/  ___/\   __\/  _ \ /     \  \   __\__  \ | __ \|  | _/ __ \  _/ __ \ /    \  / __ | 
+\  \___|  |  /\___ \  |  | (  <_> )  Y Y  \  |  |  / __ \| \_\ \  |_\  ___/  \  ___/|   |  \/ /_/ | 
+ \___  >____//____  > |__|  \____/|__|_|  /  |__| (____  /___  /____/\___  >  \___  >___|  /\____ | 
+     \/           \/                    \/             \/    \/          \/       \/     \/      \/
+*/
+
+/*
+ _____ _  _     ____    ____  ____  ____  ____  ____    ____  _____  ____  ____  _____ 
+/    // \/ \   /  __\  /   _\/  _ \/  __\/  _ \/ ___\  / ___\/__ __\/  _ \/  __\/__ __\
+|  __\| || |   |  \/|  |  /  | / \||  \/|| | \||    \  |    \  / \  | / \||  \/|  / \  
+| |   | || |_/\|  __/  |  \_ | |-|||    /| |_/|\___ |  \___ |  | |  | |-|||    /  | |  
+\_/   \_/\____/\_/     \____/\_/ \|\_/\_\\____/\____/  \____/  \_/  \_/ \|\_/\_\  \_/  
+*/
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+	outline: 0;
+	cursor:pointer;
+}
+	/* flip the pane when hovered */
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front {
+	width: 200px;
+	height: 200px;
+	margin-right:8px;
+	margin-top:8px;
+}
+
+.flip-container, .back {
+	width: 200px;
+	height: 200px;
+	margin-right:8px;
+	margin-top:8px;
+}
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+/*
+ _____ _  _     ____    ____  ____  ____  ____  ____    _____ _      ____ 
+/    // \/ \   /  __\  /   _\/  _ \/  __\/  _ \/ ___\  /  __// \  /|/  _ \
+|  __\| || |   |  \/|  |  /  | / \||  \/|| | \||    \  |  \  | |\ ||| | \|
+| |   | || |_/\|  __/  |  \_ | |-|||    /| |_/|\___ |  |  /_ | | \||| |_/|
+\_/   \_/\____/\_/     \____/\_/ \|\_/\_\\____/\____/  \____\\_/  \|\____/
+*/
+
+/*
+ ____  ____  ____  ____  _        ____  _      _  _      ____  _____  _  ____  _        ____  _____  ____  ____  _____ 
+/  _ \/  __\/  __\/  _ \/ \  /|  /  _ \/ \  /|/ \/ \__/|/  _ \/__ __\/ \/  _ \/ \  /|  / ___\/__ __\/  _ \/  __\/__ __\
+| / \||  \/||  \/|| / \|| |  ||  | / \|| |\ ||| || |\/||| / \|  / \  | || / \|| |\ ||  |    \  / \  | / \||  \/|  / \  
+| |-|||    /|    /| \_/|| |/\||  | |-||| | \||| || |  ||| |-||  | |  | || \_/|| | \||  \___ |  | |  | |-|||    /  | |  
+\_/ \|\_/\_\\_/\_\\____/\_/  \|  \_/ \|\_/  \|\_/\_/  \|\_/ \|  \_/  \_/\____/\_/  \|  \____/  \_/  \_/ \|\_/\_\  \_/  
+*/
+.pull-down {
+  margin-top: 20px;
+  margin-left:-15px;
+}
+
+
+.pull-down:before,
+.pull-down:after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid white;
+  border-left: none;
+  border-top: none;
+  transform: rotate(225deg);
+  animation: arrowAnim 1.5s infinite;
+}
+
+
+
+@keyframes arrowAnim {
+  to {
+    transform: translateY(-.6rem) rotate(225deg);
+    opacity: 0;
+  }
+}
+/*
+ ____  ____  ____  ____  _        ____  _      _  _      ____  _____  _  ____  _        _____ _      ____ 
+/  _ \/  __\/  __\/  _ \/ \  /|  /  _ \/ \  /|/ \/ \__/|/  _ \/__ __\/ \/  _ \/ \  /|  /  __// \  /|/  _ \
+| / \||  \/||  \/|| / \|| |  ||  | / \|| |\ ||| || |\/||| / \|  / \  | || / \|| |\ ||  |  \  | |\ ||| | \|
+| |-|||    /|    /| \_/|| |/\||  | |-||| | \||| || |  ||| |-||  | |  | || \_/|| | \||  |  /_ | | \||| |_/|
+\_/ \|\_/\_\\_/\_\\____/\_/  \|  \_/ \|\_/  \|\_/\_/  \|\_/ \|  \_/  \_/\____/\_/  \|  \____\\_/  \|\____/
+*/

@@ -241,7 +241,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 			// total of all the files dragged and dropped
 			var filesArray = [];
 			scope.disableButton = false;
-			scope.disableUploadButton=false;
+			//scope.disableUploadButton=false;
 			// Bind the drop event to the dropzone.
 			element.find("#drop-files").bind('drop', function(e) {
 					
@@ -322,7 +322,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 			element.find('#uploadbtn').click(function(){
 			  
 			    scope.disableButton = true;
-                scope.disableUploadButton=true;
+                //scope.disableUploadButton=true;
 				notifications.toast("Please wait...");
 				
 				asyncFor(function(){

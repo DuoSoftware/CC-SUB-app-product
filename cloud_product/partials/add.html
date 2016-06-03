@@ -1,198 +1,230 @@
-<div class="card-container" style="padding:20px;">
-	<md-whiteframe class="md-whiteframe-2dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center" style="margin:0 auto;max-width:750px">
-		<md-content style="width:100%">
-			<div class="div-spinner" ng-show="spinnerAdd">
-				<md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>
-			</div>
-			<form name="editForm" ng-submit="submit()">
-				<div class="section_padding">
-				<div layout-gt-sm="row">
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>PRODUCT NAME</label>
-						<input ng-required="true" minlength="null"  md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name"  autofocus>
-                        <div ng-messages="editForm.productName.$error">
-                            <div ng-message="required">Product Name is required.</div>
+<div layout="row" flex layout-align="center center" class="main-wrap animated fadeIn">
+    <div layout="column" flex="100" layout-align="center center">
+        <div layout="column" class="sd-add">
+            <md-toolbar class="header-bg-blue header-cloudC-000">
+                <div class="md-toolbar-tools header-bg-blue p-0">
+                    <div class="header-content">
+                        <div class="logo-left">
+                            <img src="../asset/images/adjustments_add_118x99.png">
                         </div>
-					</md-input-container>
-					<!--<md-autocomplete flex-->
-									 <!--md-select-on-match-->
-									 <!--ng-keypress="enter($event)"-->
-									 <!--ng-disabled="ctrl.isDisabled"-->
-									 <!--md-input-name="autocompleteField"-->
-									 <!--md-no-cache="ctrl.noCache"-->
-									 <!--md-selected-item="content.product_name"-->
-									 <!--md-search-text="ctrl.searchText"-->
-									 <!--md-selected-item-change="validateProduct(ctrl.searchText)"-->
-                                     <!--md-search-text-change="validateProduct(ctrl.searchText)"-->
-									 <!--md-items="item in ctrl.querySearch(ctrl.searchText)"-->
-									 <!--md-item-text="item.product_name"-->
-									 <!--md-floating-label="PRODUCT NAME"-->
-									 <!--md-min-length="0">-->
-						<!--<md-item-template>-->
-							<!--<span md-highlight-text="ctrl.searchText">{{item.product_name}}</span>-->
-						<!--</md-item-template>-->
-					<!--</md-autocomplete>-->
-					<div hide-xs hide-sm flex-gt-sm="5">
-					</div>
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>CODE</label>
-						<input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
-                        <div ng-messages="editForm.productCode.$error">
-                            <div ng-message="required">Product Code is required.</div>
-                        </div>
-					</md-input-container>
-				</div>
-				<div layout-gt-sm="row">
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>DECRIPTION</label>
-						<input ng-required="false" minlength="null" md-maxlength="null" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">
-					</md-input-container>
-				</div>
-				<div layout-gt-sm="row">
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>CATEGORY</label>
-						<md-select ng-required="true" ng-model="content.category">
-							<md-option  value="" ng-click="addCat($event)">Add Category</md-option>
-							<md-divider></md-divider>
-							<md-option ng-repeat="value in categories" value="{{value}}">
-								{{value}}
-							</md-option>
-						</md-select>
-					</md-input-container>
-					<div hide-xs hide-sm flex-gt-sm="5">
-					</div>
-					<md-input-container class="md-block" flex-gt-sm>
-						<label>BRAND</label>
-                        <md-select ng-required="true" ng-model="content.brand">
-                            <md-option  value="" ng-click="addBrand($event)">Add Brand</md-option>
-                            <md-divider></md-divider>
-                            <md-option ng-repeat="value in brands" value="{{value}}">
-                                {{value}}
-                            </md-option>
-                        </md-select>
-					</md-input-container>
-				</div>
-				</div>
-				<!--<hr/>-->
-				<!--<div class="section_padding">-->
-					<!--<div class="strike">-->
-						<!--<span>STATUS</span>-->
-					<!--</div>-->
-					<!--<div class="md-block" flex-gt-sm>-->
-						<!--&lt;!&ndash;<md-radio-group ng-model="content.status" layout="row">&ndash;&gt;-->
-						  <!--&lt;!&ndash;<md-radio-button value="true" class="md-primary" style="width: 200px;">Active</md-radio-button>&ndash;&gt;-->
-						  <!--&lt;!&ndash;<md-radio-button value="false" style="width: 200px;">Inactive</md-radio-button>&ndash;&gt;-->
-						<!--&lt;!&ndash;</md-radio-group>&ndash;&gt;-->
+                        <div class="text-wrap">
+                            <h1 class="font-Lato">Product
+                                <i class="ti-close last">
+                                    <md-tooltip md-direction="bottom">
+                                        close
+                                    </md-tooltip>
+                                </i>
+                                <i class="ti-arrow-left first" ng-click="backToMain($event)">
+                                    <md-tooltip md-direction="bottom">
+                                        back
+                                    </md-tooltip>
+                                </i>
+                            </h1>
 
-						<!--<md-switch ng-model="content.status" ng-change="toggleSwitch(content.status)" class="md-primary" ng-true-value="true" ng-false-value="false">-->
-							<!--<label ng-show="toggleActive">Active</label>-->
-                            <!--<label ng-show="toggleInActive">Inactive</label>-->
-						<!--</md-switch>-->
-					<!--</div>-->
-				<!--</div>-->
-				<hr/>
-				<div class="section_padding">
-                    <div layout-gt-sm="row">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>QUANTITY OF UNIT</label>
-                            <input ng-required="false" minlength="null" md-maxlength="null" min="0" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">
-                        </md-input-container>
-                        <div hide-xs hide-sm flex-gt-sm="5">
                         </div>
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>UNIT OF MEASURE</label>
-                            <md-select ng-required="true" ng-model="content.uom">
-                                <md-option  value="" ng-click="addUOM($event)">Add UOM</md-option>
-                                <md-divider></md-divider>
-                                <md-option ng-repeat="value in UOMs" value="{{value}}">
-                                    {{value}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
                     </div>
-                    <div layout-gt-sm="row">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>CURRENCY</label>
-                            <!--<md-select ng-model="content.selectCurrency">-->
+                </div>
+            </md-toolbar>
+            <md-content class="overflow-hidden" style="width:100%">
+                <div class="div-spinner" ng-show="spinnerAdd">
+                    <md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>
+                </div>
+                <form name="editForm" ng-submit="submit()">
+                    <div class="section_padding">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>PRODUCT NAME</label>
+                                <input ng-required="true" minlength="null"  md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name"  autofocus>
+                                <div ng-messages="editForm.productName.$error">
+                                    <div ng-message="required">Product Name is required.</div>
+                                </div>
+                            </md-input-container>
+                            <!--<md-autocomplete flex-->
+                            <!--md-select-on-match-->
+                            <!--ng-keypress="enter($event)"-->
+                            <!--ng-disabled="ctrl.isDisabled"-->
+                            <!--md-input-name="autocompleteField"-->
+                            <!--md-no-cache="ctrl.noCache"-->
+                            <!--md-selected-item="content.product_name"-->
+                            <!--md-search-text="ctrl.searchText"-->
+                            <!--md-selected-item-change="validateProduct(ctrl.searchText)"-->
+                            <!--md-search-text-change="validateProduct(ctrl.searchText)"-->
+                            <!--md-items="item in ctrl.querySearch(ctrl.searchText)"-->
+                            <!--md-item-text="item.product_name"-->
+                            <!--md-floating-label="PRODUCT NAME"-->
+                            <!--md-min-length="0">-->
+                            <!--<md-item-template>-->
+                            <!--<span md-highlight-text="ctrl.searchText">{{item.product_name}}</span>-->
+                            <!--</md-item-template>-->
+                            <!--</md-autocomplete>-->
+                            <div hide-xs hide-sm flex-gt-sm="5">
+                            </div>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>CODE</label>
+                                <input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
+                                <div ng-messages="editForm.productCode.$error">
+                                    <div ng-message="required">Product Code is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>DECRIPTION</label>
+                                <input ng-required="false" minlength="null" md-maxlength="null" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>CATEGORY</label>
+                                <md-select ng-required="true" ng-model="content.category">
+                                    <md-option  value="" ng-click="addCat($event)">Add Category</md-option>
+                                    <md-divider></md-divider>
+                                    <md-option ng-repeat="value in categories" value="{{value}}">
+                                        {{value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div hide-xs hide-sm flex-gt-sm="5">
+                            </div>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>BRAND</label>
+                                <md-select ng-required="true" ng-model="content.brand">
+                                    <md-option  value="" ng-click="addBrand($event)">Add Brand</md-option>
+                                    <md-divider></md-divider>
+                                    <md-option ng-repeat="value in brands" value="{{value}}">
+                                        {{value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <!--<hr/>-->
+                    <!--<div class="section_padding">-->
+                    <!--<div class="strike">-->
+                    <!--<span>STATUS</span>-->
+                    <!--</div>-->
+                    <!--<div class="md-block" flex-gt-sm>-->
+                    <!--&lt;!&ndash;<md-radio-group ng-model="content.status" layout="row">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<md-radio-button value="true" class="md-primary" style="width: 200px;">Active</md-radio-button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<md-radio-button value="false" style="width: 200px;">Inactive</md-radio-button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</md-radio-group>&ndash;&gt;-->
+
+                    <!--<md-switch ng-model="content.status" ng-change="toggleSwitch(content.status)" class="md-primary" ng-true-value="true" ng-false-value="false">-->
+                    <!--<label ng-show="toggleActive">Active</label>-->
+                    <!--<label ng-show="toggleInActive">Inactive</label>-->
+                    <!--</md-switch>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <hr/>
+                    <div class="section_padding">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>QUANTITY OF UNIT</label>
+                                <input ng-required="false" minlength="null" md-maxlength="null" min="0" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">
+                            </md-input-container>
+                            <div hide-xs hide-sm flex-gt-sm="5">
+                            </div>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>UNIT OF MEASURE</label>
+                                <md-select ng-required="true" ng-model="content.uom">
+                                    <md-option  value="" ng-click="addUOM($event)">Add UOM</md-option>
+                                    <md-divider></md-divider>
+                                    <md-option ng-repeat="value in UOMs" value="{{value}}">
+                                        {{value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>CURRENCY</label>
+                                <!--<md-select ng-model="content.selectCurrency">-->
                                 <!--<md-option  value="" ng-click="addCurrencies($event)">Add Currency</md-option>-->
                                 <!--<md-divider></md-divider>-->
                                 <!--<md-option ng-repeat="value in Currencies" value="{{value}}">-->
-                                    <!--{{value}}-->
+                                <!--{{value}}-->
                                 <!--</md-option>-->
-                            <!--</md-select>-->
-                            <input minlength="null" md-maxlength="null" type="" name="Price" ng-model="content.selectCurrency" disabled>
-                        </md-input-container>
-                        <div hide-xs hide-sm flex-gt-sm="5">
-                        </div>
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>PRICE</label>
-                            <input ng-required="true" minlength="null" md-maxlength="null" min="0" step="0.01"  type="number" name="Price" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  ng-model="content.price_of_unit">
-                            <div ng-messages="editForm.Price.$error">
-                                <!--<div ng-message="required">Price is required.</div>-->
-                                <!--<div ng-message="pattern">Please enter a valid Price.</div>-->
+                                <!--</md-select>-->
+                                <input minlength="null" md-maxlength="null" type="" name="Price" ng-model="content.selectCurrency" disabled>
+                            </md-input-container>
+                            <div hide-xs hide-sm flex-gt-sm="5">
                             </div>
-                        </md-input-container>
-                    </div>
-                    <div layout-gt-sm="row">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>COST PRICE</label>
-                            <input ng-required="false" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
-                            <div ng-messages="editForm.CostPrice.$error">
-                                <!--<div ng-message="required">Price is required.</div>-->
-                                <!--<div ng-message="pattern">Please enter a valid Price.</div>-->
-                            </div>
-                        </md-input-container>
-                        <div hide-xs hide-sm flex-gt-sm="5">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>PRICE</label>
+                                <input ng-required="true" minlength="null" md-maxlength="null" min="0" step="0.01"  type="number" name="Price" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  ng-model="content.price_of_unit">
+                                <div ng-messages="editForm.Price.$error">
+                                    <!--<div ng-message="required">Price is required.</div>-->
+                                    <!--<div ng-message="pattern">Please enter a valid Price.</div>-->
+                                </div>
+                            </md-input-container>
                         </div>
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <!--<label>MINIMUM STOCK LEVEL</label>-->
-                            <!--<input ng-required="false" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">-->
-                        </md-input-container>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>COST PRICE</label>
+                                <input ng-required="false" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
+                                <div ng-messages="editForm.CostPrice.$error">
+                                    <!--<div ng-message="required">Price is required.</div>-->
+                                    <!--<div ng-message="pattern">Please enter a valid Price.</div>-->
+                                </div>
+                            </md-input-container>
+                            <div hide-xs hide-sm flex-gt-sm="5">
+                            </div>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <!--<label>MINIMUM STOCK LEVEL</label>-->
+                                <!--<input ng-required="false" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">-->
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-primary" flex-gt-sm>
+                                APPLY TAX
+                            </md-checkbox>
+                            <div hide-xs hide-sm flex-gt-sm="5">
+                            </div>
+                            <md-input-container ng-show="content.applyTax == true" class="md-block" flex-gt-sm>
+                                <label>TAX</label>
+                                <md-select ng-required="content.applyTax" ng-model="content.tax">
+                                    <md-option ng-repeat="value in taxGroup">
+                                        {{value.taxgroupcode}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary" flex-gt-sm>
+                                TRACK INVENTORY
+                            </md-checkbox>
+                            <div hide-xs hide-sm flex-gt-sm="5">
+                            </div>
+                            <md-input-container ng-show="content.sku == true" class="md-block" flex-gt-sm>
+                                <label>MINIMUM STOCK LEVEL</label>
+                                <input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
+                            </md-input-container>
+                        </div>
                     </div>
-					<div layout-gt-sm="row">
-						<md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-primary" flex-gt-sm>
-							APPLY TAX
-						</md-checkbox>
-						<div hide-xs hide-sm flex-gt-sm="5">
-						</div>
-						<md-input-container ng-show="content.applyTax == true" class="md-block" flex-gt-sm>
-							<label>TAX</label>
-							<md-select ng-required="content.applyTax" ng-model="content.tax">
-								<md-option ng-repeat="value in taxGroup">
-									{{value.taxgroupcode}}
-								</md-option>
-							</md-select>
-						</md-input-container>
-					</div>
-					<div layout-gt-sm="row">
-						<md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary" flex-gt-sm>
-							TRACK INVENTORY
-						</md-checkbox>
-						<div hide-xs hide-sm flex-gt-sm="5">
-						</div>
-						<md-input-container ng-show="content.sku == true" class="md-block" flex-gt-sm>
-							<label>MINIMUM STOCK LEVEL</label>
-							<input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
-						</md-input-container>
-					</div>
-				</div>
-				<hr/>
-				<div class="section_padding">
+                    <hr/>
+                    <div class="section_padding">
 
-					<div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">PRODUCT IMAGE</div>
-					<file-up-loader os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>
-					</file-up-loader>
-				</div>
-				
-				<div layout-gt-sm="row" ng-init="submitted=false" >
-					<div class="md-block" flex-gt-sm style="background:#484848;height:66px">
-						<md-button style="width:100%;line-height: 66px;color: white;font-size: 20px" type="button" ng-click="backToMain($event)">CANCEL</md-button>
-					</div>
-					<div class="md-block" flex-gt-sm style="background:#f4511e;height:66px">
-						<md-button style="width:100%; line-height: 66px;color: white;font-size: 20px" ng-disabled="submitted" type="submit">SUBMIT</md-button>
-					</div>
-				</div>
-			</form>
-		</md-content>
-	</md-whiteframe>
+                        <div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">PRODUCT IMAGE</div>
+                        <file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>
+                        </file-up-loader>
+                    </div>
+
+                    <div class="form-footer-btn-wrap">
+                        <div layout-gt-sm="row" class="p-0" ng-init="submitted=false">
+                            <div class="md-raise btn btn-cancel" flex-gt-sm style="background:#484848;height:66px">
+                                <md-button style="width:100%;line-height: 35px;color: white;font-size: 20px" type="button" ng-click="backToMain($event)">CANCEL</md-button>
+                            </div>
+                            <div class="md-raise btn btn-submit" flex-gt-sm style="background:#f4511e;height:66px">
+                                <md-button style="width:100%; line-height: 35px;color: white;font-size: 20px" ng-disabled="submitted" type="submit">SUBMIT</md-button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </md-content>
+
+
+        </div>
+    </div>
 </div>
+
+div>

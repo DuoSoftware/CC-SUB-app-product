@@ -1,0 +1,14 @@
+{
+  "name": "cloud_charge_ui",
+  "version": "1.0.0",
+  "description": "ui version 1.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "ui version 1.0"
+  },
+  "keywords": [
+    "ui1.0"
+  ],
+  "author": "premakumara",
+  "license": "ISC"
+}

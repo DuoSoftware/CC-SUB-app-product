@@ -1,5 +1,4 @@
-var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.router', 'directivelibrary','uiMicrokernel', 'ngMessages','cloudcharge','productModule'])
-	
+var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.router', 'directivelibrary','uiMicrokernel', 'ngMessages','cloudcharge','productModule','ngTable', 'data-table', 'ngSlimScroll'])
 	.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
 	$urlRouterProvider.otherwise('/main');
 
@@ -103,18 +102,19 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 
 	$scope.openProduct = function(product)
 	{
+        $rootScope.viewCount=1;
         debugger;
         $charge.stock().getStock(product.productId).success(function(data) {
             debugger;
             $rootScope.selectedProduct = product;
             $rootScope.selectedProduct.inventoryStock=data.qty;
-            angular.element('#viewAllWhiteframe').css('margin', '0');
-            angular.element('#viewAllWhiteframe').css('max-width', '550px');
+            //angular.element('#viewAllWhiteframe').css('margin', '0');
+            //angular.element('#viewAllWhiteframe').css('max-width', '550px');
         }).error(function(data) {
             $rootScope.selectedProduct = product;
             $rootScope.selectedProduct.inventoryStock="0";
-            angular.element('#viewAllWhiteframe').css('margin', '0');
-            angular.element('#viewAllWhiteframe').css('max-width', '550px');
+            //angular.element('#viewAllWhiteframe').css('margin', '0');
+            //angular.element('#viewAllWhiteframe').css('max-width', '550px');
         })
 
 	}
@@ -137,8 +137,9 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 
     $rootScope.toggleEdit = function()
 	{
-        angular.element('#editContent').css('padding', '0px');
-        angular.element('#editContent').css('padding-left', '10px');
+        //debugger;
+        //angular.element('#editContent').css('padding', '0px');
+        //angular.element('#editContent').css('padding-left', '10px');
         $rootScope.editOff = !$rootScope.editOff;
         if($rootScope.editOff==true) {
             if ($scope.selectedProduct.status == "true") {
@@ -147,11 +148,19 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
             else {
                 $scope.selectedProduct.status = false;
             }
+            //debugger;
             if ($scope.selectedProduct.sku == "true") {
                 $scope.selectedProduct.sku = true
             }
             else {
                 $scope.selectedProduct.sku = false;
+            }
+
+            if ($scope.selectedProduct.apply_tax == "true") {
+                $scope.selectedProduct.apply_tax = true
+            }
+            else {
+                $scope.selectedProduct.apply_tax = false;
             }
         }
         else if($rootScope.editOff==false)
@@ -162,16 +171,23 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
             else {
                 $scope.selectedProduct.status = "false";
             }
-            //debugger;
-            //if ($scope.selectedProduct.sku == true) {
-            //    $scope.selectedProduct.sku = "true"
-            //}
-            //else {
-            //    $scope.selectedProduct.sku = "false";
-            //}
+           // debugger;
+            if ($scope.selectedProduct.sku == 1) {
+                $scope.selectedProduct.sku = true
+            }
+            else {
+                $scope.selectedProduct.sku = false;
+            }
+
+            if ($scope.selectedProduct.apply_tax == 1) {
+                $scope.selectedProduct.apply_tax = true
+            }
+            else {
+                $scope.selectedProduct.apply_tax = false;
+            }
         }
         $scope.changeProduct=angular.copy($scope.selectedProduct);
-        debugger;
+        //debugger;
 	}
 
 
@@ -430,6 +446,66 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     var skip=0;
     var take=100;
     var response="";
+
+    //newly added code start
+    //$scope.isLoad = true;
+    $rootScope.viewCount = 0;
+
+    $scope.options = {
+        scrollbar: false
+    };
+
+    ////row click event
+    //function TableRow(clickRow, data) {
+    //    this.clickRow = clickRow;
+    //    this.dataTbl = data;
+    //}
+    //
+    //TableRow.prototype = {
+    //    constructor: TableRow,
+    //    refreshAll: function () {
+    //        var data = this.dataTbl;
+    //        for (var i = 0; i < data.length; i++) {
+    //            $scope.data[i].select = false;
+    //        }
+    //    },
+    //    click: function () {
+    //        debugger;
+    //        var row = this.clickRow;
+    //        var data = this.dataTbl;
+    //        $scope.viewCount = 1;
+    //        for (var i = 0; i < data.length; i++) {
+    //            if (data[i].customer == row.customer) {
+    //                $scope.data[i].select = true;
+    //                data.length = $scope.data.length;
+    //            }
+    //            //todo
+    //        }
+    //    },
+    //    refreshTbl: function () {
+    //        if ($scope.viewCount == 0) {
+    //            $("#ajdDetails").removeClass('selected-row');
+    //
+    //        } else {
+    //            document.getElementById("ajdDetails").classList.add("selected-row");
+    //        }
+    //    }
+    //}
+    //
+    //$scope.tableEvent = {
+    //    rowClick: function (row, data) {
+    //        var tableRow = new TableRow(row, data);
+    //        tableRow.refreshAll();
+    //        tableRow.click();
+    //        tableRow.refreshTbl();
+    //    }
+    //};
+
+    //$scope.number = 5;
+    //$scope.getNumber = function (num) {
+    //    return new Array(num);
+    //}
+    //newly added code end
     $scope.products=[];
     $scope.statusArray = [];
     if($scope.filters.category==null)
@@ -449,6 +525,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
 
     $scope.statusFilter = function(product) {
+        //debugger;
         if ($scope.statusArray.length > 0) {
             //debugger;
             if ($.inArray(product.status, $scope.statusArray) < 0)
@@ -609,7 +686,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
     $scope.saveEdit = function(model)
     {
-        //debugger;
+        debugger;
         var editReq=$scope.changeProduct;
         if(editReq.status=="false")
         {
