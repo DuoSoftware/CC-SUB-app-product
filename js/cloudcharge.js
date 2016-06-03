@@ -96,7 +96,8 @@
             product: function(){ return new ProductProxy();},
             uom: function(){ return new UomProxy();},
             commondata:function(){return new CommonDataProxy();},
-            stock:function(){return new StockProxy();}
+            stock:function(){return new StockProxy();},
+            tax:function(){return new TaxProxy();}
         }
     });
 
@@ -148,6 +149,24 @@
         var handler = "/duosoftware.stock.service";
         p.getStock = function(s){p.p(handler + "/stock/getAvailableStock/",service).qp({"itemID":s}); return p;}
         //p.store = function(i){p.p(handler + "/uoms/insert",service).b(i); return p;}
+        return p;
+    }
+
+    function TaxProxy(){
+        //debugger;
+        var p = BP();
+        var service="tax";
+        var handler = "/duosoftware.tax.service";
+        p.all = function(s,t,o){p.p(handler + "/tax/getAll/",service).qp({"skip":s,"take":t,"order":o}); return p;}
+        p.getTaxByIDs = function(s){p.p(handler + "/tax/getDetailsById/",service).qp({"taxId":s}); return p;}
+        p.allgroups=function(s,t,o){p.p(handler + "/taxgroup/getAll/",service).qp({"skip":s,"take":t,"order":o}); return p;}
+        p.getTaxGrpByIDs = function(s){p.p(handler + "/taxgroup/getById/",service).qp({"id":s}); return p;}
+        p.storeTaxGrp = function(i){p.p(handler + "/taxgroup/insert",service).b(i); return p;}
+        p.updateTaxGrp = function(i){p.p(handler + "/taxgroup/update",service).b(i); return p;}
+        p.updateTax = function(i){p.p(handler + "/tax/update",service).b(i); return p;}
+        p.storeTax = function(i){p.p(handler + "/tax/insert",service).b(i); return p;}
+
+
         return p;
     }
 

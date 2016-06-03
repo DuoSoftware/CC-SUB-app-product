@@ -14,5 +14,9 @@
   "stock":{
     "domain":"cloudcharge.com/services",
     "url":"d"
+  },
+  "tax":{
+    "domain":"cloudcharge.com/services",
+    "security":"false"
   }
 }

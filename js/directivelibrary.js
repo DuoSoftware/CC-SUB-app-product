@@ -222,7 +222,7 @@ _____ __ __    _____    __ __ _____ __     _____   ___  _____      __ _____  ___
 directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$http", "$uploader", "$storage","notifications", function($rootScope, $mdToast, $http,$uploader,$storage, notifications) {
 	  return {
 		restrict: 'E',
-		template: "<div class='content' ng-init='showUploadButton=false;showDeleteButton=false;showUploadTable=false;'><div id='drop-files' ondragover='return false' layout='column'><div id='uploaded-holder'><div id='dropped-files' ng-show='showUploadTable' style='width:100%'><table id='Tabulate' style='width:100%'></table></div></div><div layout='row' layout-align='space-around center' style='margin-top: 20px;'><md-button class='md-raised' id='uploadbtn' aria-label='uploadbtn' ng-show='showUploadButton' ng-disabled='disableButton' style='margin-top: 5px;'><md-icon md-svg-src='../img/directive_library/ic_cloud_upload_24px.svg' style='color:#1976D2'></md-icon><span style='margin-left: 5px;'>Upload</span></md-button><md-button class='md-raised' id='deletebtn' aria-label='deletebtn' ng-show='showDeleteButton' ng-disabled='disableButton' style='color:rgb(244,67,54);'><md-icon md-svg-src='../img/directive_library/ic_delete_24px.svg' style='color:rgb(244,67,54)'></md-icon><span style='margin-left: 5px;'>Remove All</span></md-button></div><div layout='column'><img src='../img/directive_library/placeholder.png' ng-show='!showUploadButton' style='width:54px;height:54px;margin: 0 auto;margin-bottom:12px'/><text style='font-weight:700;font-size:14px;margin: 15px;'>{{label}}<text></div></div></div>",
+		template: "<div class='content' ng-init='showUploadButton=false;showDeleteButton=false;showUploadTable=false;'><div id='drop-files' ondragover='return false' layout='column'><div id='uploaded-holder'><div id='dropped-files' ng-show='showUploadTable' style='width:100%'><table id='Tabulate' style='width:100%'></table></div></div><div layout='row' layout-align='space-around center' style='margin-top: 20px;'><md-button class='md-raised' id='uploadbtn' aria-label='uploadbtn' ng-show='showUploadButton' ng-disabled='disableUploadButton' style='margin-top: 5px;'><md-icon md-svg-src='../img/directive_library/ic_cloud_upload_24px.svg' style='color:#1976D2'></md-icon><span style='margin-left: 5px;'>Upload</span></md-button><md-button class='md-raised' id='deletebtn' aria-label='deletebtn' ng-show='showDeleteButton' ng-disabled='disableButton' style='color:rgb(244,67,54);'><md-icon md-svg-src='../img/directive_library/ic_delete_24px.svg' style='color:rgb(244,67,54)'></md-icon><span style='margin-left: 5px;'>Remove</span></md-button></div><div layout='column'><img src='../img/directive_library/placeholder.png' ng-show='!showUploadButton' style='width:54px;height:54px;margin: 0 auto;margin-bottom:12px'/><text style='font-weight:700;font-size:14px;margin: 15px;'>{{label}}<text></div></div></div>",
 		scope:{
 			osClass:'@',
 			label:'@',
@@ -241,7 +241,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 			// total of all the files dragged and dropped
 			var filesArray = [];
 			scope.disableButton = false;
-			
+			scope.disableUploadButton=false;
 			// Bind the drop event to the dropzone.
 			element.find("#drop-files").bind('drop', function(e) {
 					
@@ -322,7 +322,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 			element.find('#uploadbtn').click(function(){
 			  
 			    scope.disableButton = true;
-			    
+                scope.disableUploadButton=true;
 				notifications.toast("Please wait...");
 				
 				asyncFor(function(){

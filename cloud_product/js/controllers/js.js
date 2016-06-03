@@ -31,6 +31,31 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
     $scope.categories = [];
     $scope.taxes = ['10', '20', '30', '40'];
     $scope.brands=[];
+    $scope.taxGroup=[];
+    var skipGrp= 0,takeGrp=100;
+    var response="";
+
+    $charge.tax().allgroups(skipGrp,takeGrp,"asc").success(function(data) {
+        //debugger;
+        skipGrp += takeGrp;
+        if(response=="") {
+            console.log(data);
+            //if($scope.loading) {
+            // returned data contains an array of 2 sentences
+            for (i = 0; i < data.length; i++) {
+                $scope.taxGroup.push(data[i]);
+
+            }
+            //$scope.more();
+            $scope.loading = false;
+            $scope.isSpinnerShown=false;
+            //}
+        }
+    }).error(function(data) {
+        //console.log(data);
+        response=data;
+        $scope.isSpinnerShown=false;
+    })
 
     $charge.uom().getAllUOM('Product_123').success(function(data) {
         $scope.UOMs=[];
@@ -40,7 +65,7 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         {
             //debugger;
             $scope.UOMs.push(data[i][0]["UOMCode"]);
-            debugger;
+            //debugger;
         }
     }).error(function(data) {
         console.log(data);
@@ -153,7 +178,7 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 })//END OF AppCtrl
 
 
-app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdToast,$charge,notifications,$state,$productHandler) {
+app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdToast,$charge,notifications,$state,$productHandler,$filter) {
 	//debugger;
 
     $scope.content = {};
@@ -298,7 +323,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 		{
             $scope.spinnerAdd=true;
             //$scope.content.product_name=self.searchText;
-            debugger;
+            //debugger;
             if($scope.content.quantity_of_unit==null ||$scope.content.quantity_of_unit=="")
                 $scope.content.quantity_of_unit=0;
             if($scope.content.cost_price==null ||$scope.content.cost_price=="")
@@ -310,6 +335,12 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                 $scope.content.applyTax=false;
                 $scope.content.tax="0";
             }
+            else
+            {
+                var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+                //debugger;
+                $scope.content.tax=taxgrp.taxgroupid;
+            }
             if($scope.content.sku==null | $scope.content.sku=="false")
             {
                 $scope.content.sku=false;
@@ -319,7 +350,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                 $scope.content.attachment = $scope.content.files[0];
             }
             var req=$scope.content;
-            debugger;
+            //debugger;
             $charge.product().store(req).success(function(data) {
                 if(data.id) {
                     //console.log(data);
@@ -488,7 +519,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                     $scope.products.push(data[i]);
                 }
             }
-            //debugger;
+            debugger;
             $scope.loading = false;
             skip += take;
             $scope.isSpinnerShown=false;

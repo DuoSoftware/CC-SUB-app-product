@@ -158,8 +158,8 @@
 						<md-input-container ng-show="content.applyTax == true" class="md-block" flex-gt-sm>
 							<label>TAX</label>
 							<md-select ng-required="content.applyTax" ng-model="content.tax">
-								<md-option ng-repeat="value in values" value="{{value}}">
-									{{value}}
+								<md-option ng-repeat="value in taxGroup">
+									{{value.taxgroupcode}}
 								</md-option>
 							</md-select>
 						</md-input-container>
