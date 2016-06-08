@@ -31,7 +31,7 @@
                         if (data.hasOwnProperty(endpoint)) {
                             //console.log(data[r]["domain"]);
                             //domain=data[endpoint]["domain"];
-                            debugger;
+                            //debugger;
                             var host=location.hostname;
                             if(host!="localhost") {
                                 var hostContent = host.split(".");
