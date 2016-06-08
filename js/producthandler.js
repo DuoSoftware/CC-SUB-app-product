@@ -12,7 +12,7 @@
             load product method start
              */
             var skip = 0;
-            var take = 100;
+            var take = 1000;
 
             function loadProduct() {
                 cache=$productCacheHandler.get('productCache');

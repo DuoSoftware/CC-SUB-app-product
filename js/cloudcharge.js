@@ -30,7 +30,14 @@
                     for (key in data) {
                         if (data.hasOwnProperty(endpoint)) {
                             //console.log(data[r]["domain"]);
-                            domain=data[endpoint]["domain"];
+                            //domain=data[endpoint]["domain"];
+                            debugger;
+                            var host=location.hostname;
+                            if(host!="localhost") {
+                                var hostContent = host.split(".");
+                                var prefix = hostContent[0];
+                            }
+                            domain=prefix+'.'+data[endpoint]["domain"];
                             break;
                         }
                     }
