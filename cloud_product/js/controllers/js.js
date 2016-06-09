@@ -1,4 +1,4 @@
-var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.router', 'directivelibrary','uiMicrokernel', 'ngMessages','cloudcharge','productModule','ngTable', 'data-table', 'ngSlimScroll'])
+var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.router', 'directivelibrary','uiMicrokernel', 'ngMessages','cloudcharge','productModule','ngTable', 'data-table', 'jkuri.slimscroll'])
 	.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
 	$urlRouterProvider.otherwise('/main');
 
@@ -450,62 +450,6 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     //newly added code start
     //$scope.isLoad = true;
     $rootScope.viewCount = 0;
-
-    $scope.options = {
-        scrollbar: false
-    };
-
-    ////row click event
-    //function TableRow(clickRow, data) {
-    //    this.clickRow = clickRow;
-    //    this.dataTbl = data;
-    //}
-    //
-    //TableRow.prototype = {
-    //    constructor: TableRow,
-    //    refreshAll: function () {
-    //        var data = this.dataTbl;
-    //        for (var i = 0; i < data.length; i++) {
-    //            $scope.data[i].select = false;
-    //        }
-    //    },
-    //    click: function () {
-    //        debugger;
-    //        var row = this.clickRow;
-    //        var data = this.dataTbl;
-    //        $scope.viewCount = 1;
-    //        for (var i = 0; i < data.length; i++) {
-    //            if (data[i].customer == row.customer) {
-    //                $scope.data[i].select = true;
-    //                data.length = $scope.data.length;
-    //            }
-    //            //todo
-    //        }
-    //    },
-    //    refreshTbl: function () {
-    //        if ($scope.viewCount == 0) {
-    //            $("#ajdDetails").removeClass('selected-row');
-    //
-    //        } else {
-    //            document.getElementById("ajdDetails").classList.add("selected-row");
-    //        }
-    //    }
-    //}
-    //
-    //$scope.tableEvent = {
-    //    rowClick: function (row, data) {
-    //        var tableRow = new TableRow(row, data);
-    //        tableRow.refreshAll();
-    //        tableRow.click();
-    //        tableRow.refreshTbl();
-    //    }
-    //};
-
-    //$scope.number = 5;
-    //$scope.getNumber = function (num) {
-    //    return new Array(num);
-    //}
-    //newly added code end
     $scope.products=[];
     $scope.statusArray = [];
     if($scope.filters.category==null)
@@ -565,30 +509,6 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     $scope.more = function(){
         $scope.isSpinnerShown=true;
         //debugger;
-        //$charge.product().all(skip,take,"asc").success(function(data) {
-        //    //debugger;
-        //    skip += take;
-        //    if(response=="") {
-        //        if($scope.loading) {
-        //            // returned data contains an array of 2 sentences
-        //            for (i = 0; i < data.length; i++) {
-        //                newItem = data[i];
-        //                //console.log(data[i]);
-        //                //debugger;
-        //                $scope.products.push(data[i]);
-        //
-        //            }
-        //            //$scope.more();
-        //            $scope.loading = false;
-        //            $scope.isSpinnerShown=false;
-        //            console.log($scope.products.length);
-        //        }
-        //    }
-        //}).error(function(data) {
-        //    //console.log(data);
-        //    response=data;
-        //    $scope.isSpinnerShown=false;
-        //})
         $productHandler.getClient().LoadProductByScroll(skip,take).onComplete(function(data)
         {
             if($scope.loading) {
@@ -596,18 +516,41 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                     $scope.products.push(data[i]);
                 }
             }
-            debugger;
+            //debugger;
             $scope.loading = false;
             skip += take;
             $scope.isSpinnerShown=false;
         }).onError(function(data)
         {
             $scope.isSpinnerShown=false;
+            $scope.lastSet=true;
 
         });
     };
         // we call the function twice to populate the list
         $scope.more();
+
+
+    $scope.loadmore = function(takeMre){
+        $scope.isSpinnerShown=true;
+        $productHandler.getClient().LoadProductByScroll(skip,takeMre).onComplete(function(data)
+        {
+            if(data.length<takeMre)
+                $scope.lastSet=true;
+            for (i = 0; i < data.length; i++) {
+                $scope.products.push(data[i]);
+            }
+            debugger;
+            //$scope.loading = false;
+            skip += take;
+            $scope.isSpinnerShown=false;
+        }).onError(function(data)
+        {
+            $scope.isSpinnerShown=false;
+            $scope.lastSet=true;
+
+        });
+    };
 
     $scope.editBrand = function(ev)
     {

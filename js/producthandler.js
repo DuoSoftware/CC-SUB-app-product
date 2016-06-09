@@ -60,7 +60,6 @@
 
                     }).error(function (data) {
                         //debugger;
-                        if (data.hasOwnProperty("error"))
                             if (onError) onError(data);
                     });
             }

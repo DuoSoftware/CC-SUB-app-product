@@ -13,7 +13,7 @@
     }
     function getSecurityToken() {
         var _st = gst("securityToken");
-        return (_st != null) ? _st : "N/A";
+        return (_st != null) ? _st : "e9201ed1eebbeba140723212b36f8029";
     }
     function BP(){
         var sfn,ffn, u,endpoint,domain, b, p,host;
@@ -36,8 +36,12 @@
                             if(host!="localhost") {
                                 var hostContent = host.split(".");
                                 var prefix = hostContent[0];
+                                domain=prefix+'.'+data[endpoint]["domain"];
                             }
-                            domain=prefix+'.'+data[endpoint]["domain"];
+                            else
+                            {
+                                domain=data[endpoint]["domain"];
+                            }
                             break;
                         }
                     }

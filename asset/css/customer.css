@@ -1,6 +1,6 @@
 
 body, html {
-    /*background: transparent;*/
+    background: transparent;
     height: 100%;
     overflow: hidden;
 }
@@ -540,4 +540,14 @@ md-input-container > label {
     width: 700px;
     max-width: 750px;
 
+}
+
+.btn-height31
+{
+    height: 31px;
+}
+
+.btn-search-all
+{
+    background: rgb(167, 166, 166);
 }
