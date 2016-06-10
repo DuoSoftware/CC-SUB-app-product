@@ -1,4 +1,4 @@
-/*Made a significant change in the file uploader directive 28/03/2016*/
+/*Added ui-timepicker 06/04/2016*/
 /*
 _____  ___  _____ _____    _____ __  ____ __ __ _____ _____      __ _____  ___  _____ _____ 
 ||  ) ||=||  ||   ||==     ||_// || ((    ||<<  ||==  ||_//     ((   ||   ||=|| ||_//  ||   
@@ -367,6 +367,7 @@ _/ ___\|  |  \/  ___/\   __\/  _ \ /     \  \   __\__  \ | __ \|  | _/ __ \  _/ 
 	margin-right:8px;
 	margin-top:8px;
 }
+
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
@@ -416,7 +417,6 @@ _/ ___\|  |  \/  ___/\   __\/  _ \ /     \  \   __\__  \ | __ \|  | _/ __ \  _/ 
   margin-left:-15px;
 }
 
-
 .pull-down:before,
 .pull-down:after {
   content: "";
@@ -445,3 +445,58 @@ _/ ___\|  |  \/  ___/\   __\/  _ \ /     \  \   __\__  \ | __ \|  | _/ __ \  _/ 
 | |-|||    /|    /| \_/|| |/\||  | |-||| | \||| || |  ||| |-||  | |  | || \_/|| | \||  |  /_ | | \||| |_/|
 \_/ \|\_/\_\\_/\_\\____/\_/  \|  \_/ \|\_/  \|\_/\_/  \|\_/ \|  \_/  \_/\____/\_/  \|  \____\\_/  \|\____/
 */
+
+.x1-timepicker-svg {
+    display: block;
+    margin: 0 auto;
+    width: 175px;
+    height: 175px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.x1-timepicker-svg .x1-timepicker-background {
+    fill: #555555;
+    fill-opacity: 0.01;
+}
+
+.x1-timepicker-svg .x1-timepicker-component {
+    fill: #909090;
+}
+
+.x1-timepicker-svg .x1-timepicker-inner {
+    fill: #3f51b5;
+}
+
+.x1-timepicker-svg .x1-timepicker-labels {
+
+}
+
+.x1-timepicker-svg .x1-timepicker-labels .title {
+    text-anchor: middle;
+    fill: #FFFFFF;
+}
+
+.x1-timepicker-svg .x1-timepicker-labels .time,
+.x1-timepicker-svg .x1-timepicker-labels .ampm {
+    text-anchor: middle;
+    fill: #FFFFFF;
+}
+
+.x1-timepicker-svg .x1-timepicker-arcs {
+
+}
+
+.x1-timepicker-svg .x1-timepicker-arcs .arc {
+    stroke-weight: 0.1;
+    fill: #283593;
+}
+
+.x1-timepicker-handler
+{
+	fill: #666666;
+}
