@@ -377,24 +377,12 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                     //console.log(data);
                     notifications.toast("Record Inserted, Product Code " + req.code , "success");
                     $scope.spinnerAdd=false;
-                    $scope.editForm.$setPristine();
-                    $scope.editForm.$setUntouched();
+                    $scope.clearFields();
                     $productHandler.getClient().LoadProduct().onComplete(function(data)
                     {
                         $scope.productlist=data;
                     });
-                    $scope.content.product_name='';
-                    //self.searchText='';
-                    $scope.content.files=[];
-                    $scope.content.descroption="";
-                    $scope.content.code="";
-                    $scope.content.quantity_of_unit="";
-                    $scope.content.price_of_unit=null;
-                    $scope.content.cost_price=null;
-                    $scope.content.tax="0";
-                    $scope.content.sku="false";
-                    $scope.content.applyTax=false;
-                    $scope.content.status=true;
+
                 }
             }).error(function(data) {
                 console.log(data);
