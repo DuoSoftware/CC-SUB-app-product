@@ -219,14 +219,16 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 		$mdDialog.show({
 		  	controller: 'addCategoryCtrl',
 		    templateUrl: 'partials/add_category.html',
+            locals:{categories: $scope.categories},
 		    parent: angular.element(document.body),
 		    targetEvent: ev,
 		    clickOutsideToClose:true
 		})
 		.then(function(categoryName) {
-			//debugger;
-			$scope.categories.push(categoryName);
-			$scope.content.category  = categoryName
+                if(categoryName!="") {
+                    $scope.categories.push(categoryName);
+                    $scope.content.category = categoryName
+                }
 		})
 
 	}
@@ -239,14 +241,16 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
         $mdDialog.show({
             controller: 'addBrandCtrl',
             templateUrl: 'partials/add_brand.html',
+            locals:{brands: $scope.brands},
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose:true
         })
             .then(function(brandName) {
-                //debugger;
-                $scope.brands.push(brandName);
-                $scope.content.brand  = brandName
+                if(brandName!="") {
+                    $scope.brands.push(brandName);
+                    $scope.content.brand = brandName
+                }
             })
 
     }
@@ -270,6 +274,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
         $mdDialog.show({
             controller: 'addUOMCtrl',
             templateUrl: 'partials/add_uom.html',
+            locals:{uoms: $scope.UOMs},
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose:true
@@ -671,143 +676,163 @@ app.filter('Confloat', function() {
     };
 });
 
-app.controller('addCategoryCtrl', function ($scope,$rootScope,$mdDialog,$charge) {
+app.controller('addCategoryCtrl', function ($scope,$rootScope,categories,$mdDialog,$charge,notifications) {
         //debugger;
   $scope.cancel = function() {
     $mdDialog.cancel();
   };
-  $scope.submit = function()
-  {
-      //console.log($rootScope.defaultCategory);
+  $scope.submit = function() {
       debugger;
-        if($rootScope.isCategoryLoaded) {
-            var req = {
-                "RecordName":"CTS_CommonAttributes",
-                "FieldName":"Category",
-                "RecordFieldData":$scope.category
-            }
+      for(i=0;i<categories.length;i++)
+      {
+          if(categories[i]==$scope.category)
+          {
+              notifications.toast("Category is already exist." , "error");
+              //$mdDialog.hide("");
+          }
+          else
+          {
+              if ($rootScope.isCategoryLoaded) {
+                  var req = {
+                      "RecordName": "CTS_CommonAttributes",
+                      "FieldName": "Category",
+                      "RecordFieldData": $scope.category
+                  }
 
-            $charge.commondata().insertDuoBaseValuesAddition(req).success(function(data) {
-                debugger;
-                console.log(data);
-                debugger;
-                if(data.IsSuccess) {
-                    console.log(data);
-                    //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
-                }
-            }).error(function(data) {
-                console.log(data);
-            })
-        }
-      else
-        {
-           var req= {
-                "GURecID":"123",
-                "RecordType":"CTS_CommonAttributes",
-                "OperationalStatus":"Active",
-                "RecordStatus":"Active",
-                "Cache":"CTS_CommonAttributes",
-                "Separate":"Test",
-                "RecordName":"CTS_CommonAttributes",
-                "GuTranID":"12345",
-                "RecordCultureName":"CTS_CommonAttributes",
-                "RecordCode":"CTS_CommonAttributes",
-                "commonDatafieldDetails":[
-                {
-                    "FieldCultureName":"Category",
-                    "FieldID":"124",
-                    "FieldName":"Category",
-                    "FieldType":"CategoryType",
-                    "ColumnIndex":"0"
-                }],
-                "commonDataValueDetails":[
-                {
-                    "RowID":"1452",
-                    "RecordFieldData":$scope.category,
-                    "ColumnIndex":"0"
-                }]
-            }
+                  $charge.commondata().insertDuoBaseValuesAddition(req).success(function (data) {
+                      debugger;
+                      console.log(data);
+                      debugger;
+                      if (data.IsSuccess) {
+                          console.log(data);
+                          //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+                      }
+                  }).error(function (data) {
+                      console.log(data);
+                  })
+              }
+              else {
+                  var req = {
+                      "GURecID": "123",
+                      "RecordType": "CTS_CommonAttributes",
+                      "OperationalStatus": "Active",
+                      "RecordStatus": "Active",
+                      "Cache": "CTS_CommonAttributes",
+                      "Separate": "Test",
+                      "RecordName": "CTS_CommonAttributes",
+                      "GuTranID": "12345",
+                      "RecordCultureName": "CTS_CommonAttributes",
+                      "RecordCode": "CTS_CommonAttributes",
+                      "commonDatafieldDetails": [
+                          {
+                              "FieldCultureName": "Category",
+                              "FieldID": "124",
+                              "FieldName": "Category",
+                              "FieldType": "CategoryType",
+                              "ColumnIndex": "0"
+                          }],
+                      "commonDataValueDetails": [
+                          {
+                              "RowID": "1452",
+                              "RecordFieldData": $scope.category,
+                              "ColumnIndex": "0"
+                          }]
+                  }
 
-            $charge.commondata().store(req).success(function(data) {
-                $rootScope.isCategoryLoaded=true;
-                if(data.IsSuccess) {
-                    console.log(data);
-                    //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
-                }
-            }).error(function(data) {
-                console.log(data);
-            })
-        }
+                  $charge.commondata().store(req).success(function (data) {
+                      $rootScope.isCategoryLoaded = true;
+                      if (data.IsSuccess) {
+                          console.log(data);
+                          //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+                      }
+                  }).error(function (data) {
+                      console.log(data);
+                  })
+              }
+              $mdDialog.hide($scope.category);
+          }
+          break;
+      }
 
-      $mdDialog.hide($scope.category);
   }
 })
 
-app.controller('addBrandCtrl', function ($scope,$rootScope,$mdDialog,$charge) {
-    debugger;
+app.controller('addBrandCtrl', function ($scope,$rootScope,brands,$mdDialog,$charge,notifications) {
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
     $scope.submit = function()
     {
-        if($rootScope.isBrandLoaded) {
-            var req = {
-                "RecordName": "CTS_CommonAttributes",
-                "FieldName": "Brand",
-                "RecordFieldData": $scope.brand
-            }
-            debugger;
-            $charge.commondata().insertDuoBaseValuesAddition(req).success(function (data) {
-                //console.log(data);
-                if (data.IsSuccess) {
-                    console.log(data);
-                    //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
-                }
-            }).error(function (data) {
-                console.log(data);
-            })
-        }
-        else
+        for(i=0;i<brands.length;i++)
         {
-            var req= {
-                "GURecID":"123",
-                "RecordType":"CTS_CommonAttributes",
-                "OperationalStatus":"Active",
-                "RecordStatus":"Active",
-                "Cache":"CTS_CommonAttributes",
-                "Separate":"Test",
-                "RecordName":"CTS_CommonAttributes",
-                "GuTranID":"12345",
-                "RecordCultureName":"CTS_CommonAttributes",
-                "RecordCode":"CTS_CommonAttributes",
-                "commonDatafieldDetails":[
-                    {
-                        "FieldCultureName":"Brand",
-                        "FieldID":"124",
-                        "FieldName":"Brand",
-                        "FieldType":"BrandType",
-                        "ColumnIndex":"1"
-                    }],
-                "commonDataValueDetails":[
-                    {
-                        "RowID":"1452",
-                        "RecordFieldData":$scope.brand,
-                        "ColumnIndex":"1"
-                    }]
+            if(brands[i]==$scope.brand)
+            {
+                notifications.toast("Brand is already exist." , "error");
+                //$mdDialog.hide("");
             }
-
-            $charge.commondata().store(req).success(function(data) {
-                $rootScope.isBrandLoaded=true;
-                if(data.IsSuccess) {
-                    console.log(data);
-                    //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+            else
+            {
+                if($rootScope.isBrandLoaded) {
+                    var req = {
+                        "RecordName": "CTS_CommonAttributes",
+                        "FieldName": "Brand",
+                        "RecordFieldData": $scope.brand
+                    }
+                    debugger;
+                    $charge.commondata().insertDuoBaseValuesAddition(req).success(function (data) {
+                        //console.log(data);
+                        if (data.IsSuccess) {
+                            console.log(data);
+                            //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+                        }
+                    }).error(function (data) {
+                        console.log(data);
+                    })
                 }
-            }).error(function(data) {
-                console.log(data);
-            })
+                else
+                {
+                    var req= {
+                        "GURecID":"123",
+                        "RecordType":"CTS_CommonAttributes",
+                        "OperationalStatus":"Active",
+                        "RecordStatus":"Active",
+                        "Cache":"CTS_CommonAttributes",
+                        "Separate":"Test",
+                        "RecordName":"CTS_CommonAttributes",
+                        "GuTranID":"12345",
+                        "RecordCultureName":"CTS_CommonAttributes",
+                        "RecordCode":"CTS_CommonAttributes",
+                        "commonDatafieldDetails":[
+                            {
+                                "FieldCultureName":"Brand",
+                                "FieldID":"124",
+                                "FieldName":"Brand",
+                                "FieldType":"BrandType",
+                                "ColumnIndex":"1"
+                            }],
+                        "commonDataValueDetails":[
+                            {
+                                "RowID":"1452",
+                                "RecordFieldData":$scope.brand,
+                                "ColumnIndex":"1"
+                            }]
+                    }
+
+                    $charge.commondata().store(req).success(function(data) {
+                        $rootScope.isBrandLoaded=true;
+                        if(data.IsSuccess) {
+                            console.log(data);
+                            //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
+                        }
+                    }).error(function(data) {
+                        console.log(data);
+                    })
+                }
+
+                $mdDialog.hide($scope.brand);
+            }
         }
 
-        $mdDialog.hide($scope.brand);
     }
 })
 
