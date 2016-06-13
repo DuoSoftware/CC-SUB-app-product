@@ -240,7 +240,7 @@
                                     <div ng-hide="editOff"><input type="checkbox" ng-model="changeProduct.apply_tax" ng-click="enableTaxCode(changeProduct.apply_tax)" ng-hide="editOff"/><text style="color:#989898;font-weight: 600">Apply Tax</text></div>
                                     <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.tax}}</text>
                                         <select id="selectTax" class="select-flow" ng-change="editBrand(changeProduct.tax)" ng-model="changeProduct.tax" ng-hide="editOff">
-                                            <option ng-repeat="value in taxes" value="{{value}}">{{value}}</option>
+                                            <option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</option>
                                         </select>
                                     </div>
                                 </md-content>
