@@ -9,11 +9,11 @@
                         </div>
                         <div class="text-wrap">
                             <h1 class="font-Lato">Product
-                                <i class="ti-close last">
-                                    <md-tooltip md-direction="bottom">
-                                        close
-                                    </md-tooltip>
-                                </i>
+                                <!--<i class="ti-close last">-->
+                                    <!--<md-tooltip md-direction="bottom">-->
+                                        <!--close-->
+                                    <!--</md-tooltip>-->
+                                <!--</i>-->
                                 <i class="ti-arrow-left first" ng-click="backToMain($event)">
                                     <md-tooltip md-direction="bottom">
                                         back
@@ -174,13 +174,13 @@
                                 <!--<input ng-required="false" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">-->
                             </md-input-container>
                         </div>
-                        <div layout-gt-sm="row">
-                            <md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-primary" flex-gt-sm>
+                        <div layout-gt-sm="row" class="h-60">
+                            <md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-primary p-t-0 m-b-40" flex-gt-sm>
                                 APPLY TAX
                             </md-checkbox>
                             <div hide-xs hide-sm flex-gt-sm="5">
                             </div>
-                            <md-input-container ng-show="content.applyTax == true" class="md-block" flex-gt-sm>
+                            <md-input-container ng-show="content.applyTax == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>
                                 <label>TAX</label>
                                 <md-select ng-required="content.applyTax" ng-model="content.tax">
                                     <md-option ng-repeat="value in taxGroup">
@@ -190,12 +190,12 @@
                             </md-input-container>
                         </div>
                         <div layout-gt-sm="row">
-                            <md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary" flex-gt-sm>
+                            <md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary p-t-0 m-b-40" flex-gt-sm>
                                 TRACK INVENTORY
                             </md-checkbox>
                             <div hide-xs hide-sm flex-gt-sm="5">
                             </div>
-                            <md-input-container ng-show="content.sku == true" class="md-block" flex-gt-sm>
+                            <md-input-container ng-show="content.sku == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>
                                 <label>MINIMUM STOCK LEVEL</label>
                                 <input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
                             </md-input-container>
@@ -211,11 +211,11 @@
 
                     <div class="form-footer-btn-wrap">
                         <div layout-gt-sm="row" class="p-0" ng-init="submitted=false">
-                            <div class="md-raise btn btn-cancel" flex-gt-sm style="background:#484848;height:66px">
-                                <md-button style="width:100%;line-height: 35px;color: white;font-size: 20px" type="button" ng-click="backToMain($event)">CANCEL</md-button>
+                            <div class="md-raise btn btn-cancel p-t-0" flex-gt-sm style="background:#484848;height:66px">
+                                <md-button style="width:100%;line-height: 66px;color: white;font-size: 20px" type="button" ng-click="clearFields()">CLEAR</md-button>
                             </div>
-                            <div class="md-raise btn btn-submit" flex-gt-sm style="background:#f4511e;height:66px">
-                                <md-button style="width:100%; line-height: 35px;color: white;font-size: 20px" ng-disabled="submitted" type="submit">SUBMIT</md-button>
+                            <div class="md-raise btn btn-submit p-t-0" flex-gt-sm style="background:#f4511e;height:66px">
+                                <md-button style="width:100%; line-height: 66px;color: white;font-size: 20px" ng-disabled="submitted" type="submit">SUBMIT</md-button>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,7 @@
 
             function loadProduct() {
                 cache=$productCacheHandler.get('productCache');
-                $charge.product().all(skip, take, 'asc')
+                $charge.product().all(skip, take, 'desc')
                     .success(function (data) {
                         //if(sessionStorage.getItem('productCache'))
                         //{
@@ -49,7 +49,7 @@
              */
             function loadProductByScroll(skipProd,takeProd) {
                 var productAll=[];
-                $charge.product().all(skipProd, takeProd, 'asc')
+                $charge.product().all(skipProd, takeProd, 'desc')
                     .success(function (data) {
                             for (var i = 0; i < data.length; i++) {
                                 productAll.push(data[i]);

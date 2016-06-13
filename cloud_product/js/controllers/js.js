@@ -423,7 +423,26 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 		 */
 
 	}
-	
+
+    $scope.clearFields= function () {
+        $scope.editForm.$setPristine();
+        $scope.editForm.$setUntouched();
+        $scope.content.product_name='';
+        //self.searchText='';
+        $scope.content.files=[];
+        $scope.content.descroption="";
+        $scope.content.code="";
+        $scope.content.quantity_of_unit="";
+        $scope.content.price_of_unit=null;
+        $scope.content.cost_price=null;
+        $scope.content.tax="0";
+        $scope.content.sku="false";
+        $scope.content.applyTax=false;
+        $scope.content.status=true;
+        $scope.content.uom="";
+        $scope.content.category="";
+        $scope.content.brand="";
+    }
 	$scope.backToMain = function(ev)
 	{
 		location.href = "#/main";
@@ -516,6 +535,8 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         //debugger;
         $productHandler.getClient().LoadProductByScroll(skip,take).onComplete(function(data)
         {
+            if(data.length<=take)
+                $scope.lastSet=true;
             if($scope.loading) {
                 for (i = 0; i < data.length; i++) {
                     $scope.products.push(data[i]);
@@ -540,7 +561,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         $scope.isSpinnerShown=true;
         $productHandler.getClient().LoadProductByScroll(skip,takeMre).onComplete(function(data)
         {
-            if(data.length<takeMre)
+            if(data.length<=takeMre)
                 $scope.lastSet=true;
             for (i = 0; i < data.length; i++) {
                 $scope.products.push(data[i]);
@@ -660,11 +681,11 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                 $rootScope.selectedProduct = editReq;
                 //debugger;
                 $rootScope.editOff = !$rootScope.editOff;
-                notifications.toast("Record Updated, Product ID "+ editReq.productId, "success");
+                notifications.toast("Record Updated, Product Code "+ editReq.code, "success");
             }
         }).error(function(data) {
             console.log(data);
-            notifications.toast("Error when updating record, Product ID " + editReq.productId , "error");
+            notifications.toast("Error when updating record, Product Code " + editReq.code , "error");
         })
 
     }
