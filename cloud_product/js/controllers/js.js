@@ -523,7 +523,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         //debugger;
         $productHandler.getClient().LoadProductByScroll(skip,take).onComplete(function(data)
         {
-            if(data.length<=take)
+            if(data.length<take)
                 $scope.lastSet=true;
             if($scope.loading) {
                 for (i = 0; i < data.length; i++) {
@@ -549,7 +549,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         $scope.isSpinnerShown=true;
         $productHandler.getClient().LoadProductByScroll(skip,takeMre).onComplete(function(data)
         {
-            if(data.length<=takeMre)
+            if(data.length<takeMre)
                 $scope.lastSet=true;
             for (i = 0; i < data.length; i++) {
                 $scope.products.push(data[i]);
