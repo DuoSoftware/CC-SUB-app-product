@@ -21,7 +21,7 @@ var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.ro
 })
 
 
-app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $state, $timeout, $q,$http, uiInitilize,$charge, $objectstore) {
+app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $state, $timeout, $q,$http, uiInitilize,$charge, $filter) {
 
     $rootScope.selectedProduct = {};
     $scope.filters = {};
@@ -102,19 +102,35 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 
 	$scope.openProduct = function(product)
 	{
-        $rootScope.viewCount=1;
         debugger;
+        var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
         $charge.stock().getStock(product.productId).success(function(data) {
             debugger;
             $rootScope.selectedProduct = product;
             $rootScope.selectedProduct.inventoryStock=data.qty;
-            //angular.element('#viewAllWhiteframe').css('margin', '0');
-            //angular.element('#viewAllWhiteframe').css('max-width', '550px');
+            $rootScope.selectedProduct.tax=taxgrp==undefined?"":$rootScope.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
+            if($rootScope.selectedProduct.apply_tax==0)
+            {
+                $rootScope.editTax=false;
+            }
+            else
+            {
+                $rootScope.editTax=true;
+            }
+            $rootScope.viewCount=1;
         }).error(function(data) {
             $rootScope.selectedProduct = product;
             $rootScope.selectedProduct.inventoryStock="0";
-            //angular.element('#viewAllWhiteframe').css('margin', '0');
-            //angular.element('#viewAllWhiteframe').css('max-width', '550px');
+            $rootScope.viewCount=1;
+            $rootScope.selectedProduct.tax=taxgrp==undefined?"":$rootScope.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
+            if($rootScope.selectedProduct.apply_tax==0)
+            {
+                $rootScope.editTax=false;
+            }
+            else
+            {
+                $rootScope.editTax=true;
+            }
         })
 
 	}
@@ -141,6 +157,9 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         //angular.element('#editContent').css('padding', '0px');
         //angular.element('#editContent').css('padding-left', '10px');
         $rootScope.editOff = !$rootScope.editOff;
+        if ($scope.selectedProduct.apply_tax != 0) {
+            $rootScope.editTax = !$rootScope.editTax;
+        }
         if($rootScope.editOff==true) {
             if ($scope.selectedProduct.status == "true") {
                 $scope.selectedProduct.status = true
@@ -152,11 +171,17 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
             if ($scope.selectedProduct.sku == "true") {
                 $scope.selectedProduct.sku = true
             }
+            else if ($scope.selectedProduct.sku == true) {
+                $scope.selectedProduct.sku = true
+            }
             else {
                 $scope.selectedProduct.sku = false;
             }
 
             if ($scope.selectedProduct.apply_tax == "true") {
+                $scope.selectedProduct.apply_tax = true
+            }
+            else if ($scope.selectedProduct.apply_tax == true) {
                 $scope.selectedProduct.apply_tax = true
             }
             else {
@@ -453,7 +478,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 })//END OF AddCtrl
 
 
-app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdToast,$charge,notifications,$state,$productHandler) {
+app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdToast,$charge,notifications,$state,$productHandler,$filter) {
     //debugger;
     var skip=0;
     var take=100;
@@ -645,6 +670,9 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     {
         debugger;
         var editReq=$scope.changeProduct;
+        var taxgropcode=editReq.tax;
+        var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
+        editReq.tax=taxgrp.taxgroupid;
         if(editReq.status=="false")
         {
             editReq.status=false;
@@ -666,9 +694,17 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                         $scope.products[i] = editReq;
                     }
                 }
+                editReq.tax=taxgropcode;
                 $rootScope.selectedProduct = editReq;
                 //debugger;
                 $rootScope.editOff = !$rootScope.editOff;
+                if($rootScope.selectedProduct.apply_tax==true ||$rootScope.selectedProduct.apply_tax=="true")
+                {
+                    //debugger;
+                    $rootScope.editTax = !$rootScope.editTax;
+                }
+                else
+                    $rootScope.selectedProduct.tax="";
                 notifications.toast("Record Updated, Product Code "+ editReq.code, "success");
             }
         }).error(function(data) {

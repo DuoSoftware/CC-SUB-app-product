@@ -235,8 +235,8 @@
                                     </select>
                                 </md-content>
                                 <md-content layout="row" layout-align="space-between center" style="padding:10px;">
-                                    <div ng-show="editOff"><text class="font-Lato font-weight600 text-gray-color">Tax Code</text></div>
-                                    <div ng-hide="editOff"><input type="checkbox" ng-model="changeProduct.apply_tax" ng-click="enableTaxCode(changeProduct.apply_tax)" ng-hide="editOff"/><text style="color:#989898;font-weight: 600">Apply Tax</text></div>
+                                    <div ng-show="editTax"><text class="font-Lato font-weight600 text-gray-color">Tax Code</text></div>
+                                    <div ng-hide="editOff"><input type="checkbox" ng-model="changeProduct.apply_tax" ng-true-value="true" ng-false-value="false" ng-checked="enableTaxCode(changeProduct.apply_tax)" ng-hide="editOff"/><text style="color:#989898;font-weight: 600">Apply Tax</text></div>
                                     <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.tax}}</text>
                                         <select id="selectTax" class="select-flow" ng-change="editBrand(changeProduct.tax)" ng-model="changeProduct.tax" ng-hide="editOff">
                                             <option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</option>
