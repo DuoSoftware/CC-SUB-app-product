@@ -9,46 +9,73 @@ app.controller('addUOMCtrl', function ($scope,$mdDialog,uoms,$charge,notificatio
         };
         $scope.submit = function()
         {
-            for(i=0;i<uoms.length;i++)
-            {
-                if(uoms[i]==$scope.uom)
-                {
-                    notifications.toast("UOM Code is already exist." , "error");
-                }
-                else
-                {
-                    var req = {
-                        "GUUOMID":"123",
-                        "GUUOMTypeID":"supplier1",
-                        "GUTranID":"12345",
-                        "CommitStatus":"Active",
-                        "UOMCode":$scope.uom,
-                        "uomApplicationMapperDetail":
-                            [{
-                                "GUApplicationID":"Product_123"
+            if(uoms.length!=0) {
+                for (i = 0; i < uoms.length; i++) {
+                    if (uoms[i] == $scope.uom) {
+                        notifications.toast("UOM Code is already exist.", "error");
+                    }
+                    else {
+                        var req = {
+                            "GUUOMID": "123",
+                            "GUUOMTypeID": "supplier1",
+                            "GUTranID": "12345",
+                            "CommitStatus": "Active",
+                            "UOMCode": $scope.uom,
+                            "uomApplicationMapperDetail": [{
+                                "GUApplicationID": "Product_123"
                             }],
-                        "uomConversionDetails":
-                            [{
-                                "FromUOMCode":$scope.uom,
-                                "Qty":"10",
-                                "ToUOMCode":$scope.uom
+                            "uomConversionDetails": [{
+                                "FromUOMCode": $scope.uom,
+                                "Qty": "10",
+                                "ToUOMCode": $scope.uom
                             }]
 
-                    }
-                    debugger;
-                    $charge.uom().store(req).success(function(data) {
-                        debugger;
-                        if(data.IsSuccess) {
-                            console.log(data);
                         }
-                    }).error(function(data) {
-                        console.log(data);
-                    })
+                        debugger;
+                        $charge.uom().store(req).success(function (data) {
+                            debugger;
+                            if (data.IsSuccess) {
+                                console.log(data);
+                            }
+                        }).error(function (data) {
+                            console.log(data);
+                        })
 
-                    //debugger;
-                    $mdDialog.hide($scope.uom);
+                        //debugger;
+                        $mdDialog.hide($scope.uom);
+                    }
+
                 }
+            }
+            else
+            {
+                var req = {
+                    "GUUOMID": "123",
+                    "GUUOMTypeID": "supplier1",
+                    "GUTranID": "12345",
+                    "CommitStatus": "Active",
+                    "UOMCode": $scope.uom,
+                    "uomApplicationMapperDetail": [{
+                        "GUApplicationID": "Product_123"
+                    }],
+                    "uomConversionDetails": [{
+                        "FromUOMCode": $scope.uom,
+                        "Qty": "10",
+                        "ToUOMCode": $scope.uom
+                    }]
 
+                }
+                debugger;
+                $charge.uom().store(req).success(function (data) {
+                    debugger;
+                    if (data.IsSuccess) {
+                        console.log(data);
+                    }
+                }).error(function (data) {
+                    console.log(data);
+                })
+
+                $mdDialog.hide($scope.uom);
             }
 
         }
