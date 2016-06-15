@@ -572,7 +572,11 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 				}, filesArray,-1)
 				
 			});
-		
+
+			$rootScope.startScanner = function() {
+
+				$rootScope.$broadcast('scanner-started');
+			}
 			
 			// Just some styling for the drop file container.
 			element.find('#drop-files').bind('dragenter', function() {

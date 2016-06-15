@@ -102,12 +102,12 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 
 	$scope.openProduct = function(product)
 	{
-        debugger;
+        //debugger;
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
         $charge.stock().getStock(product.productId).success(function(data) {
-            debugger;
-            $rootScope.selectedProduct = product;
-            $rootScope.selectedProduct.inventoryStock=data.qty;
+            //debugger;
+            $rootScope.selectedProduct = angular.copy(product);
+            $rootScope.selectedProduct.inventoryStock=$rootScope.selectedProduct.sku!=0?data.qty:"";
             $rootScope.selectedProduct.tax=taxgrp==undefined?"":$rootScope.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
             if($rootScope.selectedProduct.apply_tax==0)
             {
@@ -117,10 +117,17 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
             {
                 $rootScope.editTax=true;
             }
+
+            if($rootScope.selectedProduct.sku==0)
+                $rootScope.editInv=false;
+            else
+                $rootScope.editInv=true;
+
             $rootScope.viewCount=1;
         }).error(function(data) {
-            $rootScope.selectedProduct = product;
-            $rootScope.selectedProduct.inventoryStock="0";
+            $rootScope.selectedProduct = angular.copy(product);
+            $rootScope.selectedProduct.inventoryStock="";
+            //$rootScope.selectedProduct.inventoryStock=$rootScope.selectedProduct.sku!=0?data.qty:"";
             $rootScope.viewCount=1;
             $rootScope.selectedProduct.tax=taxgrp==undefined?"":$rootScope.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
             if($rootScope.selectedProduct.apply_tax==0)
@@ -131,6 +138,11 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
             {
                 $rootScope.editTax=true;
             }
+
+            //if($rootScope.selectedProduct.sku==0)
+                $rootScope.editInv=false;
+            //else
+            //    $rootScope.editInv=true;
         })
 
 	}
@@ -160,6 +172,11 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         if ($scope.selectedProduct.apply_tax != 0) {
             $rootScope.editTax = !$rootScope.editTax;
         }
+
+        if ($scope.selectedProduct.sku != 0) {
+            $rootScope.editInv = !$rootScope.editInv;
+        }
+
         if($rootScope.editOff==true) {
             if ($scope.selectedProduct.status == "true") {
                 $scope.selectedProduct.status = true
@@ -438,23 +455,26 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 	}
 
     $scope.clearFields= function () {
-        $scope.editForm.$setPristine();
-        $scope.editForm.$setUntouched();
-        $scope.content.product_name='';
-        //self.searchText='';
-        $scope.content.files=[];
-        $scope.content.descroption="";
-        $scope.content.code="";
-        $scope.content.quantity_of_unit="";
-        $scope.content.price_of_unit=null;
-        $scope.content.cost_price=null;
-        $scope.content.tax="0";
-        $scope.content.sku="false";
-        $scope.content.applyTax=false;
-        $scope.content.status=true;
-        $scope.content.uom="";
-        $scope.content.category="";
-        $scope.content.brand="";
+        //$scope.editForm.$setPristine();
+        //$scope.editForm.$setUntouched();
+        //$scope.content.product_name='';
+        ////self.searchText='';
+        //$scope.content.files=[];
+        //$scope.content.descroption="";
+        //$scope.content.code="";
+        //$scope.content.quantity_of_unit="";
+        //$scope.content.price_of_unit=null;
+        //$scope.content.cost_price=null;
+        //$scope.content.tax="0";
+        //$scope.content.sku="false";
+        //$scope.content.applyTax=false;
+        //$scope.content.status=true;
+        //$scope.content.uom="";
+        //$scope.content.category="";
+        //$scope.content.brand="";
+        //$scope.content.files=[];
+        //$('#deletebtn').click();
+        $state.go($state.current, {}, {reload: true});
     }
 	$scope.backToMain = function(ev)
 	{
@@ -670,7 +690,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     {
         debugger;
         var editReq=$scope.changeProduct;
-        var taxgropcode=editReq.tax;
+        var tempTaxgroup=angular.copy(editReq);
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
         editReq.tax=taxgrp.taxgroupid;
         if(editReq.status=="false")
@@ -691,10 +711,10 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                 {
                     if($scope.products[i].productId==editReq.productId)
                     {
-                        $scope.products[i] = editReq;
+                        $scope.products[i] = angular.copy(editReq);
                     }
                 }
-                editReq.tax=taxgropcode;
+                editReq.tax=tempTaxgroup.tax;
                 $rootScope.selectedProduct = editReq;
                 //debugger;
                 $rootScope.editOff = !$rootScope.editOff;
@@ -705,6 +725,13 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                 }
                 else
                     $rootScope.selectedProduct.tax="";
+                if($rootScope.selectedProduct.sku==true ||$rootScope.selectedProduct.sku=="true")
+                {
+                    //debugger;
+                    $rootScope.editInv = !$rootScope.editInv;
+                }
+                else
+                    $rootScope.selectedProduct.inventoryStock="";
                 notifications.toast("Record Updated, Product Code "+ editReq.code, "success");
             }
         }).error(function(data) {

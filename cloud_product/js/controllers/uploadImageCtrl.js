@@ -2,7 +2,7 @@
  * Created by Suvethan on 4/5/2016.
  */
 
-app.controller('uploadImgCtrl', function ($scope,$mdDialog) {
+app.controller('uploadImgCtrl', function ($scope,$mdDialog,$rootScope) {
     debugger;
     $scope.cancel = function() {
         //$mdDialog.cancel();
@@ -18,4 +18,9 @@ app.controller('uploadImgCtrl', function ($scope,$mdDialog) {
         debugger;
         $mdDialog.hide($scope.content.files);
     }
+
+    $rootScope.$on('scanner-started', function(event, args) {
+
+        $mdDialog.hide($scope.content.files);
+    });
 })

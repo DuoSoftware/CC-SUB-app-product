@@ -60,9 +60,9 @@
                         </div>
                     </div>
                     <div style="padding:15px;background:#f7f7f7">
-                        <div layout-gt-sm="row">
+                        <div layout-gt-sm="row" class="search-wrap">
                             <md-input-container class="md-block" flex-gt-sm style="margin:0;margin-top:10px">
-                                <label style="font-size:20px;color:#0072a5">Search</label>
+                                <label>Search</label>
                                 <input id="search" ng-model="search">
                             </md-input-container>
 
@@ -251,7 +251,7 @@
                                     </div>
                                 </md-content>
                                 <md-content layout="row" layout-align="space-between center" style="padding:10px;">
-                                    <div ng-show="editOff"><text class="font-Lato font-weight600 text-gray-color">Inventory Stock Level</text></div>
+                                    <div ng-show="editInv"><text class="font-Lato font-weight600 text-gray-color">Inventory Stock Level</text></div>
                                     <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.inventoryStock}}</text>
                                     </div>
                                 </md-content>
@@ -283,7 +283,7 @@
 	<md-fab-trigger>
 		<md-button aria-label="menu" class="md-fab " style="background-color:#e64a19;" href="#/add">
 			<md-icon md-svg-src="../img/ic_add_24px.svg" style="width:30px;" ></md-icon>
-			<md-tooltip md-direction="left">Add Product</md-tooltip>
+			<md-tooltip md-direction="left">Add New</md-tooltip>
 		</md-button>
 	</md-fab-trigger>
 	<md-fab-actions>
