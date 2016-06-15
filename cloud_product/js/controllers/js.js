@@ -393,7 +393,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                 $scope.content.cost_price=0;
             //if($scope.content.tax==null ||$scope.content.tax=="")
             //    $scope.content.tax="0";
-            if($scope.content.applyTax==null || $scope.content.applyTax=="false")
+            if($scope.content.applyTax==null || $scope.content.applyTax=="false" || $scope.content.applyTax==false)
             {
                 $scope.content.applyTax=false;
                 $scope.content.tax="0";
