@@ -329,7 +329,9 @@ md-input-container > label {
 .right-layout {
     background: #fff;
     width: auto;
-    height: 658px !important;
+    /*height: 658px !important;*/
+    min-height: 635px;
+    max-height: 635px;
     margin-left: -2px;
     padding-left: 40px;
     padding-right: 40px;
