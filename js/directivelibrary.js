@@ -481,6 +481,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 			
 			// total of all the files dragged and dropped
 			var filesArray = [];
+			scope.model = [];
 			scope.disableButton = false;
 			
 			// Bind the drop event to the dropzone.
