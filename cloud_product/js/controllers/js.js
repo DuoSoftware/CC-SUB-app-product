@@ -393,9 +393,10 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                 $scope.content.cost_price=0;
             //if($scope.content.tax==null ||$scope.content.tax=="")
             //    $scope.content.tax="0";
-            if($scope.content.applyTax==null || $scope.content.applyTax=="false" || $scope.content.applyTax==false)
+            debugger;
+            if($scope.content.apply_tax==undefined || $scope.content.apply_tax==null || $scope.content.apply_tax=="false" || $scope.content.apply_tax==false)
             {
-                $scope.content.applyTax=false;
+                $scope.content.apply_tax=false;
                 $scope.content.tax="0";
             }
             else
@@ -404,7 +405,8 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                 //debugger;
                 $scope.content.tax=taxgrp.taxgroupid;
             }
-            if($scope.content.sku==null | $scope.content.sku=="false")
+            debugger;
+            if($scope.content.sku==undefined || $scope.content.sku==null || $scope.content.sku=="false" || $scope.content.sku==false)
             {
                 $scope.content.sku=false;
                 $scope.content.minimun_stock_level=0;

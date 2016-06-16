@@ -175,14 +175,14 @@
                             </md-input-container>
                         </div>
                         <div layout-gt-sm="row" class="h-60">
-                            <md-checkbox ng-model="content.applyTax" aria-label="APPLY TAX" class="md-primary p-t-0 m-b-40" flex-gt-sm>
+                            <md-checkbox ng-model="content.apply_tax" aria-label="APPLY TAX" class="md-primary p-t-0 m-b-40" flex-gt-sm>
                                 APPLY TAX
                             </md-checkbox>
                             <div hide-xs hide-sm flex-gt-sm="5">
                             </div>
-                            <md-input-container ng-show="content.applyTax == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>
+                            <md-input-container ng-show="content.apply_tax == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>
                                 <label>TAX</label>
-                                <md-select ng-required="content.applyTax" ng-model="content.tax">
+                                <md-select ng-required="content.apply_tax" ng-model="content.tax">
                                     <md-option ng-repeat="value in taxGroup">
                                         {{value.taxgroupcode}}
                                     </md-option>
