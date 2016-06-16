@@ -695,7 +695,8 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         var editReq=$scope.changeProduct;
         var tempTaxgroup=angular.copy(editReq);
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
-        editReq.tax=taxgrp.taxgroupid;
+        if(taxgrp!=undefined || taxgrp!=null)
+            editReq.tax=taxgrp=taxgrp.taxgroupid;
         if(editReq.status=="false")
         {
             editReq.status=false;
