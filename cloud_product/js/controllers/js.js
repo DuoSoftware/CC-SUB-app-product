@@ -697,6 +697,8 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
         if(taxgrp!=undefined || taxgrp!=null)
             editReq.tax=taxgrp=taxgrp.taxgroupid;
+        else
+            editReq.tax=0;
         if(editReq.status=="false")
         {
             editReq.status=false;
