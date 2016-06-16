@@ -31,6 +31,7 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
     $scope.taxes = ['10', '20', '30', '40'];
     $scope.brands=[];
     $scope.taxGroup=[];
+    $scope.UOMs=[];
     var skipGrp= 0,takeGrp=100;
     var response="";
 

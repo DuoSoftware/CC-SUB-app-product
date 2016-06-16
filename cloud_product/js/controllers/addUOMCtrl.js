@@ -9,6 +9,7 @@ app.controller('addUOMCtrl', function ($scope,$mdDialog,uoms,$charge,notificatio
         };
         $scope.submit = function()
         {
+            debugger;
             if(uoms.length!=0) {
                 for (i = 0; i < uoms.length; i++) {
                     if (uoms[i] == $scope.uom) {
