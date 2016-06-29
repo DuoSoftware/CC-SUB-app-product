@@ -101,6 +101,21 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         $rootScope.isCategoryLoaded=false;
     })
 
+    //var productPrefix,prefixLength;
+    //$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","ProductPrefix").success(function(data) {
+    //    productPrefix=data[0];
+    //    //debugger;
+    //}).error(function(data) {
+    //    console.log(data);
+    //})
+    //
+    //$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","PrefixLength").success(function(data) {
+    //    prefixLength=data[0];
+    //    //debugger;
+    //}).error(function(data) {
+    //    console.log(data);
+    //})
+
 	$scope.openProduct = function(product)
 	{
         //debugger;

@@ -1,7 +1,7 @@
 /**
  * Angular Material still lacks some components. This project aims to bring those missing components.
- * directive-library build:24-05-2016
- * Last update: Added Loading dialog to freeze user input when performing back-end oprations like inserts
+ * directive-library build:24-06-2016
+ * Last update: custom directive for cc (file uploader)
 **/
 
 //(function($angular) {
@@ -463,7 +463,7 @@ _____ __ __    _____    __ __ _____ __     _____   ___  _____      __ _____  ___
 directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$http", "$uploader", "$storage","notifications", function($rootScope, $mdToast, $http,$uploader,$storage, notifications) {
 	  return {
 		restrict: 'E',
-		template: "<div class='content' ng-init='showUploadButton=false;showDeleteButton=false;showUploadTable=false;'><div id='drop-files' ondragover='return false' layout='column'><div id='uploaded-holder'><div id='dropped-files' ng-show='showUploadTable' style='width:100%'><table id='Tabulate' style='width:100%'></table></div></div><div layout='row' layout-align='space-around center' style='margin-top: 20px;'><md-button class='md-raised' id='uploadbtn' aria-label='uploadbtn' ng-show='showUploadButton' ng-disabled='disableButton' style='margin-top: 5px;'><md-icon md-svg-src='../img/directive_library/ic_cloud_upload_24px.svg' style='color:#1976D2'></md-icon><span style='margin-left: 5px;'>Upload</span></md-button><md-button class='md-raised' id='deletebtn' aria-label='deletebtn' ng-show='showDeleteButton' ng-disabled='disableButton' style='color:rgb(244,67,54);'><md-icon md-svg-src='../img/directive_library/ic_delete_24px.svg' style='color:rgb(244,67,54)'></md-icon><span style='margin-left: 5px;'>Remove All</span></md-button></div><div layout='column'><img src='../img/directive_library/placeholder.png' ng-show='!showUploadButton' style='width:54px;height:54px;margin: 0 auto;margin-bottom:12px'></img><text style='font-weight:700;font-size:14px;margin: 15px;'>{{label}}<text></div></div></div>",
+		template: "<div class=\'content\' ng-init=\'showUploadButton=false;showDeleteButton=false;showUploadTable=false;\'>\r\n   <div id=\'drop-files\' ondragover=\'return false\' layout=\'column\'>\r\n      <div id=\'uploaded-holder\'>\r\n         <div id=\'dropped-files\' ng-show=\'showUploadTable\' style=\'width:100%\'>\r\n            <table id=\'Tabulate\' style=\'width:100%\'></table>\r\n         </div>\r\n      </div>\r\n      <div layout=\'row\' layout-align=\'space-around center\' style=\'margin-top: 20px;\'>\r\n         <md-button class=\'md-raised\' id=\'uploadbtn\' aria-label=\'uploadbtn\' ng-show=\'showUploadButton\' ng-disabled=\'disableButton\' style=\'margin-top: 5px;\'>\r\n            <md-icon md-svg-src=\'/img/directive_library/ic_cloud_upload_24px.svg\' style=\'color:#1976D2\'></md-icon>\r\n            <span style=\'margin-left: 5px;\'>Upload</span>\r\n         </md-button>\r\n         <md-button class=\'md-raised\' id=\'deletebtn\' aria-label=\'deletebtn\' ng-show=\'showDeleteButton\' ng-disabled=\'disableButton\' style=\'color:rgb(244,67,54);\'>\r\n            <md-icon md-svg-src=\'/img/directive_library/ic_delete_24px.svg\' style=\'color:rgb(244,67,54)\'></md-icon>\r\n            <span style=\'margin-left: 5px;\'>Remove All</span>\r\n         </md-button>\r\n      </div>\r\n      <div layout=\'column\'>\r\n		 <input id=\"uploadToFileUploader\" type=\"file\" multiple style=\"display:none\" />\r\n         <img ng-show=\'!showUploadButton\' style=\'width:200px;height:93px;margin: 0 auto;margin-bottom:12px\' src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUQAAACWCAMAAACRtQFkAAAAhFBMVEX////z9ff4+fqImar/4pP7/Pzo7O+vu8aaqLems8CQoLD/5ZrAydP//vqLnKz//fXY3eP/8ML/+ebS2eC6xM7/56LHz9je4ueWpbTu8PO1wMvN1Nz/66/k6Oz/9dmdq7n/6aj/9NT/7rv/99//++6rt8OjsL3r7vH/7Lbh5er/887/8cnT0KfiAAALP0lEQVR42uza23aiMBSA4R12CBrOoAIqnsZqte//fpOgrTooE6EIXc130TW9mvZf2bKBgqZpmvaTEGaC1hBjBDQdsXs64vMMRqojmiwDrRphzKiMmDEGWjWTsX1VREOPt+JRrIjImF55FIhMjyMSfRCVyIF9FNFk+hNRzZ4xsxzxMuua2lHMrpMaVwdR7zeqspvzZl4HzfVVRUHVgTP1VeUJxoNPvv1eH0RN0zRN0zRNU2OwmnLQTrIh1sUd0CQjxXRYzxJxApowQwtqMlNd8WSKB5GjFhgh4gw0sJABqUdE5IgxaCKiWT9iMNAVG0dMCEec/Po3Lg0jQuYhYjoczQ6/+Hm3hXmjiCDP4m4pU/LddBL8undYxmE25Rg3i1hUPEAWTKY7joje0nKCX/FO1WSxM5S/MueYNIxYVMyhQA6z0VuKQvrWvwmP1gsfvoM8MtbgdGLE8DX+TJQyjh67uRkPHOtrwpOeTPjapsLGbT69O16cEidm5vdcWEoVL24nPIdO+XN6snIbT+9ODJnxnVfnk72H3h7KzhM+TEVJBzoUyWNoz1fi60ez6U3I9684Z8xDnlVOgYcMOvNBhdAv/mHDE0w5vd5pegNmtrQnqlaEJXITOhLKY/gHJHEiI1AW89P05kary/aXXFQk8FjK0YJu/BEN5/5XzyOo2uMwIC+4Y7k4YFVFEx2OCXRiLhq6cLKmdAOqJmgAvDQiJFUVGQYJegZ0wBUH0YeziNIxqJq9IOIMHbgWIKYG3BfgHizcQQdkRPf6G1CVYN56RMK9UXxt+rii45lgcpxBB8aUhtff+KCI4KztiCYEHEseVLQGxUx7GbzeUV5Y/lwibkEVH7UdUdQisXPrDdGBe5YWCA4OoANzKoyP8gT6tjyJqoa7tiMSw1R/8XW+YRngCJ62PUbQiLuhhc16saJ0BcpGvEHE+lnZ/YgZxiARD3N4kl8syM1sNzb9tABlMZLXRySPIibIoBA/f+OykLds0JR7HNPCB9wXheUxzzHpUcTL2jrEt04iFpnm8zCCB8Z3tnADJz2KOE3hzOAYdBSxmk3foSS1ehkREvTIj4loLXsUMUZnb34GxSWocoW1jOgK0Jrtei3+l5X46pfuEfoTUZRDb2A5MTPATHECSqIxvWYvoB0+/bKCGwGyHkWEfeycX2ENLcRMcUm+ZUM7XJue/TvSewz6FLFgfr7CSk1Q8E5vjaElbhRFNp1H0bZ8k9C7iGfZ0gtAgf8+ForXI2NhHkFJyxcWWL71NSLkGPyMqzNM095GDDC7Om4LgHDldh1xRcP7dwl9jXi9OUSUrkNqdx7RX7v3n8v2NaI1gAu5B9pR5+Os/lxWPWIeMFJtHxzqRlxacGUjN4vqiB/QFT6qH3GE6MWkSsARrZoRPef2JNpVr+DcMbW30JXhrnbEBAVOqqQoxPVWHIxvbhcWkU2jqi3Ohc6MeO2IM5QYqYDSRDFi1c1UuJAPr13opxhJ3YjMQ8SUVNmhkNSKOMGf80eg957LmpNpohCRxByXB1KF7ZBPiEJEI8jLG+yPce+57AgRc6UVJyP/kymtOITjvz/Hbgg1uYvNahVG0Bql57IDRJy8dE+cIWJaWhtqiUKbFkJoyl2FAJvyVV/puexUnsSXRgwQcVdaYGvwN1SyZcgjNOSLW+W/7Z0Nf6ogFMbBk72YqU2zMt/SrNa+//e74V0hkaXI7sXWs+Zyq37j7wHOOYBkg6ndKLoSaBNlRyz+eMKmDz/hU8R2FoQgqcrx+actYe4siZMauRIqhn0bwKiFaFyziGeI6EtGCDNvOH/7AI6KED1DxBAr5mdLyM9uz5/RjKJlqghxshepfmV3QlPeeef0YWynjWZDJIU4xGFgPvRvPO8gCHEViEH8qk4gzlA3xTlCs0ZXIliJQwwAJod6VzsB8MUgauCLVee0akcpkiPR+CqYRA0gRgbAOKphuDQAkiaWqPnunZnHYpnnwY6eyBn5E58vq68AAsxArDU2Y4PvybcAJusGbaKzAs7NcmEt2BPMaeZHwBLl5mVJTbUKV3u2VHddAEDi8CmeFZDLcE+6A0UlaJ4ArJa89yo6ODy9MAwFfBzpedloAmcZSTF5vFTXNwhG8xNTOd6YxHEuroMIY2/jOkvXLCwAy9TvxVFCyr5NMT+SIeimqbNdbv9YXhZvzvxKOfqjPti0gDAbef7G2ZheYZT0/VoXJwILrtpvMOI15rseO8/tRpM9w9N8MSAMnwe9V96DxccP5mX1dTQsnvmJQ3MPjKyJv37oJ65d3wxG3maJGzqvu7CcwGE/bxW/tWgWOp8I71JbWXlZcWf7sBmNLSAykpG77uhsr8G5KesFjd1sgtMxb1aPyxenX9uwa6gdwVJSxHIYRsN154iFD+jtsAS4IHTQU9n5rkW+Yjrffcc3Wce8rGphnw/a7ULktEzNUD9Q0urc4+zqEE1n3fKyqkFkoqicplhDkiWUp7QCLuzYKhaJahD3BdvhTvNrt3FE8jQdhDRO7uibm5auGETDY+rcdMes/5RpiVWigy712YGhWhAxbJh4OGYXg0pTVs2Whd2WEx3AUQsiMzawoIWjJ3KUV1uHtONHW6ZaEJmxgWNZUnoS36wlSxfHGImIXZMbtzRyOz/FNpuXVQuiZ9x0zmlOK+D2jhMezoR9nDki+iCjhFnr2xDNZ1WPQi2IbDSf0UW0pM7lbCo7jPO5wCAz7fm/druvv7H2rBX9UiHj2yoFcRXcjrkRZfEHeWbza+1yYR/8NLgqs1uNQwy+Pog1bqt5WZUgauDXL6LNqoZ0QRoKOcr0ApGx6pbvisn/VTVFDBuVIA5hWbuINpwxBjG91Pi5+LLSNM3iWdtl+lP6kzq3KkF0YX2/tItwy6K9WGIqaoni9zrgvfXJXiWIzccG0r/eTyzcJopnLk7f/VrVp1AJ4ihp0cCn2zjrMAVMvFc/nkh7mjN5WYUgjkdt3DXh20aKiybQ52xeVh2IepvbKO7mYZrlSLoaJdCn2xunQh2IJJTvgfgE+mqkDkQHerohb5GoA9GHnm4/aVq6MhD7tG6AkQMHZSDuC9RPHcBRBqLhoX5Kt0xVIOL+bjySFKpAXMIn6qmClSoQNz1a1MfPOVAEomegvmoJ0QOIkVSIn1A8Hhvoq+qac7z0AwNcqRCdh1tfrALUW3GOhRa5Ht2PRSbECMbXrS/827v1a33e56+6NPbgmJUdHX6oTcTLcuuLs8aF6UZaJaH0/5WHO7RbzFsHfob2XXuTy44OB/0HOxZq72ZRTg81JmTiLC4sTbzQElPX03zRPtW7tsbBxPhbGGIX/7R31g+OP0oMIHIlFlpcmdiUgGhvJEHdfizoX7g4pIb7Q9mFFr/TX4ykiELUsCxpiEJUttCzcCCZolcGYrokkUlf1IuRWuitxDGUhX2SuqzNhUJH8qQX17kCyhbantsIfXzILHUCxlieDBhfronChZYubWSAPBmj3mYYunKUpt9K8K23+qOrB0O+UU8HPQUkhknTNUHpRL8Qb0ntrjB9XL7YB/tLXq8P9IYdT6id+A94bZoVenXI8K0hPn3geqpXvQxJvaaALCmNHhnxf6RPau2QPe8/yEqZOZj8ET/BS/nwv+VtlJy8AsYLEg3zSHgSHO6a45VU7bsxPce9j2gYKFyxOSpEHG/MYuMvAEsQ83/oOUSkM1QwD5Cr6vSkjhdXdfG9K0EOL9MqXrtmzJoWB4SSoK/jDIv5JP6kgha/WAdNSbLgeDYMDB4+fWPlKdfmvp6Hw8UqXPVjYFIamKXENwccbHr6eq72s8CPt0kWFw+pPHA8f2kUfScJoXPWRUFVK+r58WuTD2+99dZbquoP0XHVhI81JUEAAAAASUVORK5CYII=\"></img>\r\n         <text style=\'font-weight:700;font-size:14px;margin: 15px;\'>\r\n			Drag a file or <span onclick=\"$(\'#uploadToFileUploader\').click();\" style=\"color:#04a3eb;cursor:pointer;\">browse</span> for a file to upload<!--{{label}}-->\r\n         <text>\r\n      </div>\r\n   </div>\r\n</div>",
 		scope:{
 			osClass:'@',
 			label:'@',
@@ -478,11 +478,24 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 
 			// file/s on a single drag and drop
 			var files;
-			
 			// total of all the files dragged and dropped
 			var filesArray = [];
-			scope.model = [];
 			scope.disableButton = false;
+			
+			$("#uploadToFileUploader").change(function(e){
+
+					if( !e ) e = window.event;
+					var x = e.target||e.srcElement;
+					
+					var files = e.target.files;
+					console.log(files);
+					for(indexx = 0; indexx < files.length; indexx++) {
+						console.log(indexx);
+						filesArray.push(files[indexx]);
+					}
+					
+				  addFilesToArray();
+			});
 			
 			// Bind the drop event to the dropzone.
 			element.find("#drop-files").bind('drop', function(e) {
@@ -491,13 +504,19 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 				// To the dropped file
 				
 				  files = e.dataTransfer.files || e.dataTransfer.files;
-				
+				   
+				   console.log(files);
 				  for(indexx = 0; indexx < files.length; indexx++) {
 						filesArray.push(files[indexx]);
 					}
 				
-
-			 var newHtml = "<tr class='md-table-headers-row'><th class='md-table-header' style='Padding:0px 16px 10px 0;min-width:0'>Name</th><th class='md-table-header' style='Padding:0px 16px 10px 0;min-width:0'>Type</th><th class='md-table-header' hide-xs style='Padding:0px 16px 10px 0;min-width:0'>Size</th></tr>";
+					addFilesToArray()
+	
+			});
+			
+			function addFilesToArray()
+			{
+				var newHtml = "<tr class='md-table-headers-row'><th class='md-table-header' style='Padding:0px 16px 10px 0;min-width:0'>Name</th><th class='md-table-header' style='Padding:0px 16px 10px 0;min-width:0'>Type</th><th class='md-table-header' hide-xs style='Padding:0px 16px 10px 0;min-width:0'>Size</th></tr>";
 
 			  for (var i = 0; i < filesArray.length; i++) {
 					 var tableRow = "<tr><td class='upload-table'>" + filesArray[i].name + "</td><td class='upload-table'>" +
@@ -513,8 +532,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 					scope.showDeleteButton = true;
 					scope.showUploadTable = true;
 				 })
-	
-			});
+			}
 			
 			function restartFiles() {
 				
@@ -573,11 +591,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 				}, filesArray,-1)
 				
 			});
-
-			$rootScope.startScanner = function() {
-
-				$rootScope.$broadcast('scanner-started');
-			}
+		
 			
 			// Just some styling for the drop file container.
 			element.find('#drop-files').bind('dragenter', function() {
