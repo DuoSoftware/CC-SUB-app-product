@@ -10,12 +10,13 @@
             </div>
         </md-toolbar>
         <md-dialog-content style="max-width:800px;max-height:810px; ">
-            <div class="md-dialog-content">
-                    <md-input-container>
-                        <file-up-loader os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>
-                        </file-up-loader>
-                    </md-input-container>
-            </div>
+            <!--<div class="md-dialog-content">-->
+                <div class="section_padding">
+                    <div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">PRODUCT IMAGE</div>
+                    <file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>
+                    </file-up-loader>
+                </div>
+            <!--</div>-->
         </md-dialog-content>
     </form>
 </md-dialog>
