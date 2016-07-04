@@ -519,7 +519,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdToast,$charge,notifications,$state,$productHandler,$filter) {
     //debugger;
     var skip=0;
-    var take=100;
+    var take=1000;
     var response="";
 
     //newly added code start
