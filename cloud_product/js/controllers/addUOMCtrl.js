@@ -43,10 +43,11 @@ app.controller('addUOMCtrl', function ($scope,$mdDialog,uoms,$charge,notificatio
                         })
 
                         //debugger;
-                        $mdDialog.hide($scope.uom);
+                        break;
                     }
 
                 }
+                $mdDialog.hide($scope.uom);
             }
             else
             {
