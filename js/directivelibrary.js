@@ -480,6 +480,7 @@ directiveLibraryModule.directive('fileUpLoader',["$rootScope", "$mdToast", "$htt
 			var files;
 			// total of all the files dragged and dropped
 			var filesArray = [];
+			scope.model = [];
 			scope.disableButton = false;
 			
 			$("#uploadToFileUploader").change(function(e){

@@ -13,7 +13,7 @@
     }
     function getSecurityToken() {
         var _st = gst("securityToken");
-        return (_st != null) ? _st : "d8c17a12da4c5174e81209e0aa993853";//d8c17a12da4c5174e81209e0aa993853	78d2a5c15ea3254f273e437f49f2f3c9
+        return (_st != null) ? _st : "8bb4e93e877564262d46723d099108d9";//d8c17a12da4c5174e81209e0aa993853	8bb4e93e877564262d46723d099108d9
     }
     function BP(){
         var sfn,ffn, u,endpoint,domain, b, p,host;

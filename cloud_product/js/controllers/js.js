@@ -101,6 +101,7 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         $rootScope.isCategoryLoaded=false;
     })
 
+
     //var productPrefix,prefixLength;
     //$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","ProductPrefix").success(function(data) {
     //    productPrefix=data[0];
@@ -263,7 +264,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
     $scope.content.category="";
     $scope.content.brand="";
     $scope.content.uom="";
-    $scope.content.selectCurrency="USD";
+    $scope.content.selectCurrency="";
     $scope.content.status=true;
     $scope.toggleActive = true;
     $scope.Currencies=['LKR','USD','GBP'];
@@ -512,6 +513,13 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
             }
         });
     }
+
+    //18-07-2016
+    $charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_GeneralAttributes","BaseCurrency").success(function(data) {
+        $scope.content.selectCurrency=data[0]['RecordFieldData'];
+    }).error(function(data) {
+        console.log(data);
+    })
 	
 })//END OF AddCtrl
 
