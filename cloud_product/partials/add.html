@@ -9,26 +9,33 @@
                         </div>
                         <div class="text-wrap">
                             <h1 class="font-Lato">Product
-                                <!--<i class="ti-close last">-->
-                                    <!--<md-tooltip md-direction="bottom">-->
-                                        <!--close-->
-                                    <!--</md-tooltip>-->
-                                <!--</i>-->
-                                <i class="ti-arrow-left first" ng-click="backToMain($event)">
+                                <i class="ti-close last" ng-click="closeApplication()">
                                     <md-tooltip md-direction="bottom">
-                                        back
+                                        close
                                     </md-tooltip>
                                 </i>
+                                <!--<i class="ti-arrow-left first" ng-click="backToMain($event)">-->
+                                    <!--<md-tooltip md-direction="bottom">-->
+                                        <!--back-->
+                                    <!--</md-tooltip>-->
+                                <!--</i>-->
                             </h1>
 
                         </div>
                     </div>
                 </div>
             </md-toolbar>
-            <md-content class="overflow-hidden" style="width:100%">
-                <div class="div-spinner" ng-show="spinnerAdd">
-                    <md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>
+            <div class="div-spinner" ng-show="spinnerAdd">
+                <div class="please-wait">
+                    <svg class="spinner-container" width="50px" height="50px" viewBox="0 0 52 52">
+                        <circle class="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"/>
+                    </svg>
                 </div>
+            </div>
+            <md-content class="overflow-hidden" style="width:100%">
+                <!--<div class="div-spinner" ng-show="spinnerAdd">-->
+                    <!--<md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>-->
+                <!--</div>-->
                 <form name="editForm" ng-submit="submit()">
                     <div class="section_padding">
                         <div layout-gt-sm="row">
@@ -207,6 +214,10 @@
                         <div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">PRODUCT IMAGE</div>
                         <file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>
                         </file-up-loader>
+                        <div class="add-new hvr-pop view-btn-style" >
+                            <i class="ti-eye" ng-click="backToMain($event)"></i>
+                            <md-tooltip md-direction="left">View all products</md-tooltip>
+                        </div>
                     </div>
 
                     <div class="form-footer-btn-wrap">

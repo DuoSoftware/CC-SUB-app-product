@@ -20,7 +20,7 @@ body, html {
     box-shadow: 0 1px 11px 0 rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.2);
     overflow: hidden;
     position: relative;
-
+    height: 680px;
 }
 
 .main-wrap {
@@ -242,12 +242,12 @@ md-input-container > label {
 
 .add-new {
     position: fixed;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: #e64a19;
-    top: 50%;
-    right: 32%;
+    background: #00c9dd;
+    top: 80%;
+    right: 25%;
     color: #ffffff;
     text-align: center;
     -webkit-box-shadow: -3px 17px 17px -14px rgba(0, 0, 0, 0.75);
@@ -259,7 +259,7 @@ md-input-container > label {
     font-size: 30px;
     text-align: center;
     margin: 0 auto;
-    line-height: 70px;
+    line-height: 60px;
     cursor: pointer;
 }
 
@@ -330,8 +330,8 @@ md-input-container > label {
     background: #fff;
     width: auto;
     /*height: 658px !important;*/
-    min-height: 635px;
-    max-height: 635px;
+    min-height: 680px;
+    max-height: 680px;
     margin-left: -2px;
     padding-left: 40px;
     padding-right: 40px;
@@ -555,4 +555,52 @@ md-input-container > label {
 .btn-search-all
 {
     background: rgb(167, 166, 166);
+}
+
+/*22-07-16 filter*/
+
+.type-toggle-wrapper {
+    width: 100%;
+    position: absolute;
+    top: 59px;
+    right: 17px;
+}
+
+.type-toggle-wrapper > .type-toggle-wrap {
+    float: right;
+    margin-right: 5px;
+}
+
+.type-toggle-wrap > .md-button-detail {
+    cursor: pointer;
+}
+
+.search-wrap.filter {
+    height: 78px;
+}
+
+.inv-status-wrpper {
+    padding: 5px 10px 0px 10px;
+}
+
+.inv-status-wrpper > .standard > legend {
+    font-family: 'lato', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #04a3eb;
+}
+
+.inv-status-wrpper > .standard {
+    border: 2px solid #f7f7f7;
+}
+
+.gray-800 {
+    color: #595959;
+}
+
+.filter-text-wrapper {
+    font-family: 'lato', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #595959;
 }

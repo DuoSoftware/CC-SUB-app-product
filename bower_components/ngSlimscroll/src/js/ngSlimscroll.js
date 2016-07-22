@@ -37,7 +37,6 @@
 
             element.css({
                 'overflow': 'hidden',
-                'width': scope.width,
                 'height': scope.height
             });
 
@@ -45,7 +44,6 @@
             wrapper.css({
                 'position': 'relative',
                 'overflow': 'hidden',
-                'width': scope.width,
                 'height': scope.height
             });
 

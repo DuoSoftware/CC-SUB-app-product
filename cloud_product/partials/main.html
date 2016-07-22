@@ -17,11 +17,11 @@
                             </div>
                             <div class="text-wrap">
                                 <h1 class="font-Lato text-white-color">Product
-                                    <!--<i class="ti-close last">-->
-                                        <!--<md-tooltip md-direction="bottom">-->
-                                            <!--close-->
-                                        <!--</md-tooltip>-->
-                                    <!--</i>-->
+                                    <i class="ti-close last" ng-click="closeApplication()">
+                                        <md-tooltip md-direction="bottom">
+                                            close
+                                        </md-tooltip>
+                                    </i>
                                 </h1>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
 
 
             <!-- left layout -->
-            <div flex="40" id="adjContent">
+            <div flex="40" id="adjContent" class="{{DivClassName}}">
 
 
                 <div layout="column" class="sd">
@@ -47,11 +47,11 @@
                                         </div>
                                         <div class="text-wrap">
                                             <h1 class="font-Lato text-white-color">Product
-                                                <!--<i class="ti-close last">-->
-                                                    <!--<md-tooltip md-direction="bottom">-->
-                                                        <!--close-->
-                                                    <!--</md-tooltip>-->
-                                                <!--</i>-->
+                                                <i class="ti-close last" ng-click="closeApplication()">
+                                                    <md-tooltip md-direction="bottom">
+                                                        close
+                                                    </md-tooltip>
+                                                </i>
                                             </h1>
                                         </div>
                                     </div>
@@ -59,67 +59,88 @@
                             </div>
                         </div>
                     </div>
-                    <div style="padding:15px;background:#f7f7f7">
-                        <div layout-gt-sm="row" class="search-wrap">
+                    <div class="main-body">
+                        <div layout-gt-sm="row" class="search-wrap filter">
                             <md-input-container class="md-block" flex-gt-sm style="margin:0;margin-top:10px">
                                 <label>Search</label>
                                 <input id="search" ng-model="search">
                             </md-input-container>
-
+                            <!-- toggle type and status -->
+                            <div class="type-toggle-wrapper">
+                                <div class="type-toggle-wrap" ng-hide="hoverEdit"><label class="filter-text-wrapper">Filter</label>
+                                    <ng-md-icon icon="keyboard_arrow_down" class="md-button-detail" ng-click="hoverIn()"
+                                                size="20px"></ng-md-icon>
+                                    <!--<md-tooltip md-direction="right">Filter</md-tooltip>-->
+                                </div>
+                                <div class="type-toggle-wrap" ng-show="hoverEdit"><label class="filter-text-wrapper">Filter</label>
+                                    <ng-md-icon icon="keyboard_arrow_up" class="md-button-detail" ng-click="hoverOut()"
+                                                size="20px"></ng-md-icon>
+                                    <!--<md-tooltip md-direction="right">Filter</md-tooltip>-->
+                                </div>
+                            </div>
                         </div>
-                        <div layout="row" layout-align="space-between center">
-                            <fieldset class="standard fieldset-padding-down">
-                                <legend>STATUS</legend>
-                                <!--<md-radio-group ng-model="status" layout="row" style="margin-top: 0 !important">-->
-                                <!--<md-radio-button value="true" class="md-primary">Active</md-radio-button>-->
-                                <!--<md-radio-button value="false"> Inactive </md-radio-button>-->
-                                <!--</md-radio-group>-->
-                                <md-checkbox  content="Active" aria-label="active" ng-click="includeStatus(1)"  style="margin-top: 0 !important" class="md-primary" ng-true-value="true" >
-                                    Active
-                                </md-checkbox>
-                                <md-checkbox  aria-label="inactive" ng-click="includeStatus(0)"  style="margin-top: 0 !important" class="md-primary" ng-true-value="false" >
-                                    Inactive
-                                </md-checkbox>
-                            </fieldset>
-                            <div>
-                                <label>{{title}}</label>
+                        <div  id="filtersection" class="inv-status-wrpper" style="height: 0px">
+                            <div layout="row" layout-align="space-between center">
+                                <fieldset class="standard fieldset-padding-down">
+                                    <legend>STATUS</legend>
+                                    <!--<md-radio-group ng-model="status" layout="row" style="margin-top: 0 !important">-->
+                                    <!--<md-radio-button value="true" class="md-primary">Active</md-radio-button>-->
+                                    <!--<md-radio-button value="false"> Inactive </md-radio-button>-->
+                                    <!--</md-radio-group>-->
+                                    <md-checkbox  content="Active" aria-label="active" ng-click="includeStatus(1)"  style="margin-top: 0 !important" class="md-primary gray-800" ng-true-value="true" >
+                                        Active
+                                    </md-checkbox>
+                                    <md-checkbox  aria-label="inactive" ng-click="includeStatus(0)"  style="margin-top: 0 !important" class="md-primary gray-800" ng-true-value="false" >
+                                        Inactive
+                                    </md-checkbox>
+                                </fieldset>
+                                <div>
+                                    <label>Category - {{title}}</label>
 
-                                <md-menu md-position-mode="target-right target">
-                                    <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                                        <md-icon md-svg-icon="../img/ic_keyboard_arrow_down_24px.svg"></md-icon>
-                                    </md-button>
-                                    <md-menu-content width="4" >
-                                        <md-menu-item>
-                                            <md-button>
-                                                <div layout="row" flex>
-                                                    <p flex ng-click="removeFilterCat()">All</p>
-                                                    <!--<md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>-->
-                                                </div>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item ng-repeat="category in categories">
-                                            <md-button>
-                                                <div layout="row" flex>
-                                                    <p flex ng-click="addFilterCat(category)">{{category}} </p>
-                                                    <!--<md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>-->
-                                                </div>
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
+                                    <md-menu md-position-mode="target-right target">
+                                        <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                            <md-icon md-svg-icon="../img/ic_keyboard_arrow_down_24px.svg"></md-icon>
+                                        </md-button>
+                                        <md-menu-content width="4">
+                                            <md-menu-item>
+                                                <md-button>
+                                                    <div layout="row" flex>
+                                                        <p flex ng-click="removeFilterCat()">All</p>
+                                                        <!--<md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>-->
+                                                    </div>
+                                                </md-button>
+                                            </md-menu-item>
+                                            <md-menu-item ng-repeat="category in categories">
+                                                <md-button>
+                                                    <div layout="row" flex>
+                                                        <p flex ng-click="addFilterCat(category)">{{category}} </p>
+                                                        <!--<md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>-->
+                                                    </div>
+                                                </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <md-content flex layout-padding class="overflow-hidden p-0">
-                        <div class="div-spinner" ng-show="isSpinnerShown">
-                            <md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>
+                    <div class="div-spinner" ng-show="isSpinnerShown">
+                        <div class="please-wait">
+                            <svg class="spinner-container" width="50px" height="50px" viewBox="0 0 52 52">
+                                <circle class="path" cx="26px" cy="26px" r="20px" fill="none" stroke-width="4px"/>
+                            </svg>
                         </div>
+                    </div>
+                    <md-content flex layout-padding class="overflow-hidden p-0" ng-class="viewCount!=0?'unSelect-list':'background-white-color'">
+                        <!--<div class="div-spinner" ng-show="isSpinnerShown">-->
+                            <!--<md-icon md-svg-src="../img/puff.svg" id="md-icon-spinner" ></md-icon>-->
+                        <!--</div>-->
                         <!--<div>-->
-                        <!--<div ng-slimscroll height="490" always-visible="false" border-radius="5px" opacity="0.2" position="right" enabled="ctrl.enabled">-->
-                            <md-list>
-                                <md-list-item  ng-repeat="product in products | filter:search | filter:statusFilter  | filter:filters " ng-click="openProduct(product)" style="outline:none;" id="{{product.code}}">
-                                    <md-card layout="row" layout-align="space-between center" style="width:100%;padding:0;margin: 3px;">
-                                        <div flex="30"><img ng-src="{{product.attachment}}" err-src="../img/noimage.png" style="width:80px;margin-left: 10px;"/></div>
+                        <div ng-slimscroll height="490" always-visible="false" border-radius="5px" opacity="0.2" position="right" enabled="ctrl.enabled">
+                            <md-list style="height: 490px;overflow: visible;">
+                                <md-list-item class="payment-list"  ng-repeat="product in products | filter:search | filter:statusFilter  | filter:filters " ng-click="openProduct(product)" style="outline:none;" id="{{product.code}}">
+                                    <md-card layout="row" layout-align="space-between center" ng-class="viewCount!=0?product.select==true?'unSelect-list':'selectedThis-item':''" style="width:100%;padding:0;margin: 3px;">
+                                        <div flex="30"><img ng-src="{{product.attachment}}" err-src="../img/noimage.png" style="width:90px;margin-left: 0px;"/></div>
                                         <div flex="50" layout="column">
                                             <label class="font-Lato font-size15 font-weight600 ">{{product.product_name}}</label>
                                             <label  class="font-Lato font-size15 font-weight300 ">Code: {{product.code}}</label>
@@ -138,7 +159,7 @@
                                     </md-card>
                                 </md-list-item>
                             </md-list>
-                        <!--</div>-->
+                        </div>
                     </md-content>
                 </div>
             </div><!-- end -->
@@ -199,11 +220,6 @@
                                     </div>
                                 </md-content>
                                 <md-content layout="row" layout-align="space-between center" style="padding:10px;">
-                                    <div><text class="font-Lato font-weight600 text-gray-color">Quantity</text></div>
-                                    <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.quantity_of_unit}}</text>
-                                        <input ng-model="changeProduct.quantity_of_unit" type="number" ng-hide="editOff"></div>
-                                </md-content>
-                                <md-content layout="row" layout-align="space-between center" style="background:#f1f1f1;padding:10px;">
                                     <div><text class="font-Lato font-weight600 text-gray-color">Brand</text></div>
                                     <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.brand}}</text>
                                         <select class="select-flow" ng-change="editBrand(changeProduct.brand)" ng-model="changeProduct.brand" ng-hide="editOff">
@@ -213,17 +229,26 @@
                                         </select>
                                     </div>
                                 </md-content>
-                                <md-content layout="row" layout-align="space-between center" style="padding:10px;">
-                                    <div><text class="font-Lato font-weight600 text-gray-color">Unit Of Measure</text></div>
-                                    <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.uom}}</text>
-                                        <select class="select-flow" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom" ng-hide="editOff">
-                                            <option value="Add UOM">Add UOM</option>
-                                            <md-divider></md-divider>
-                                            <option ng-repeat="value in UOMs" value="{{value}}">{{value}}</option>
-                                        </select>
+                                <div layout="row">
+                                    <div flex="85" class="{{UnitSize}}"><md-content layout="row" layout-align="space-between center" style="background:#f1f1f1;padding:10px;">
+                                        <div><text class="font-Lato font-weight600 text-gray-color">Unit Size</text></div>
+                                        <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.quantity_of_unit}}</text>
+                                            <input ng-model="changeProduct.quantity_of_unit" type="number" style="width: 75px" ng-hide="editOff"></div>
+                                    </md-content>
                                     </div>
-                                </md-content>
-                                <md-content layout="row" layout-align="space-between center" style="background:#f1f1f1;padding:10px;">
+                                    <div flex="15" class="{{unitMeasure}}">
+                                        <md-content layout="row" layout-align="space-between center" style="padding:10px;background:#f1f1f1;">
+                                            <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.uom}}</text>
+                                                <select class="select-flow" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom" ng-hide="editOff" style="width: 118px">
+                                                    <option value="Add UOM">Add UOM</option>
+                                                    <md-divider></md-divider>
+                                                    <option ng-repeat="value in UOMs" value="{{value}}">{{value}}</option>
+                                                </select>
+                                            </div>
+                                        </md-content>
+                                    </div>
+                                </div>
+                                <md-content layout="row" layout-align="space-between center" style="padding:10px;">
                                     <div><text class="font-Lato font-weight600 text-gray-color">Status</text></div>
                                     <div ng-show="editOff">
                                         <text class="font-Lato font-weight600 text-blue-color"  ng-if="selectedProduct.status == true">Active</text>
@@ -234,7 +259,7 @@
                                         <option value="false">Inactive</option>
                                     </select>
                                 </md-content>
-                                <md-content layout="row" layout-align="space-between center" style="padding:10px;">
+                                <md-content layout="row" layout-align="space-between center" style="padding:10px;background:#f1f1f1;">
                                     <div ng-show="editTax"><text class="font-Lato font-weight600 text-gray-color">Tax Code</text></div>
                                     <div ng-hide="editOff"><input type="checkbox" ng-model="changeProduct.apply_tax" ng-true-value="true" ng-false-value="false" ng-checked="enableTaxCode(changeProduct.apply_tax)" ng-hide="editOff"/><text style="color:#989898;font-weight: 600">Apply Tax</text></div>
                                     <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.tax}}</text>
@@ -243,7 +268,7 @@
                                         </select>
                                     </div>
                                 </md-content>
-                                <md-content layout="row" layout-align="space-between center" style="background:#f1f1f1;padding:10px;">
+                                <md-content layout="row" layout-align="space-between center" style="padding:10px;">
                                     <div ng-show="editOff"><text class="font-Lato font-weight600 text-gray-color">Minimum Stock Level</text></div>
                                     <div ng-hide="editOff"><input type="checkbox" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-checked="enableStockLevel(changeProduct.sku)" ng-hide="editOff"/><text class="font-Lato font-weight600">Track Inventory</text></div>
                                     <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.minimun_stock_level}}</text>

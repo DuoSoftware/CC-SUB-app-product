@@ -9,7 +9,7 @@ var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.ro
 	 .state('main', {
 		url: '/main',
 		templateUrl: 'partials/main.html',
-        controller:'MainCtrl'
+        controller:'MainCtrl as ctrl'
 	})
 	
 	.state('add', {
@@ -22,7 +22,7 @@ var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.ro
 
 
 app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $state, $timeout, $q,$http, uiInitilize,$charge, $filter) {
-
+    $rootScope.DivClassName = 'flex-50';
     $rootScope.selectedProduct = {};
     $scope.filters = {};
     $scope.changeProduct={};
@@ -119,7 +119,11 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 
 	$scope.openProduct = function(product)
 	{
-        //debugger;
+        for(i=0;i<$rootScope.products.length;i++)
+        {
+            $rootScope.products[i].select=false;
+        }
+        product.select=true;
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
         $charge.stock().getStock(product.productId).success(function(data) {
             //debugger;
@@ -139,13 +143,14 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
                 $rootScope.editInv=false;
             else
                 $rootScope.editInv=true;
-
+            $rootScope.DivClassName = 'flex-40';
             $rootScope.viewCount=1;
         }).error(function(data) {
             $rootScope.selectedProduct = angular.copy(product);
             $rootScope.selectedProduct.inventoryStock="";
             //$rootScope.selectedProduct.inventoryStock=$rootScope.selectedProduct.sku!=0?data.qty:"";
             $rootScope.viewCount=1;
+            $rootScope.DivClassName = 'flex-40';
             $rootScope.selectedProduct.tax=taxgrp==undefined?"":$rootScope.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
             if($rootScope.selectedProduct.apply_tax==0)
             {
@@ -175,16 +180,13 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
 		angular.element('#main').css('background', '#34474E');
 		angular.element('#myapps').css('background', '#34474E');
 		angular.element('#myaccount').css('background', '#34474E');
-		$scope.products.code
+        $rootScope.products.code
 		
 	}
     $rootScope.editOff = true;
 
     $rootScope.toggleEdit = function()
 	{
-        //debugger;
-        //angular.element('#editContent').css('padding', '0px');
-        //angular.element('#editContent').css('padding-left', '10px');
         $rootScope.editOff = !$rootScope.editOff;
         if ($scope.selectedProduct.apply_tax != 0) {
             $rootScope.editTax = !$rootScope.editTax;
@@ -195,6 +197,8 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         }
 
         if($rootScope.editOff==true) {
+            $rootScope.UnitSize="flex-85";
+            $rootScope.unitMeasure="flex-15";
             if ($scope.selectedProduct.status == "true") {
                 $scope.selectedProduct.status = true
             }
@@ -224,6 +228,8 @@ app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $st
         }
         else if($rootScope.editOff==false)
         {
+            $rootScope.UnitSize="flex-70";
+            $rootScope.unitMeasure="flex-30";
             if ($scope.selectedProduct.status == true) {
                 $scope.selectedProduct.status = "true"
             }
@@ -520,6 +526,12 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
     }).error(function(data) {
         console.log(data);
     })
+
+
+    //22-07-2016
+    $scope.closeApplication = function () {
+        window.parent.dwShellController.closeCustomApp();
+    };
 	
 })//END OF AddCtrl
 
@@ -529,11 +541,11 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     var skip=0;
     var take=1000;
     var response="";
-
+    $rootScope.DivClassName = 'flex-50';
     //newly added code start
     //$scope.isLoad = true;
     $rootScope.viewCount = 0;
-    $scope.products=[];
+    $rootScope.products=[];
     $scope.statusArray = [];
     if($scope.filters.category==null)
         $scope.title='All';
@@ -598,7 +610,8 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
                 $scope.lastSet=true;
             if($scope.loading) {
                 for (i = 0; i < data.length; i++) {
-                    $scope.products.push(data[i]);
+                    data[i].select=false;
+                    $rootScope.products.push(data[i]);
                 }
             }
             //debugger;
@@ -623,7 +636,8 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
             if(data.length<takeMre)
                 $scope.lastSet=true;
             for (i = 0; i < data.length; i++) {
-                $scope.products.push(data[i]);
+                data[i].select=false;
+                $rootScope.products.push(data[i]);
             }
             debugger;
             //$scope.loading = false;
@@ -715,6 +729,8 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     $scope.saveEdit = function(model)
     {
         debugger;
+        $rootScope.UnitSize="flex-85";
+        $rootScope.unitMeasure="flex-15";
         var editReq=$scope.changeProduct;
         var tempTaxgroup=angular.copy(editReq);
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
@@ -736,11 +752,11 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
             if(data.count) {
                 //debugger;
                 console.log(data);
-                for(var i=0;i<$scope.products.length;i++)
+                for(var i=0;i<$rootScope.products.length;i++)
                 {
-                    if($scope.products[i].productId==editReq.productId)
+                    if($rootScope.products[i].productId==editReq.productId)
                     {
-                        $scope.products[i] = angular.copy(editReq);
+                        $rootScope.products[i] = angular.copy(editReq);
                     }
                 }
                 editReq.tax=tempTaxgroup.tax;
@@ -769,6 +785,25 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
         })
 
     }
+
+
+    //22-07-16
+
+    $scope.hoverEdit = false;
+
+    $scope.hoverIn = function(){
+        $scope.hoverEdit = true;
+        angular.element('#filtersection').css('height', '70');
+    };
+
+    $scope.hoverOut = function(){
+        $scope.hoverEdit = false;
+        angular.element('#filtersection').css('height', '0');
+    };
+
+    $scope.closeApplication = function () {
+        window.parent.dwShellController.closeCustomApp();
+    };
 })
 
 app.filter('Confloat', function() {
