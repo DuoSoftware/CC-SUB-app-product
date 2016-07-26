@@ -794,13 +794,13 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     $scope.hoverIn = function(){
         $scope.hoverEdit = true;
         angular.element('#filtersection').css('height', '70');
-        angular.element('#rightsection').css('height', '676px !important');
+        angular.element('#rightsection').css('height', '676');
     };
 
     $scope.hoverOut = function(){
         $scope.hoverEdit = false;
         angular.element('#filtersection').css('height', '0');
-        angular.element('#rightsection').css('height', '606 !important');
+        angular.element('#rightsection').css('height', '606');
     };
 
     $scope.closeApplication = function () {
