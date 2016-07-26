@@ -13,7 +13,7 @@
                     <div class="md-toolbar-tools header-bg-blue p-0">
                         <div class="header-content">
                             <div class="logo-left">
-                                <img src="../asset/images/adjustments_add_118x99.png">
+                                <img src="../../assets/asset/images/adjustments_add_118x99.png">
                             </div>
                             <div class="text-wrap">
                                 <h1 class="font-Lato text-white-color">Product
@@ -43,7 +43,7 @@
                                 <div class="md-toolbar-tools header-bg-blue p-0">
                                     <div class="header-content">
                                         <div class="logo-left">
-                                            <img src="../asset/images/adjustments_add_118x99.png">
+                                            <img src="../../assets/asset/images/adjustments_add_118x99.png">
                                         </div>
                                         <div class="text-wrap">
                                             <h1 class="font-Lato text-white-color">Product
@@ -140,7 +140,7 @@
                             <md-list style="height: 490px;overflow: visible;">
                                 <md-list-item class="payment-list"  ng-repeat="product in products | filter:search | filter:statusFilter  | filter:filters " ng-click="openProduct(product)" style="outline:none;" id="{{product.code}}">
                                     <md-card layout="row" layout-align="space-between center" ng-class="viewCount!=0?product.select==true?'unSelect-list':'selectedThis-item':''" style="width:100%;padding:0;margin: 3px;">
-                                        <div flex="30"><img ng-src="{{product.attachment}}" err-src="../img/noimage.png" style="width:90px;margin-left: 0px;"/></div>
+                                        <div flex="30"><img ng-src="{{product.attachment}}" err-src="../../assets/img/noimage.png" style="width:90px;margin-left: 0px;"/></div>
                                         <div flex="50" layout="column">
                                             <label class="font-Lato font-size15 font-weight600 ">{{product.product_name}}</label>
                                             <label  class="font-Lato font-size15 font-weight300 ">Code: {{product.code}}</label>
@@ -165,7 +165,7 @@
             </div><!-- end -->
             <!-- right wrap-->
             <div flex="45" class="animated fadeIn" id="adjDetails" ng-if="viewCount!=0">
-                <div class="right-layout ">
+                <div id="rightsection" class="right-layout right-layout-height">
                     <!--<md-content style="width:100%;">-->
                         <div class="section_padding">
 
@@ -202,7 +202,7 @@
                                     <ng-md-icon icon="camera_alt" size="20px"></ng-md-icon>
                                 </md-button>
                                 <md-content layout="row" layout-align="space-between center" style="bottom: 15px" class="md-content-width">
-                                    <div flex="50"><img ng-src="{{selectedProduct.attachment}}" err-src="../img/noimage.png" style="width:90%"/></div>
+                                    <div flex="50"><img ng-src="{{selectedProduct.attachment}}" err-src="../../assets/img/noimage.png" style="width:90%"/></div>
                                     <div flex="50" style="height: 200px;">
                                         <textarea class="input-textarea-width font-Lato font-size15 font-weight300" ng-model="changeProduct.descroption" type="" ng-hide="editOff"/>
                                         <p class="p-word-wrap-spec" ng-show="editOff"> {{selectedProduct.descroption}}</p>
@@ -236,8 +236,8 @@
                                             <input ng-model="changeProduct.quantity_of_unit" type="number" style="width: 75px" ng-hide="editOff"></div>
                                     </md-content>
                                     </div>
-                                    <div flex="15" class="{{unitMeasure}}">
-                                        <md-content layout="row" layout-align="space-between center" style="padding:10px;background:#f1f1f1;">
+                                    <div flex="15" class="{{unitMeasure}}" style="background:#f1f1f1;">
+                                        <md-content layout="row" layout-align="space-between center" style="padding:10px;background:#f1f1f1;float: right">
                                             <div><text class="font-Lato font-weight600" ng-show="editOff">{{selectedProduct.uom}}</text>
                                                 <select class="select-flow" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom" ng-hide="editOff" style="width: 118px">
                                                     <option value="Add UOM">Add UOM</option>

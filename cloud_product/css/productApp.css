@@ -180,3 +180,29 @@ md-list-item .md-no-style, md-list-item.md-no-proxy {
     border: 0px solid !important;
     background-color: rgba(158, 158, 158, 0) !important;
 }
+
+/*.right-layout {*/
+    /*background: #fff;*/
+    /*width: auto;*/
+    /*/!*height: 658px !important;*!/*/
+    /*min-height: 680px;*/
+    /*max-height: 680px;*/
+    /*margin-left: -2px;*/
+    /*padding-left: 40px;*/
+    /*padding-right: 40px;*/
+    /*overflow-x: auto;*/
+/*}*/
+
+/*#adjContent {*/
+    /*z-index: 0;*/
+/*}*/
+
+/*#adjDetails {*/
+    /*z-index: 0;*/
+/*}*/
+
+.right-layout-height
+{
+    height: 606px;
+}
+
