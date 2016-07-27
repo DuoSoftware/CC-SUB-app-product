@@ -23,6 +23,8 @@ var app=angular.module('mainApp', ['ngMaterial', 'ngAnimate','ngMdIcons', 'ui.ro
 
 app.controller('AppCtrl', function ($scope,$rootScope, $mdDialog, $location, $state, $timeout, $q,$http, uiInitilize,$charge, $filter) {
     $rootScope.DivClassName = 'flex-50';
+    $rootScope.isCleared=false;
+    $rootScope.productlist=[];
     $rootScope.selectedProduct = {};
     $scope.filters = {};
     $scope.changeProduct={};
@@ -264,7 +266,6 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 
     $scope.content = {};
     $scope.content.files=[];
-    $scope.productlist=[];
     $scope.content.attachment='../img/noimage.png';
     $scope.content.descroption="";
     $scope.content.category="";
@@ -372,12 +373,13 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 
     }
 
-
-    $productHandler.getClient().LoadProduct().onComplete(function(data)
-    {
-        $scope.productlist=data;
-    });
-
+    if(!$rootScope.isCleared) {
+        $rootScope.productlist=[];
+        $productHandler.getClient().LoadProduct().onComplete(function (data) {
+            debugger;
+            $rootScope.productlist = data;
+        });
+    }
 
     //var self = this;
     //self.selectedItem  = '';
@@ -438,17 +440,22 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
                 $scope.content.attachment = $scope.content.files[0];
             }
             var req=$scope.content;
-            //debugger;
+            debugger;
             $charge.product().store(req).success(function(data) {
                 if(data.id) {
                     //console.log(data);
                     notifications.toast("Record Inserted, Product Code " + req.code , "success");
                     $scope.spinnerAdd=false;
                     $scope.clearFields();
-                    $productHandler.getClient().LoadProduct().onComplete(function(data)
-                    {
-                        $scope.productlist=data;
-                    });
+                    $rootScope.isCleared=true;
+                    var product={}
+                    product.code=req.code;
+                    product.product_name=req.product_name;
+                    $rootScope.productlist.push(product);
+                    //$productHandler.getClient().LoadProduct().onComplete(function(data)
+                    //{
+                    //    $scope.productlist=data;
+                    //});
 
                 }
             }).error(function(data) {
@@ -509,7 +516,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
     $scope.validateProduct=function (ev)
     {
         //debugger;
-        var products=$scope.productlist;
+        var products=$rootScope.productlist;
         var txtEntered=ev;
         products.forEach(function(product){
             if(product.code.toLowerCase()==txtEntered.toLowerCase())
@@ -538,6 +545,7 @@ app.controller('AddCtrl', function ($scope,$rootScope, $mdDialog, $window, $mdTo
 
 app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdToast,$charge,notifications,$state,$productHandler,$filter) {
     //debugger;
+    $rootScope.isCleared=false;
     var skip=0;
     var take=1000;
     var response="";
@@ -546,6 +554,7 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
     //$scope.isLoad = true;
     $rootScope.viewCount = 0;
     $rootScope.products=[];
+    $rootScope.productlist=[];
     $scope.statusArray = [];
     if($scope.filters.category==null)
         $scope.title='All';
