@@ -640,24 +640,33 @@ app.controller('MainCtrl', function ($scope,$rootScope,$mdDialog, $window, $mdTo
 
     $scope.loadmore = function(takeMre){
         $scope.isSpinnerShown=true;
-        $productHandler.getClient().LoadProductByScroll(skip,takeMre).onComplete(function(data)
-        {
-            if(data.length<takeMre)
-                $scope.lastSet=true;
-            for (i = 0; i < data.length; i++) {
-                data[i].select=false;
-                $rootScope.products.push(data[i]);
-            }
-            debugger;
-            //$scope.loading = false;
-            skip += take;
-            $scope.isSpinnerShown=false;
-        }).onError(function(data)
-        {
-            $scope.isSpinnerShown=false;
-            $scope.lastSet=true;
-
-        });
+        //$productHandler.getClient().LoadProductByScroll(skip,takeMre).onComplete(function(data)
+        //{
+        //    if(data.length<takeMre)
+        //        $scope.lastSet=true;
+        //    for (i = 0; i < data.length; i++) {
+        //        data[i].select=false;
+        //        $rootScope.products.push(data[i]);
+        //    }
+        //    debugger;
+        //    //$scope.loading = false;
+        //    skip += take;
+        //    $scope.isSpinnerShown=false;
+        //}).onError(function(data)
+        //{
+        //    $scope.isSpinnerShown=false;
+        //    $scope.lastSet=true;
+        //
+        //});
+        //debugger;
+            $productHandler.getClient().filterProductByCode(takeMre).onComplete(function (data) {
+                for (i = 0; i < data.length; i++) {
+                    $rootScope.products.push(data[i]);
+                }
+                $scope.isSpinnerShown = false;
+            }).onError(function (data) {
+                $scope.isSpinnerShown = false;
+            });
     };
 
     $scope.editBrand = function(ev)
