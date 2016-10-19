@@ -1,0 +1,626 @@
+<div id="product" class="page-layout carded left-sidenav" layout="row" ng-switch="vm.appInnerState">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg md-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- SIDENAV -->
+  <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav"
+
+              ng-include="'app/main/product/sidenavs/main/main-sidenav.html'" ms-scroll ms-sidenav-helper>
+  </md-sidenav>
+  <!-- / SIDENAV -->
+
+  <!-- CENTER -->
+  <div ng-switch-when="default" class="center" layout="column" flex>
+    <!-- CONTENT HEADER -->
+    <div class="header" layout="row" layout-align="start center">
+
+      <div class="search-wrapper md-whiteframe-4dp" layout="row" layout-align="start center" flex>
+        <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('main-sidenav')" hide-gt-md
+                   aria-label="Toggle Sidenav">
+          <md-icon class="icon" md-font-icon="icon-menu"></md-icon>
+        </md-button>
+
+        <div class="search" flex layout="row" layout-align="start center">
+          <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
+          <input flex ng-model="vm.search" ng-change="loadByKeyword(vm.search)" ng-keypress="searchKeyPressProduct($event,vm.search);" type="text" placeholder="Search for product">
+        </div>
+      </div>
+
+    </div>
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- PRODUCT VIEW PANE TOOLBAR -->
+      <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1">
+        <md-button class="md-icon-button"
+                   ng-click="vm.closeReadPane()"
+                   aria-label="Back">
+          <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
+        </md-button>
+      </div>
+      <!-- / PRODUCT VIEW PANE TOOLBAR -->
+
+      <!-- CONTENT TOOLBAR -->
+      <div class="toolbar list-header" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 0">
+
+        <div layout="row" flex layout-align="start center" style="padding-left: 0px;">
+          <div class="info" flex layout="row" style="height: 40px">
+            <div flex="15"></div>
+
+            <div class="productName" layout="column" layout-align="center start" flex="25" >
+              <div layout="row">
+                <span layout="column" layout-align="center center">Name</span>
+                <div layout="column" layout="center center">
+                  <md-button ng-hide="showBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('product_name',true,'Name')">
+                    <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                  <md-button ng-show="showBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('product_name',null,'Name')">
+                    <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+
+            <div class="promoMainInfo" layout="column" layout-align="center start" flex="20">
+              <div layout="row">
+                <span layout="column" layout-align="center center">Category</span>
+                <div layout="column" layout="center center">
+                  <md-button ng-hide="showCatBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('category',true,'Category')">
+                    <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                  <md-button ng-show="showCatBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('category',null,'Category')">
+                    <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+
+            <div class="promoMainInfo" layout="column" layout-align="center start" flex="15" >
+              <div layout="row">
+                <span layout="column" layout-align="center center">Brand</span>
+                <div layout="column" layout="center center">
+                  <md-button ng-hide="showBrandBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('brand',true,'Brand')">
+                    <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                  <md-button ng-show="showBrandBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('brand',null,'Brand')">
+                    <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+
+            <div class="prodMainInfo topMargin" flex="15" layout="column" layout-align="center end" >
+              <div layout="row">
+                <span layout="column" layout-align="center center">Amount</span>
+                <div layout="column" layout="center center">
+                  <md-button ng-hide="showAmtBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('price_of_unit',true,'Amount')">
+                    <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                  <md-button ng-show="showAmtBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('price_of_unit',null,'Amount')">
+                    <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+
+            <div flex="10"></div>
+
+            <div class="date" flex="10" layout="column" layout-align="center start">
+              <div layout="row">
+                <span layout="column" layout-align="center center">Status</span>
+                <div layout="column" layout="center center">
+                  <md-button ng-hide="showStatBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('status',true,'Status')">
+                    <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                  <md-button ng-show="showStatBoth" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('status',null,'Status')">
+                    <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                    <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- / CONTENT TOOLBAR -->
+
+      <!-- CONTENT WRAPPER -->
+      <div class="content-wrapper" layout="row" flex>
+
+        <md-tabs md-selected="vm.activeProductPaneIndex" class="product-tabs" md-dynamic-height="{{vm.dynamicHeight}}" flex>
+          <!-- PRODUCT LIST PANE -->
+          <md-tab>
+            <md-tab-label>Product List Pane</md-tab-label>
+            <md-tab-body>
+              <div class="preloader" layout="row" layout-sm="column" layout-align="space-around" ng-hide="listLoaded">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+              </div>
+              <div class="content product-list-pane"
+                   ng-include="'app/main/product/views/list/list-view.html'" ms-scroll>
+              </div>
+            </md-tab-body>
+          </md-tab>
+          <!-- / PRODUCT LIST PANE -->
+
+          <!-- PRODUCT DISPLAY PANE -->
+          <md-tab>
+            <md-tab-label>Product Display Pane</md-tab-label>
+            <md-tab-body>
+              <div class="content product-display-pane"
+                   ng-include="'app/main/product/views/read/read-view.html'" ms-scroll>
+              </div>
+            </md-tab-body>
+          </md-tab>
+          <!-- / PRODUCT DISPLAY PANE -->
+        </md-tabs>
+
+      </div>
+      <!-- / CONTENT WRAPPER -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+
+  <!-- / CENTER -->
+
+  <!-- CENTER -->
+  <div ng-switch-when="add" class="center" layout="column" flex>
+    <!-- CONTENT HEADER -->
+    <!-- / CONTENT HEADER -->
+
+    <!-- CONTENT CARD -->
+    <div class="content-card" layout="column" flex>
+
+      <!-- PRODUCT VIEW PANE TOOLBAR -->
+      <!--<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1">-->
+      <!--<md-button class="md-icon-button"-->
+      <!--ng-click="vm.closeReadPane()"-->
+      <!--aria-label="Back">-->
+      <!--<md-icon md-font-icon="icon-keyboard-backspace"></md-icon>-->
+      <!--</md-button>-->
+      <!--</div>-->
+      <!-- / PRODUCT VIEW PANE TOOLBAR -->
+
+      <!-- CONTENT TOOLBAR -->
+      <!-- / CONTENT TOOLBAR -->
+
+      <!-- CONTENT WRAPPER - NEW PRODUCT -->
+      <div class="content-wrapper" layout="column" flex>
+        <div class="content-wrapper fill-wrap" flex>
+
+          <md-content style="width:100%;height: 100%;background-color: #fbfdfd" ms-scroll>
+            <form name="editForm" ng-submit="saveProduct(content)">
+
+              <div class="fill-wrapper">
+                <div class="content-block-wrapper">
+                  <div layout="row" class="content-block sample-row">
+                    <md-input-container class="bottom" flex>
+                      <label>Product Name</label>
+                      <input ng-required="true" minlength="null"  md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name"  autofocus>
+                      <div ng-messages="editForm.productName.$error">
+                        <div ng-message="required">Product Name is required.</div>
+                      </div>
+                    </md-input-container>
+
+                    <div flex="5">
+                      <!--Spacer -->
+                    </div>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Code</label>
+                      <input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
+                      <div ng-messages="editForm.productCode.$error">
+                        <div ng-message="required">Product Code is required.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+
+                  <div layout="row" class="content-block">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Description</label>
+                      <input ng-required="false" minlength="null" md-maxlength="null" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">
+                    </md-input-container>
+                  </div>
+
+                  <div layout="row" class="content-block">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Category</label>
+                      <md-select ng-required="true" ng-model="content.category" ms-scroll>
+                        <!--<md-option  value="" ng-click="addCat($event)">Add Category</md-option>-->
+                        <md-divider></md-divider>
+                        <md-option ng-repeat="value in categories" value="{{value}}">
+                          {{value}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <!--<md-input-container class="md-block" style="width: 265px;" ng-show="newCat">-->
+                      <!--<label>Category</label>-->
+                      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="" name="Qty" ng-pattern="/(?:)/" ng-model="content.newCatVal">-->
+                    <!--</md-input-container>-->
+
+                    <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="saveCategory(content.newCatVal)" ng-show="newCat">-->
+                      <!--<md-icon md-font-icon="icon-plus-circle"></md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="cancelCat()" ng-show="newCat">-->
+                      <!--<md-icon md-font-icon="icon-cancel"></md-icon>-->
+                    <!--</md-button>-->
+                    <md-button class="md-accent md-ink-ripple add-product" ng-click="addCat($event)">Add New</md-button>
+
+
+                    <div flex="5">
+                      <!--Spacer -->
+                    </div>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Brand</label>
+                      <md-select ng-required="true" ng-model="content.brand">
+                        <md-divider></md-divider>
+                        <md-option ng-repeat="value in brands" value="{{value}}">
+                          {{value}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                    <!--<md-input-container class="md-block" style="width: 265px;" ng-show="newBrand">-->
+                      <!--<label>Brand</label>-->
+                      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="" name="Qty" ng-pattern="/(?:)/" ng-model="content.newBrandVal">-->
+                    <!--</md-input-container>-->
+                    <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="saveBrand(content.newBrandVal)" ng-show="newBrand">-->
+                      <!--<md-icon md-font-icon="icon-plus-circle"></md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="cancelBrand()" ng-show="newBrand">-->
+                      <!--<md-icon md-font-icon="icon-cancel"></md-icon>-->
+                    <!--</md-button>-->
+                    <md-button class="md-accent md-ink-ripple add-product" ng-click="addBrand($event)">Add New</md-button>
+
+                  </div>
+
+                </div>
+
+                <div class="content-block-wrapper group-ops">
+
+                  <div layout="row" class="content-block" flex>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Quantity of Unit</label>
+                      <input ng-required="false" minlength="null" md-maxlength="null" min="0" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">
+                    </md-input-container>
+
+                    <div flex="5">
+                      <!--Spacer -->
+                    </div>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Unit of Measures</label>
+                      <md-select ng-required="true"  ng-model="content.uom" ms-scroll>
+                        <!--<md-option  value="" ng-click="addUOM($event)">Add UOM</md-option>-->
+                        <md-divider></md-divider>
+                        <md-option ng-repeat="value in UOMs" value="{{value}}">
+                          {{value}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                    <!--<md-input-container class="md-block" style="width: 265px;" ng-show="newUom">-->
+                      <!--<label>Unit of Measures</label>-->
+                      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="" name="Qty" ng-pattern="/(?:)/" ng-model="content.newUOMVal">-->
+                    <!--</md-input-container>-->
+                    <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="saveUOM(content.newUOMVal)" ng-show="newUom">-->
+                      <!--<md-icon md-font-icon="icon-plus-circle"></md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="cancelUOM()" ng-show="newUom">-->
+                      <!--<md-icon md-font-icon="icon-cancel"></md-icon>-->
+                    <!--</md-button>-->
+
+                    <md-button class="md-accent md-ink-ripple add-product" ng-click="addUOM($event)">Add New</md-button>
+                  </div>
+
+                  <div layout="row" class="content-block">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Currency</label>
+                      <input minlength="null" md-maxlength="null" type="" name="Price" ng-model="content.selectCurrency" disabled>
+                    </md-input-container>
+                    <div hide-xs hide-sm flex-gt-sm="5">
+                    </div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Price</label>
+                      <input ng-required="true" minlength="null" md-maxlength="null" min="0" step="0.01"  type="number" name="Price" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  ng-model="content.price_of_unit">
+                      <div ng-messages="editForm.Price.$error">
+                      </div>
+                    </md-input-container>
+                  </div>
+
+                  <div layout="row" class="content-block">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Cost of Price</label>
+                      <input ng-required="false" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
+                      <div ng-messages="editForm.CostPrice.$error">
+                      </div>
+                    </md-input-container>
+                  </div>
+
+                  <div layout="row" class="content-block">
+                    <md-checkbox ng-model="content.apply_tax" aria-label="APPLY TAX" class="md-primary p-t-0 m-b-40" flex-gt-sm style="margin-bottom: 30px">
+                      Apply Tax
+                    </md-checkbox>
+
+                    <div flex="5">
+                      <!--Spacer -->
+                    </div>
+
+                    <md-input-container ng-show="content.apply_tax == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm style="margin-top: -8px">
+                      <label>Tax</label>
+                      <md-select ng-required="content.apply_tax" ng-model="content.tax">
+                        <md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">
+                          {{value.taxgroupcode}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <div layout="row" class="content-block">
+                    <md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary p-t-0 m-b-40" flex-gt-sm>
+                      Track Inventory
+                    </md-checkbox>
+
+                    <div flex="5">
+                      <!--Spacer -->
+                    </div>
+
+                    <md-input-container ng-show="content.sku == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm style="margin-top: -8px">
+                      <label>Minimum Stock Change</label>
+                      <input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
+                    </md-input-container>
+                  </div>
+
+                </div>
+
+                <md-divider></md-divider>
+
+                <div class="content-block-wrapper" flex>
+                  <div class="heading-lev2 top bottom" layout="row">Product Image</div>
+                  <div layout="row" class="content-block" layout-align="center center">
+                    <lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>
+                  </div>
+                </div>
+              </div>
+
+              <div ng-init="submitted=false" layout="row" layout-align="space-between center" class="md-whiteframe-8dp bottom-fixed-bar">
+                <div layout="row"></div>
+
+                <div layout="row" class="layout-row">
+                  <md-button ng-click="clearFields()">Clear</md-button>
+                  <md-button type="submit" class="md-raised md-warn">Submit</md-button>
+                </div>
+              </div>
+            </form>
+          </md-content>
+        </div>
+      </div>
+      <!-- / CONTENT WRAPPER -->
+
+      <!-- CONTENT WRAPPER -->
+      <!--<div class="content-wrapper" flex>-->
+      <!--<md-content style="width:100%;height: 100%;padding: 24px;background-color: #fbfdfd" ms-scroll>-->
+      <!--<form name="editForm" ng-submit="submit()">-->
+      <!--<div class="section_padding">-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>PRODUCT NAME</label>-->
+      <!--<input ng-required="true" minlength="null"  md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name"  autofocus>-->
+      <!--<div ng-messages="editForm.productName.$error">-->
+      <!--<div ng-message="required">Product Name is required.</div>-->
+      <!--</div>-->
+      <!--</md-input-container>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>CODE</label>-->
+      <!--<input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">-->
+      <!--<div ng-messages="editForm.productCode.$error">-->
+      <!--<div ng-message="required">Product Code is required.</div>-->
+      <!--</div>-->
+      <!--</md-input-container>-->
+      <!--</div>-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>DECRIPTION</label>-->
+      <!--<input ng-required="false" minlength="null" md-maxlength="null" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">-->
+      <!--</md-input-container>-->
+      <!--</div>-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-input-container class="md-block" ng-hide="newCat" flex-gt-sm>-->
+      <!--<label>CATEGORY</label>-->
+      <!--<md-select ng-required="true" ng-model="content.category">-->
+      <!--<md-option  value="" ng-click="addCat($event)">Add Category</md-option>-->
+      <!--<md-divider></md-divider>-->
+      <!--<md-option ng-repeat="value in categories" value="{{value}}">-->
+      <!--{{value}}-->
+      <!--</md-option>-->
+      <!--</md-select>-->
+      <!--</md-input-container>-->
+      <!--<md-input-container class="md-block" style="width: 265px;" ng-show="newCat">-->
+      <!--<label>CATEGORY</label>-->
+      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="" name="Qty" ng-pattern="/(?:)/" ng-model="newCatVal">-->
+      <!--</md-input-container>-->
+      <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="saveCategory(newCatVal)" ng-show="newCat">-->
+      <!--&lt;!&ndash;<ng-md-icon icon="plus-circle" style="margin-top: 18px;margin-right: 18px;fill:#B4B4B4" size="20px"></ng-md-icon>&ndash;&gt;-->
+      <!--<md-icon md-font-icon="icon-plus-circle"></md-icon>-->
+      <!--</md-button>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container class="md-block" ng-hide="newBrand" flex-gt-sm>-->
+      <!--<label>BRAND</label>-->
+      <!--<md-select ng-required="true" ng-model="content.brand">-->
+      <!--<md-option  value="" ng-click="addBrand($event)">Add Brand</md-option>-->
+      <!--<md-divider></md-divider>-->
+      <!--<md-option ng-repeat="value in brands" value="{{value}}">-->
+      <!--{{value}}-->
+      <!--</md-option>-->
+      <!--</md-select>-->
+      <!--</md-input-container>-->
+      <!--<md-input-container class="md-block" style="width: 265px;" ng-show="newBrand">-->
+      <!--<label>BRAND</label>-->
+      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="" name="Qty" ng-pattern="/(?:)/" ng-model="newBrandVal">-->
+      <!--</md-input-container>-->
+      <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="saveBrand(newBrandVal)" ng-show="newBrand">-->
+      <!--&lt;!&ndash;<ng-md-icon icon="plus-circle" style="margin-top: 18px;margin-right: 18px;fill:#B4B4B4" size="20px"></ng-md-icon>&ndash;&gt;-->
+      <!--<md-icon md-font-icon="icon-plus-circle"></md-icon>-->
+      <!--</md-button>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<hr/>-->
+      <!--<div class="section_padding">-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>QUANTITY OF UNIT</label>-->
+      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">-->
+      <!--</md-input-container>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container class="md-block" ng-hide="newUom" flex-gt-sm>-->
+      <!--<label>UNIT OF MEASURE</label>-->
+      <!--<md-select ng-required="true"  ng-model="content.uom">-->
+      <!--<md-option  value="" ng-click="addUOM($event)">Add UOM-->
+      <!--</md-option>-->
+      <!--<md-divider></md-divider>-->
+      <!--<md-option ng-repeat="value in UOMs" value="{{value}}">-->
+      <!--{{value}}-->
+      <!--</md-option>-->
+      <!--</md-select>-->
+      <!--</md-input-container>-->
+      <!--<md-input-container class="md-block" style="width: 265px;" ng-show="newUom">-->
+      <!--<label>UNIT OF MEASURE</label>-->
+      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" type="" name="Qty" ng-pattern="/(?:)/" ng-model="newUOMVal">-->
+      <!--</md-input-container>-->
+      <!--<md-button class="md-icon-button icon-btn-ctrl" aria-label="More" ng-click="saveUOM(newUOMVal)" ng-show="newUom">-->
+      <!--&lt;!&ndash;<ng-md-icon icon="plus-circle" style="margin-top: 18px;margin-right: 18px;fill:#B4B4B4" size="20px"></ng-md-icon>&ndash;&gt;-->
+      <!--<md-icon md-font-icon="icon-plus-circle"></md-icon>-->
+      <!--</md-button>-->
+      <!--</div>-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>CURRENCY</label>-->
+      <!--&lt;!&ndash;<md-select ng-model="content.selectCurrency">&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-option  value="" ng-click="addCurrencies($event)">Add Currency</md-option>&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-divider></md-divider>&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-option ng-repeat="value in Currencies" value="{{value}}">&ndash;&gt;-->
+      <!--&lt;!&ndash;{{value}}&ndash;&gt;-->
+      <!--&lt;!&ndash;</md-option>&ndash;&gt;-->
+      <!--&lt;!&ndash;</md-select>&ndash;&gt;-->
+      <!--<input minlength="null" md-maxlength="null" type="" name="Price" ng-model="content.selectCurrency" disabled>-->
+      <!--</md-input-container>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>PRICE</label>-->
+      <!--<input ng-required="true" minlength="null" md-maxlength="null" min="0" step="0.01"  type="number" name="Price" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"  ng-model="content.price_of_unit">-->
+      <!--<div ng-messages="editForm.Price.$error">-->
+      <!--&lt;!&ndash;<div ng-message="required">Price is required.</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div ng-message="pattern">Please enter a valid Price.</div>&ndash;&gt;-->
+      <!--</div>-->
+      <!--</md-input-container>-->
+      <!--</div>-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--<label>COST PRICE</label>-->
+      <!--<input ng-required="false" minlength="null" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">-->
+      <!--<div ng-messages="editForm.CostPrice.$error">-->
+      <!--&lt;!&ndash;<div ng-message="required">Price is required.</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div ng-message="pattern">Please enter a valid Price.</div>&ndash;&gt;-->
+      <!--</div>-->
+      <!--</md-input-container>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container class="md-block" flex-gt-sm>-->
+      <!--&lt;!&ndash;<label>MINIMUM STOCK LEVEL</label>&ndash;&gt;-->
+      <!--&lt;!&ndash;<input ng-required="false" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">&ndash;&gt;-->
+      <!--</md-input-container>-->
+      <!--</div>-->
+      <!--<div layout-gt-sm="row" class="h-60">-->
+      <!--<md-checkbox ng-model="content.apply_tax" aria-label="APPLY TAX" class="md-primary p-t-0 m-b-40" flex-gt-sm>-->
+      <!--APPLY TAX-->
+      <!--</md-checkbox>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container ng-show="content.apply_tax == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>-->
+      <!--<label>TAX</label>-->
+      <!--<md-select ng-required="content.apply_tax" ng-model="content.tax">-->
+      <!--<md-option ng-repeat="value in taxGroup">-->
+      <!--{{value.taxgroupcode}}-->
+      <!--</md-option>-->
+      <!--</md-select>-->
+      <!--</md-input-container>-->
+      <!--</div>-->
+      <!--<div layout-gt-sm="row">-->
+      <!--<md-checkbox ng-model="content.sku" aria-label="TRACK INVENTORY" class="md-primary p-t-0 m-b-40" flex-gt-sm>-->
+      <!--TRACK INVENTORY-->
+      <!--</md-checkbox>-->
+      <!--<div hide-xs hide-sm flex-gt-sm="5">-->
+      <!--</div>-->
+      <!--<md-input-container ng-show="content.sku == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>-->
+      <!--<label>MINIMUM STOCK LEVEL</label>-->
+      <!--<input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">-->
+      <!--</md-input-container>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<hr/>-->
+      <!--<div class="section_padding">-->
+
+      <!--<div style="font-size: 12px;color: #b8b8b8;margin-bottom:10px">PRODUCT IMAGE</div>-->
+      <!--&lt;!&ndash;<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" class="md-block" flex-gt-sm>&ndash;&gt;-->
+      <!--&lt;!&ndash;</file-up-loader>&ndash;&gt;-->
+      <!--<lf-ng-md-file-input lf-files="content.files"  lf-on-file-click="onFileClick"  lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" drag preview></lf-ng-md-file-input>-->
+      <!--&lt;!&ndash;<div class="add-new hvr-pop view-btn-style" >&ndash;&gt;-->
+      <!--&lt;!&ndash;<i class="ti-eye" ng-click="backToMain($event)"></i>&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-tooltip md-direction="left">View all products</md-tooltip>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</div>-->
+      <!--<div class="save-btn-wrapper" layout="row" layout-align="space-between center">-->
+      <!--<div layout="row" layout-align="start center">-->
+      <!--<md-button type="button" ng-click="saveProduct(content)" ng-disabled="submitted" class="send-button md-accent md-raised" aria-label="Create Product">-->
+      <!--Create-->
+      <!--</md-button>-->
+      <!--</div>-->
+
+      <!--<div layout="row">-->
+      <!--<md-button class="md-icon-button" aria-label="Delete" ng-click="clearFields()">-->
+      <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+      <!--<md-tooltip>Clear Product</md-tooltip>-->
+      <!--</md-button>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;<div class="form-footer-btn-wrap">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div layout-gt-sm="row" class="p-0" ng-init="submitted=false">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="md-raise btn btn-cancel p-t-0" flex-gt-sm style="background:#484848;height:66px">&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-button style="width:100%;line-height: 66px;color: white;font-size: 20px" type="button" ng-click="clearFields()">CLEAR</md-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="md-raise btn btn-submit p-t-0" flex-gt-sm style="background:#f4511e;height:66px">&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-button style="width:100%; line-height: 66px;color: white;font-size: 20px" ng-disabled="submitted" type="submit">SUBMIT</md-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</form>-->
+      <!--</md-content>-->
+      <!--</div>-->
+      <!-- / CONTENT WRAPPER -->
+
+    </div>
+    <!-- / CONTENT CARD -->
+  </div>
+
+  <!-- / CENTER -->
+
+</div>

@@ -1,0 +1,184 @@
+#product {
+  .list-header{
+    text-transform: uppercase;
+    font-weight: 400!important;
+    color: #bbbbbb;
+    font-size: 14px;
+    padding: 5px 16px;
+    .productName{
+      margin-left: 0px!important;
+    }
+  }
+  .sort_btn{
+    padding: 0;
+    margin: 0;
+    height: 35px;
+    md-icon{
+      color: #cccccc;
+      font-size: 14px;
+    }
+    .merged{
+      height: 10px;
+    }
+  }
+  .preloader{
+    position: absolute;
+    top: 40%;
+    left: 45%;
+  }
+  .product-list-pane {
+
+    .product-list-item {
+      position: relative;
+      padding: 8px 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+
+      &.read {
+
+      }
+
+      &.unread {
+        background: #FFFFFF;
+
+        .info {
+
+          .subject,
+          .message {
+            font-weight: 500;
+          }
+        }
+      }
+
+      &.selected {
+        background: #E3F2FD;
+      }
+
+      &.checked {
+        background: #FFF8E1;
+      }
+
+      .info {
+        overflow: hidden;
+        width: 0;
+        margin: 0;
+
+        .clientCygil{
+          .listMedia {
+            min-width: 90px;
+            width: 90px;
+            height: 70px;
+            line-height: 70px;
+          }
+
+          .has-attachment {
+            margin-left: 8px;
+            transform: rotate(90deg);
+          }
+        }
+
+        .productMainInfo {
+          color:#05a3ec;
+          font-size: 16px;
+          font-weight: 300;
+          padding-left: 30px;
+          padding-bottom: 8px;
+
+          .productCode {
+            font-size: 13px;
+            font-weight:400;
+            color:#979797;
+          }
+        }
+
+        .prodCost{
+          font-size:28px;
+          font-weight:300;
+          color:rgb(3,155,229);
+        }
+
+        .message {
+          color: rgba(0, 0, 0, 0.54);
+        }
+      }
+
+      .date{
+        width:100px;
+        height:auto;
+        text-align:center;
+        color:#3f3f3f;
+
+        span:nth-child(1){
+          font-size:36px;
+        }
+
+        span:nth-child(2){
+          font-size:14px;
+          font-weight:700;
+        }
+
+        span:nth-child(3){
+          font-size:20px;
+        }
+      }
+
+      .client{
+        width:150px;
+        height:auto;
+        text-align:center;
+        font-size:16px;
+        color:#707070;
+      }
+
+      .status{
+        width:60px;
+        height:auto;
+
+        .pill{
+          width:100%;
+          height:auto;
+          border-radius:3px;
+          color:#fff;
+          font-weight:700;
+          text-align:center;
+          padding-top:5px;
+          padding-bottom:5px;
+        }
+
+        .unpaid{
+          background-color:#f44336;
+          padding: 5px ;
+          border:1px solid #f06157;
+        }
+
+        .partial{
+          background-color:#ff9800;
+          border:1px solid #ffb445;
+        }
+
+        .paid{
+          background-color:rgb(83, 206, 83);
+          border:1px solid #6ad46f;
+        }
+      }
+
+      .value{
+        min-width:180px;
+        height:auto;
+
+        .ammount{
+          font-size:18px;
+          color:#3f3f3f;
+          i{
+            font-size:8px;
+            margin-bottom:14px;
+          }
+        }
+      }
+
+      .time {
+        margin: 0 8px;
+      }
+    }
+  }
+}

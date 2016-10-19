@@ -1,0 +1,50 @@
+<!-- PRODUCT LIST ITEMS -->
+<div class="product-list-item" ng-repeat="product in vm.products | filter: vm.search | filter: global.search"
+     md-ink-ripple
+     ng-click="vm.selectProduct(product)"
+     ng-class="{'starred': product.starred, 'selected': vm.selectedProduct === product, 'checked': vm.isChecked(product)}">
+
+  <div layout="row" layout-align="start center">
+
+    <div class="info" flex="40" layout="row">
+      <div class="clientCygil" layout="row" layout-align="start center">
+        <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}"/>
+
+        <div class="listMedia" ng-if="!product.attachment" ms-random-class="vm.colors">
+          {{product.product_name}}
+        </div>
+      </div>
+
+      <div class="productMainInfo" layout="column" layout-align="center start">
+        <span class="caps" style="font-weight: 400">{{product.product_name}}</span>
+        <div class="productCode">
+          {{product.code}}
+        </div>
+      </div>
+    </div>
+
+    <div class="client" flex="20" layout="column" layout-align="center start">
+    {{product.category}}
+    </div>
+
+    <div class="client" flex="15" layout="column" layout-align="center start">
+      {{product.brand}}
+    </div>
+
+    <div class="client" flex="10" layout="column" layout-align="center end">
+      <span class="ammount">{{product.price_of_unit | isoCurrency:content.selectCurrency}}</span>
+    </div>
+
+    <div flex="15"></div>
+
+    <div class="status" flex="10" layout="column" layout-align="center end">
+      <span ng-if="product.status == true" class="pill paid">Active </span>
+      <span ng-if="product.status == false" class="pill unpaid">Inactive</span>
+    </div>
+
+  </div>
+</div>
+<div class="product-list-item" layout-align="center center" layout="row" ng-hide="lastSet || initial">
+  <md-button class="md-primary" ng-click="getNextProducts(vm.search);" type="button">Search More</md-button>
+</div>
+<!-- PRODUCT LIST ITEMS
