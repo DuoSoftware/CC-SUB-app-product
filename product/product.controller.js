@@ -171,19 +171,7 @@
 
 
     $scope.getNextProducts= function (keyword) {
-      if(keyword.length!=0) {
-        var skipProduct = 0;
-        takeProduct = 100;
-        $charge.product().filterByKey(keyword, skipProduct, takeProduct).success(function (data) {
-          for (var i = 0; i < data.length; i++) {
-            vm.products.push(data[i]);
-          }
-          //vm.products
-        }).error(function (data) {
-
-        });
-      }
-      else if(keyword.length==0)
+      if(keyword==undefined)
       {
         $productHandler.getClient().LoadProductByScroll(skip,50).onComplete(function(data)
         {
@@ -198,7 +186,19 @@
 
         });
       }
-      else if(keyword==undefined)
+      else if(keyword.length!=0) {
+        var skipProduct = 0;
+        takeProduct = 100;
+        $charge.product().filterByKey(keyword, skipProduct, takeProduct).success(function (data) {
+          for (var i = 0; i < data.length; i++) {
+            vm.products.push(data[i]);
+          }
+          //vm.products
+        }).error(function (data) {
+
+        });
+      }
+      else if(keyword.length==0)
       {
         $productHandler.getClient().LoadProductByScroll(skip,50).onComplete(function(data)
         {
