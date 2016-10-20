@@ -987,30 +987,93 @@
       $scope.isAdded=false;
       if($scope.newCat != true && $scope.newUom !=true && $scope.newBrand!=true)
       {
-      if(isAvailable)
-      {
-        if($scope.content.files.length>0) {
-          angular.forEach($scope.content.files, function (obj) {
-            $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
+        if($scope.content.category != "" && $scope.content.brand !="" && $scope.content.uom!="") {
+          if (isAvailable) {
+            if ($scope.content.files.length > 0) {
+              angular.forEach($scope.content.files, function (obj) {
+                $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
-            $uploader.onSuccess(function (e, data) {
-              debugger;
-              var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
+                $uploader.onSuccess(function (e, data) {
+                  debugger;
+                  var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
 
+                  $scope.spinnerAdd = true;
+
+                  if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
+                    $scope.content.quantity_of_unit = 0;
+                  if ($scope.content.cost_price == null || $scope.content.cost_price == "")
+                    $scope.content.cost_price = 0;
+
+                  if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
+                    $scope.content.apply_tax = false;
+                    $scope.content.tax = "0";
+                  }
+                  else {
+                    var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+                    debugger;
+                    $scope.content.tax = taxgrp.taxgroupid;
+                  }
+                  //debugger;
+                  if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
+                    $scope.content.sku = false;
+                    $scope.content.minimun_stock_level = 0;
+                  }
+                  //if($scope.content.files !=null) {
+                  $scope.content.attachment = path;
+                  // }
+                  var req = $scope.content;
+                  //debugger;
+                  $charge.product().store(req).success(function (data) {
+                    if (data.id) {
+                      notifications.toast("Record Inserted, Product Code " + req.code, "success");
+                      $scope.isAdded = true;
+                      $scope.clearFields();
+                      $rootScope.isCleared = true;
+                      var product = {}
+                      product.code = req.code;
+                      product.product_name = req.product_name;
+                      product.price_of_unit = req.price_of_unit;
+                      product.status = req.status;
+                      vm.products.unshift(product);
+                      vm.productLst.unshift(product);
+                      //$rootScope.productlist.push(product);
+
+                    }
+                  }).error(function (data) {
+                    console.log(data);
+                  })
+                  //scope.removeAllFiles();
+                });
+                $uploader.onError(function (e, data) {
+                  var toast = $mdToast.simple()
+                    .content('There was an error, please upload!')
+                    .action('OK')
+                    .highlightAction(false)
+                    .position("bottom right");
+                  $mdToast.show(toast).then(function () {
+                    //whatever
+                  });
+                });
+              });
+            }
+            else {
               $scope.spinnerAdd = true;
-
+              //$scope.content.product_name=self.searchText;
+              //debugger;
               if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
                 $scope.content.quantity_of_unit = 0;
               if ($scope.content.cost_price == null || $scope.content.cost_price == "")
                 $scope.content.cost_price = 0;
-
+              //if($scope.content.tax==null ||$scope.content.tax=="")
+              //    $scope.content.tax="0";
+              //debugger;
               if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
                 $scope.content.apply_tax = false;
                 $scope.content.tax = "0";
               }
               else {
                 var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
-                debugger;
+                //debugger;
                 $scope.content.tax = taxgrp.taxgroupid;
               }
               //debugger;
@@ -1019,102 +1082,42 @@
                 $scope.content.minimun_stock_level = 0;
               }
               //if($scope.content.files !=null) {
-              $scope.content.attachment = path;
+              //$scope.content.attachment = $scope.content.files;
               // }
+              $scope.content.attachment = "app/core/cloudcharge/img/noimage.png";
               var req = $scope.content;
               //debugger;
               $charge.product().store(req).success(function (data) {
                 if (data.id) {
+                  //console.log(data);
                   notifications.toast("Record Inserted, Product Code " + req.code, "success");
                   $scope.isAdded = true;
+                  $scope.spinnerAdd = false;
                   $scope.clearFields();
                   $rootScope.isCleared = true;
                   var product = {}
                   product.code = req.code;
                   product.product_name = req.product_name;
-                  product.price_of_unit=req.price_of_unit;
-                  product.status=req.status;
+                  product.price_of_unit = req.price_of_unit;
+                  product.status = req.status;
                   vm.products.unshift(product);
                   vm.productLst.unshift(product);
-                  //$rootScope.productlist.push(product);
 
                 }
               }).error(function (data) {
-                console.log(data);
+                //console.log(data);
               })
-              //scope.removeAllFiles();
-            });
-            $uploader.onError(function (e, data) {
-              var toast = $mdToast.simple()
-                .content('There was an error, please upload!')
-                .action('OK')
-                .highlightAction(false)
-                .position("bottom right");
-              $mdToast.show(toast).then(function () {
-                //whatever
-              });
-            });
-          });
+            }
+
+          }
+          else {
+            $scope.chkProductCode($scope.content.code);
+          }
         }
         else
         {
-          $scope.spinnerAdd = true;
-          //$scope.content.product_name=self.searchText;
-          //debugger;
-          if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
-            $scope.content.quantity_of_unit = 0;
-          if ($scope.content.cost_price == null || $scope.content.cost_price == "")
-            $scope.content.cost_price = 0;
-          //if($scope.content.tax==null ||$scope.content.tax=="")
-          //    $scope.content.tax="0";
-          //debugger;
-          if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
-            $scope.content.apply_tax = false;
-            $scope.content.tax = "0";
-          }
-          else {
-            var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
-            //debugger;
-            $scope.content.tax = taxgrp.taxgroupid;
-          }
-          //debugger;
-          if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
-            $scope.content.sku = false;
-            $scope.content.minimun_stock_level = 0;
-          }
-          //if($scope.content.files !=null) {
-          //$scope.content.attachment = $scope.content.files;
-          // }
-          $scope.content.attachment="app/core/cloudcharge/img/noimage.png";
-          var req = $scope.content;
-          //debugger;
-          $charge.product().store(req).success(function (data) {
-            if (data.id) {
-              //console.log(data);
-              notifications.toast("Record Inserted, Product Code " + req.code, "success");
-              $scope.isAdded = true;
-              $scope.spinnerAdd = false;
-              $scope.clearFields();
-              $rootScope.isCleared = true;
-              var product = {}
-              product.code = req.code;
-              product.product_name = req.product_name;
-              product.price_of_unit=req.price_of_unit;
-              product.status=req.status;
-              vm.products.unshift(product);
-              vm.productLst.unshift(product);
-
-            }
-          }).error(function (data) {
-            //console.log(data);
-          })
+          notifications.toast("Please fill all the details", "error");
         }
-
-      }
-      else
-      {
-        $scope.chkProductCode($scope.content.code);
-      }
       }
       else//This is done because the HTML simple validation might work and enter the submit, however the form can still be invalid
       {
