@@ -1308,14 +1308,14 @@
             "GUUOMTypeID": "supplier1",
             "GUTranID": "12345",
             "CommitStatus": "Active",
-            "UOMCode": $scope.uom,
+            "UOMCode": uomval,
             "uomApplicationMapperDetail": [{
               "GUApplicationID": "Product_123"
             }],
             "uomConversionDetails": [{
-              "FromUOMCode": $scope.uom,
+              "FromUOMCode": uomval,
               "Qty": "10",
-              "ToUOMCode": $scope.uom
+              "ToUOMCode": uomval
             }]
 
           }
@@ -1438,7 +1438,7 @@
             "commonDataValueDetails": [
               {
                 "RowID": "1452",
-                "RecordFieldData": $scope.brand,
+                "RecordFieldData": brandval,
                 "ColumnIndex": "1"
               }]
           }
@@ -1446,6 +1446,7 @@
           $charge.commondata().store(req).success(function (data) {
             $rootScope.isBrandLoaded = true;
             if (data[0].error == "00000") {
+              $scope.brands.push(brandval);
               $scope.newBrand = false;
               //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
             }
