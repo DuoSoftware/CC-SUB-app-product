@@ -198,6 +198,21 @@
 
         });
       }
+      else if(keyword==undefined)
+      {
+        $productHandler.getClient().LoadProductByScroll(skip,50).onComplete(function(data)
+        {
+          for (var i = 0; i <data.length; i++) {
+            vm.products.push(data[i]);
+          }
+        }).onError(function(data)
+        {
+          //$scope.isSpinnerShown=false;
+          //$scope.lastSet=true;
+
+
+        });
+      }
 
     }
 
