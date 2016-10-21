@@ -9,6 +9,12 @@
     /** @ngInject */
     function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider)
     {
+      ////////////////////////////////
+      // App : Product
+      // Owner  : Suvethan
+      // Last changed date : 2016/10/21
+      // Version : 6.0.0.1
+      /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 
         $stateProvider
