@@ -186,7 +186,7 @@
             vm.products=data;
             vm.filterName='LowOnStock';
             $scope.initial=false;
-            if(data.length<take)
+            if(data.length<100)
               $scope.lastSet=true;
             skipType+=100;
           }).error(function(data){
@@ -198,7 +198,7 @@
           $charge.product().getproductsbystatus(status, skipStatusType, 100,'asc').success(function (data) {
             vm.products=data;
             $scope.initial=false;
-            if(data.length<take)
+            if(data.length<100)
               $scope.lastSet=true;
             vm.filterName='Status';
             skipStatusType+=100;
@@ -239,7 +239,7 @@
             vm.products=data;
             vm.filterName='LowOnStock';
             $scope.initial=false;
-            if(data.length<take)
+            if(data.length<100)
               $scope.lastSet=true;
             skipType+=100;
           }).error(function(data){
@@ -251,7 +251,7 @@
           $charge.product().getproductsbystatus(status, skipStatusType, 100,'asc').success(function (data) {
             vm.products=data;
             $scope.initial=false;
-            if(data.length<take)
+            if(data.length<100)
               $scope.lastSet=true;
             vm.filterName='Status';
             skipStatusType+=100;
@@ -891,7 +891,7 @@
       $charge.product().getproductsbystatus(status, skipStatusType, takeStatusType,'asc').success(function (data) {
         vm.products=data;
         $scope.initial=false;
-        if(data.length<take)
+        if(data.length<takeStatusType)
           $scope.lastSet=true;
         vm.filterName='Status';
         skipStatusType+=takeStatusType;
@@ -911,7 +911,7 @@
         vm.products=data;
         vm.filterName='LowOnStock';
         $scope.initial=false;
-        if(data.length<take)
+        if(data.length<takeType)
           $scope.lastSet=true;
         skipType+=takeType;
       }).error(function(data){
@@ -927,7 +927,7 @@
       vm.filterName='All';
       vm.products=vm.productLst;
       $scope.initial=false;
-      if(vm.products.length<take)
+      if(vm.products.length<100)
         $scope.lastSet=true;
     }
     //get all products filter end
