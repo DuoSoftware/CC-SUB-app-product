@@ -132,6 +132,12 @@
       $productHandler.getClient().LoadProductByScroll(skip,take).onComplete(function(data)
       {
         $scope.initial=false;
+        //debugger;
+        //if($scope.loading) {
+        //  for (var i = data.length-1; i >=0; i--) {
+        //  //data[i].select=false;
+        //  vm.productLst.push(data[i]);
+        //}
         if(data.length<take)
           $scope.lastSet=true;
         for (var i = 0; i <data.length; i++) {
@@ -167,45 +173,18 @@
     $scope.getNextProducts= function (keyword) {
       if(keyword==undefined)
       {
-        if(vm.filterName=='All') {
-          $productHandler.getClient().LoadProductByScroll(skip, 100).onComplete(function (data) {
-            for (var i = 0; i < data.length; i++) {
-              vm.products.push(data[i]);
-            }
-            skip += 100;
-          }).onError(function (data) {
-            //$scope.isSpinnerShown=false;
-            //$scope.lastSet=true;
+        $productHandler.getClient().LoadProductByScroll(skip,50).onComplete(function(data)
+        {
+          for (var i = 0; i <data.length; i++) {
+            vm.products.push(data[i]);
+          }
+        }).onError(function(data)
+        {
+          //$scope.isSpinnerShown=false;
+          //$scope.lastSet=true;
 
 
-          });
-        }
-        else if(vm.filterName=='LowOnStock')
-        {
-          $charge.product().getProductsLowOnStock(skipType, 100,'asc').success(function (data) {
-            vm.products=data;
-            vm.filterName='LowOnStock';
-            $scope.initial=false;
-            if(data.length<take)
-              $scope.lastSet=true;
-            skipType+=100;
-          }).error(function(data){
-            //vm.products=[];
-          });
-        }
-        else if(vm.filterName=='Status')
-        {
-          $charge.product().getproductsbystatus(status, skipStatusType, 100,'asc').success(function (data) {
-            vm.products=data;
-            $scope.initial=false;
-            if(data.length<take)
-              $scope.lastSet=true;
-            vm.filterName='Status';
-            skipStatusType+=100;
-          }).error(function(data){
-            //vm.products=[];
-          });
-        }
+        });
       }
       else if(keyword.length!=0) {
         var skipProduct = 0;
@@ -221,44 +200,18 @@
       }
       else if(keyword.length==0)
       {
-        if(vm.filterName=='All') {
-          $productHandler.getClient().LoadProductByScroll(skip, 100).onComplete(function (data) {
-            for (var i = 0; i < data.length; i++) {
-              vm.products.push(data[i]);
-            }
-          }).onError(function (data) {
-            //$scope.isSpinnerShown=false;
-            //$scope.lastSet=true;
+        $productHandler.getClient().LoadProductByScroll(skip,50).onComplete(function(data)
+        {
+          for (var i = 0; i <data.length; i++) {
+            vm.products.push(data[i]);
+          }
+        }).onError(function(data)
+        {
+          //$scope.isSpinnerShown=false;
+          //$scope.lastSet=true;
 
 
-          });
-        }
-        else if(vm.filterName=='LowOnStock')
-        {
-          $charge.product().getProductsLowOnStock(skipType, 100,'asc').success(function (data) {
-            vm.products=data;
-            vm.filterName='LowOnStock';
-            $scope.initial=false;
-            if(data.length<take)
-              $scope.lastSet=true;
-            skipType+=100;
-          }).error(function(data){
-            //vm.products=[];
-          });
-        }
-        else if(vm.filterName=='Status')
-        {
-          $charge.product().getproductsbystatus(status, skipStatusType, 100,'asc').success(function (data) {
-            vm.products=data;
-            $scope.initial=false;
-            if(data.length<take)
-              $scope.lastSet=true;
-            vm.filterName='Status';
-            skipStatusType+=100;
-          }).error(function(data){
-            //vm.products=[];
-          });
-        }
+        });
       }
 
     }
@@ -884,17 +837,10 @@
     };
     //custom filter order
     //active/inactive filter product start
-    vm.filterName='All';
-    var skipStatusType,takeStatusType;
     $scope.getProductByStatus= function (status) {
-      skipStatusType=0,takeStatusType=100;
-      $charge.product().getproductsbystatus(status, skipStatusType, takeStatusType,'asc').success(function (data) {
+      var skipType=0,takeType=50;
+      $charge.product().getproductsbystatus(status, skipType, takeType,'asc').success(function (data) {
         vm.products=data;
-        $scope.initial=false;
-        if(data.length<take)
-          $scope.lastSet=true;
-        vm.filterName='Status';
-        skipStatusType+=takeStatusType;
       }).error(function(data){
         vm.products=[];
       });
@@ -904,16 +850,10 @@
     /*
     *  Low on product filter method start
     */
-    var skipType,takeType;
     $scope.getLowOnStockProducts= function () {
-      skipType=0,takeType=100;
+      var skipType=0,takeType=50;
       $charge.product().getProductsLowOnStock(skipType, takeType,'asc').success(function (data) {
         vm.products=data;
-        vm.filterName='LowOnStock';
-        $scope.initial=false;
-        if(data.length<take)
-          $scope.lastSet=true;
-        skipType+=takeType;
       }).error(function(data){
         vm.products=[];
       });
@@ -924,11 +864,7 @@
 
     //get all products filter start
     $scope.getAllProductsFilter= function () {
-      vm.filterName='All';
       vm.products=vm.productLst;
-      $scope.initial=false;
-      if(vm.products.length<take)
-        $scope.lastSet=true;
     }
     //get all products filter end
 

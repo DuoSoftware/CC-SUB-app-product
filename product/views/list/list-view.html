@@ -6,7 +6,7 @@
 
   <div layout="row" layout-align="start center">
 
-    <div class="info" flex="30" layout="row">
+    <div class="info" flex="40" layout="row">
       <div class="clientCygil" layout="row" layout-align="start center">
         <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}"/>
 
@@ -31,11 +31,11 @@
       {{product.brand}}
     </div>
 
-    <div class="client" flex="20" layout="column" layout-align="center end">
+    <div class="client" flex="10" layout="column" layout-align="center end">
       <span class="ammount">{{product.price_of_unit | isoCurrency:content.selectCurrency}}</span>
     </div>
 
-    <div flex="5" style="max-width: 45px;"></div>
+    <div flex="15"></div>
 
     <div class="status" flex="10" layout="column" layout-align="center end">
       <span ng-if="product.status == true" class="pill paid">Active </span>

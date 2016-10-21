@@ -67,7 +67,7 @@
           .listMedia {
             min-width: 90px;
             width: 90px;
-            height: auto;
+            height: 70px;
             line-height: 70px;
           }
 
@@ -135,7 +135,7 @@
         height:auto;
 
         .pill{
-          width:80px;
+          width:100%;
           height:auto;
           border-radius:3px;
           color:#fff;
@@ -146,9 +146,9 @@
         }
 
         .unpaid{
-          background-color:orange;
+          background-color:#f44336;
           padding: 5px ;
-          border:1px solid orange;
+          border:1px solid #f06157;
         }
 
         .partial{
