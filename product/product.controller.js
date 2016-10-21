@@ -686,7 +686,7 @@
 
     $scope.getAllProducts= function () {
       var skip=0;
-      var take=50;
+      var take=100;
       vm.productLst=[];
       $productHandler.getClient().LoadProductByScroll(skip,take).onComplete(function(data)
       {
@@ -1224,19 +1224,6 @@
 
 
 
-    $charge.uom().getAllUOM('Product_123').success(function(data) {
-      $scope.UOMs=[];
-      //debugger;
-      console.log(data);
-      for(var i=0;i<data.length;i++)
-      {
-        //debugger;
-        $scope.UOMs.push(data[i][0]["UOMCode"]);
-        //debugger;
-      }
-    }).error(function(data) {
-      console.log(data);
-    })
     $rootScope.isBrandLoaded=false;
     $scope.brands=[];
     $charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","Brand").success(function(data) {
