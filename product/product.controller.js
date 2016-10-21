@@ -173,6 +173,10 @@
               vm.products.push(data[i]);
             }
             skip += 100;
+            if(data.length<100)
+              $scope.lastSet=true;
+            else
+              $scope.lastSet=false;
           }).onError(function (data) {
             //$scope.isSpinnerShown=false;
             //$scope.lastSet=true;
@@ -188,6 +192,8 @@
             $scope.initial=false;
             if(data.length<100)
               $scope.lastSet=true;
+            else
+              $scope.lastSet=false;
             skipType+=100;
           }).error(function(data){
             //vm.products=[];
@@ -200,6 +206,8 @@
             $scope.initial=false;
             if(data.length<100)
               $scope.lastSet=true;
+            else
+              $scope.lastSet=false;
             vm.filterName='Status';
             skipStatusType+=100;
           }).error(function(data){
@@ -226,6 +234,10 @@
             for (var i = 0; i < data.length; i++) {
               vm.products.push(data[i]);
             }
+            if(data.length<100)
+              $scope.lastSet=true;
+            else
+              $scope.lastSet=false;
           }).onError(function (data) {
             //$scope.isSpinnerShown=false;
             //$scope.lastSet=true;
@@ -241,6 +253,8 @@
             $scope.initial=false;
             if(data.length<100)
               $scope.lastSet=true;
+            else
+              $scope.lastSet=false;
             skipType+=100;
           }).error(function(data){
             //vm.products=[];
@@ -253,6 +267,8 @@
             $scope.initial=false;
             if(data.length<100)
               $scope.lastSet=true;
+            else
+              $scope.lastSet=false;
             vm.filterName='Status';
             skipStatusType+=100;
           }).error(function(data){
@@ -893,6 +909,8 @@
         $scope.initial=false;
         if(data.length<takeStatusType)
           $scope.lastSet=true;
+        else
+          $scope.lastSet=false;
         vm.filterName='Status';
         skipStatusType+=takeStatusType;
       }).error(function(data){
@@ -913,6 +931,8 @@
         $scope.initial=false;
         if(data.length<takeType)
           $scope.lastSet=true;
+        else
+          $scope.lastSet=false;
         skipType+=takeType;
       }).error(function(data){
         vm.products=[];
@@ -929,6 +949,8 @@
       $scope.initial=false;
       if(vm.products.length<100)
         $scope.lastSet=true;
+      else
+        $scope.lastSet=false;
     }
     //get all products filter end
 
