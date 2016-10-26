@@ -12,8 +12,9 @@
       ////////////////////////////////
       // App : Product
       // Owner  : Suvethan
-      // Last changed date : 2016/10/21
-      // Version : 6.0.0.5
+      // Last changed date : 2016/10/26
+      // Version : 6.0.0.6
+      // Updated By : Suvethan
       /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 
