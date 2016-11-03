@@ -183,7 +183,10 @@
             <span flex>Quantity</span>
             <span flex>
               <md-input-container style="margin-top: -10px">
-                <input class="width-control" ng-model="changeProduct.quantity_of_unit" type="number">
+                <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
+                <div ng-messages="vm.updateForm.UpdateQty.$error">
+                  <div ng-message="pattern">Quantity of Unit is invalid</div>
+                </div>
               </md-input-container>
             </span>
           </div>

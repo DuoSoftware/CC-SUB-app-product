@@ -1,7 +1,7 @@
 <div id="product" class="page-layout carded left-sidenav" layout="row" ng-switch="vm.appInnerState">
   <meta name="updatedBy" content="suvethan">
   <meta name="modifiedDate" content="03-11-2016">
-  <meta name="version" content="6.0.0.1">
+  <meta name="version" content="6.0.0.2">
   <meta name="view" content="product.html">
   <!-- TOP BACKGROUND -->
   <div class="top-bg md-accent-bg"></div>
@@ -304,7 +304,10 @@
                   <div layout="row" class="content-block" flex>
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Quantity of Unit</label>
-                      <input ng-required="false" minlength="null" md-maxlength="null" min="0" type="number" name="Qty" ng-pattern="/(?:)/" ng-model="content.quantity_of_unit">
+                      <input ng-required="false" name="ProdQty"  min="0" type="number" name="Qty" ng-pattern="/^-?[0-9][^\.]*$/" ng-model="content.quantity_of_unit">
+                      <div ng-messages="vm.editForm.ProdQty.$error">
+                        <div ng-message="pattern">Quantity of Unit is invalid</div>
+                      </div>
                     </md-input-container>
 
                     <div flex="15">
