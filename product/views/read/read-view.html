@@ -246,7 +246,10 @@
     <div class="description" layout="column" layout-align="start start">
       <span class="info_sup">Description</span>
       <span style="width: 100%;">
-        <textarea ng-model="changeProduct.descroption" type="" style="width: 100%;border: solid 1px #cccccc;margin-bottom: 20px;padding: 10px;"/>
+        <textarea name="updateDesc" ng-maxlength="450" ng-model="changeProduct.descroption" type="" style="width: 100%;border: solid 1px #cccccc;margin-bottom: 20px;padding: 10px;"/>
+        <div ng-messages="vm.updateForm.updateDesc.$error">
+          <div ng-message="maxlength">Product Description has to be less than 450 characters long</div>
+        </div>
       </span>
     </div>
   </div>

@@ -237,7 +237,10 @@
                   <div layout="row" class="content-block">
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Description</label>
-                      <input ng-required="false" minlength="null" md-maxlength="null" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">
+                      <input ng-required="false" ng-maxlength="450" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">
+                      <div ng-messages="vm.editForm.ProductDesc.$error">
+                        <div ng-message="maxlength">Product Description has to be less than 450 characters long</div>
+                      </div>
                     </md-input-container>
                   </div>
 
