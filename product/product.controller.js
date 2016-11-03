@@ -5,8 +5,8 @@
 // App : Product
 // File : Product Controller
 // Owner  : Suvethan
-// Last changed date : 2016/10/26
-// Version : 6.0.0.1
+// Last changed date : 2016/11/03
+// Version : 6.0.0.2
 // Updated By : Suvethan
 /////////////////////////////////
 
@@ -635,108 +635,107 @@
     $scope.saveEdit = function(model)
     {
       debugger;
-      $rootScope.UnitSize="flex-85";
-      $rootScope.unitMeasure="flex-15";
-      var editReq=$scope.changeProduct;
-      var tempTaxgroup=angular.copy(editReq);
-      var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
-      if(taxgrp!=undefined || taxgrp!=null)
-        editReq.tax=taxgrp=taxgrp.taxgroupid;
-      else
-        editReq.tax=0;
-      if(editReq.status=="false")
-      {
-        editReq.status=false;
-      }
-      else if(editReq.status=="true")
-      {
-        editReq.status=true;
-      }
-      if(editReq.files.length>0) {
-        angular.forEach(editReq.files, function (obj) {
-          $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
+      if(vm.updateForm.$valid == true) {
+        $rootScope.UnitSize = "flex-85";
+        $rootScope.unitMeasure = "flex-15";
+        var editReq = $scope.changeProduct;
+        var tempTaxgroup = angular.copy(editReq);
+        var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
+        if (taxgrp != undefined || taxgrp != null)
+          editReq.tax = taxgrp = taxgrp.taxgroupid;
+        else
+          editReq.tax = 0;
+        if (editReq.status == "false") {
+          editReq.status = false;
+        }
+        else if (editReq.status == "true") {
+          editReq.status = true;
+        }
+        if (editReq.files.length > 0) {
+          angular.forEach(editReq.files, function (obj) {
+            $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
-          $uploader.onSuccess(function (e, data) {
-            debugger;
-            var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
-            editReq.attachment = path;
-            $charge.product().update(editReq).success(function (data) {
-              //debugger;
-              if (data.count) {
+            $uploader.onSuccess(function (e, data) {
+              debugger;
+              var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
+              editReq.attachment = path;
+              $charge.product().update(editReq).success(function (data) {
                 //debugger;
-                for (var i = 0; i < vm.products.length; i++) {
-                  if (vm.products[i].productId == editReq.productId) {
-                    vm.products[i] = angular.copy(editReq);
-                  }
-                }
-                editReq.tax = tempTaxgroup.tax;
-
-                vm.selectedProduct = editReq;
-                //debugger;
-                $rootScope.editOff = !$rootScope.editOff;
-                if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
+                if (data.count) {
                   //debugger;
-                  $rootScope.editTax = !$rootScope.editTax;
+                  for (var i = 0; i < vm.products.length; i++) {
+                    if (vm.products[i].productId == editReq.productId) {
+                      vm.products[i] = angular.copy(editReq);
+                    }
+                  }
+                  editReq.tax = tempTaxgroup.tax;
+
+                  vm.selectedProduct = editReq;
+                  //debugger;
+                  $rootScope.editOff = !$rootScope.editOff;
+                  if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
+                    //debugger;
+                    $rootScope.editTax = !$rootScope.editTax;
+                  }
+                  else
+                    vm.selectedProduct.tax = "";
+                  if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
+                    $rootScope.editInv = !$rootScope.editInv;
+                  }
+                  else
+                    vm.selectedProduct.inventoryStock = "";
+                  notifications.toast("Record Updated, Product Code " + editReq.code, "success");
                 }
-                else
-                  vm.selectedProduct.tax = "";
-                if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
-                  $rootScope.editInv = !$rootScope.editInv;
-                }
-                else
-                  vm.selectedProduct.inventoryStock = "";
-                notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-              }
-            }).error(function (data) {
-              console.log(data);
-              notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-            })
-          });
-          $uploader.onError(function (e, data) {
-            var toast = $mdToast.simple()
-              .content('There was an error, please upload!')
-              .action('OK')
-              .highlightAction(false)
-              .position("bottom right");
-            $mdToast.show(toast).then(function () {
-              //whatever
+              }).error(function (data) {
+                console.log(data);
+                notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+              })
+            });
+            $uploader.onError(function (e, data) {
+              var toast = $mdToast.simple()
+                .content('There was an error, please upload!')
+                .action('OK')
+                .highlightAction(false)
+                .position("bottom right");
+              $mdToast.show(toast).then(function () {
+                //whatever
+              });
             });
           });
-        });
-      }
-      else
-      {
-        $charge.product().update(editReq).success(function (data) {
-          //debugger;
-          if (data.count) {
+        }
+        else {
+          $charge.product().update(editReq).success(function (data) {
             //debugger;
-            for (var i = 0; i < vm.products.length; i++) {
-              if (vm.products[i].productId == editReq.productId) {
-                vm.products[i] = angular.copy(editReq);
-              }
-            }
-            editReq.tax = tempTaxgroup.tax;
-
-            vm.selectedProduct = editReq;
-            //debugger;
-            $rootScope.editOff = !$rootScope.editOff;
-            if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
+            if (data.count) {
               //debugger;
-              $rootScope.editTax = !$rootScope.editTax;
+              for (var i = 0; i < vm.products.length; i++) {
+                if (vm.products[i].productId == editReq.productId) {
+                  vm.products[i] = angular.copy(editReq);
+                }
+              }
+              editReq.tax = tempTaxgroup.tax;
+
+              vm.selectedProduct = editReq;
+              //debugger;
+              $rootScope.editOff = !$rootScope.editOff;
+              if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
+                //debugger;
+                $rootScope.editTax = !$rootScope.editTax;
+              }
+              else
+                vm.selectedProduct.tax = "";
+              if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
+                $rootScope.editInv = !$rootScope.editInv;
+              }
+              else
+                vm.selectedProduct.inventoryStock = "";
+              notifications.toast("Record Updated, Product Code " + editReq.code, "success");
             }
-            else
-              vm.selectedProduct.tax = "";
-            if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
-              $rootScope.editInv = !$rootScope.editInv;
-            }
-            else
-              vm.selectedProduct.inventoryStock = "";
-            notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-          }
-        }).error(function (data) {
-          console.log(data);
-          notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-        })
+          }).error(function (data) {
+            console.log(data);
+            notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+          })
+        }
       }
     }
 
@@ -1094,149 +1093,148 @@
     $scope.saveProduct = function(){
       debugger;
       $scope.isAdded=false;
-      if($scope.newCat != true && $scope.newUom !=true && $scope.newBrand!=true)
-      {
-        if($scope.content.category != "" && $scope.content.brand !="" && $scope.content.uom!="") {
-          if($scope.content.selectCurrency!="" || $scope.content.selectCurrency!=undefined ) {
-            if (isAvailable) {
-              if ($scope.content.files.length > 0) {
-                angular.forEach($scope.content.files, function (obj) {
-                  $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
+      if(vm.editForm.$valid == true) {
+        if ($scope.newCat != true && $scope.newUom != true && $scope.newBrand != true) {
+          if ($scope.content.category != "" && $scope.content.brand != "" && $scope.content.uom != "") {
+            if ($scope.content.selectCurrency != "" || $scope.content.selectCurrency != undefined) {
+              if (isAvailable) {
+                if ($scope.content.files.length > 0) {
+                  angular.forEach($scope.content.files, function (obj) {
+                    $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
-                  $uploader.onSuccess(function (e, data) {
-                    debugger;
-                    var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
-
-                    $scope.spinnerAdd = true;
-
-                    if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
-                      $scope.content.quantity_of_unit = 0;
-                    if ($scope.content.cost_price == null || $scope.content.cost_price == "")
-                      $scope.content.cost_price = 0;
-
-                    if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
-                      $scope.content.apply_tax = false;
-                      $scope.content.tax = "0";
-                    }
-                    else {
-                      var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+                    $uploader.onSuccess(function (e, data) {
                       debugger;
-                      $scope.content.tax = taxgrp.taxgroupid;
-                    }
-                    //debugger;
-                    if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
-                      $scope.content.sku = false;
-                      $scope.content.minimun_stock_level = 0;
-                    }
-                    //if($scope.content.files !=null) {
-                    $scope.content.attachment = path;
-                    // }
-                    var req = $scope.content;
-                    //debugger;
-                    $charge.product().store(req).success(function (data) {
-                      if (data.id) {
-                        notifications.toast("Record Inserted, Product Code " + req.code, "success");
-                        $scope.isAdded = true;
-                        $scope.clearFields();
-                        $rootScope.isCleared = true;
-                        var product = {}
-                        product.code = req.code;
-                        product.product_name = req.product_name;
-                        product.price_of_unit = req.price_of_unit;
-                        product.status = req.status;
-                        vm.products.unshift(product);
-                        vm.productLst.unshift(product);
-                        //$rootScope.productlist.push(product);
+                      var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
 
+                      $scope.spinnerAdd = true;
+
+                      if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
+                        $scope.content.quantity_of_unit = 0;
+                      if ($scope.content.cost_price == null || $scope.content.cost_price == "")
+                        $scope.content.cost_price = 0;
+
+                      if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
+                        $scope.content.apply_tax = false;
+                        $scope.content.tax = "0";
                       }
-                    }).error(function (data) {
-                      console.log(data);
-                    })
-                    //scope.removeAllFiles();
-                  });
-                  $uploader.onError(function (e, data) {
-                    var toast = $mdToast.simple()
-                      .content('There was an error, please upload!')
-                      .action('OK')
-                      .highlightAction(false)
-                      .position("bottom right");
-                    $mdToast.show(toast).then(function () {
-                      //whatever
+                      else {
+                        var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+                        debugger;
+                        $scope.content.tax = taxgrp.taxgroupid;
+                      }
+                      //debugger;
+                      if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
+                        $scope.content.sku = false;
+                        $scope.content.minimun_stock_level = 0;
+                      }
+                      //if($scope.content.files !=null) {
+                      $scope.content.attachment = path;
+                      // }
+                      var req = $scope.content;
+                      //debugger;
+                      $charge.product().store(req).success(function (data) {
+                        if (data.id) {
+                          notifications.toast("Record Inserted, Product Code " + req.code, "success");
+                          $scope.isAdded = true;
+                          $scope.clearFields();
+                          $rootScope.isCleared = true;
+                          var product = {}
+                          product.code = req.code;
+                          product.product_name = req.product_name;
+                          product.price_of_unit = req.price_of_unit;
+                          product.status = req.status;
+                          vm.products.unshift(product);
+                          vm.productLst.unshift(product);
+                          //$rootScope.productlist.push(product);
+
+                        }
+                      }).error(function (data) {
+                        console.log(data);
+                      })
+                      //scope.removeAllFiles();
+                    });
+                    $uploader.onError(function (e, data) {
+                      var toast = $mdToast.simple()
+                        .content('There was an error, please upload!')
+                        .action('OK')
+                        .highlightAction(false)
+                        .position("bottom right");
+                      $mdToast.show(toast).then(function () {
+                        //whatever
+                      });
                     });
                   });
-                });
-              }
-              else {
-                $scope.spinnerAdd = true;
-                //$scope.content.product_name=self.searchText;
-                //debugger;
-                if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
-                  $scope.content.quantity_of_unit = 0;
-                if ($scope.content.cost_price == null || $scope.content.cost_price == "")
-                  $scope.content.cost_price = 0;
-                //if($scope.content.tax==null ||$scope.content.tax=="")
-                //    $scope.content.tax="0";
-                //debugger;
-                if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
-                  $scope.content.apply_tax = false;
-                  $scope.content.tax = "0";
                 }
                 else {
-                  var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+                  $scope.spinnerAdd = true;
+                  //$scope.content.product_name=self.searchText;
                   //debugger;
-                  $scope.content.tax = taxgrp.taxgroupid;
-                }
-                //debugger;
-                if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
-                  $scope.content.sku = false;
-                  $scope.content.minimun_stock_level = 0;
-                }
-                //if($scope.content.files !=null) {
-                //$scope.content.attachment = $scope.content.files;
-                // }
-                $scope.content.attachment = "app/core/cloudcharge/img/noimage.png";
-                var req = $scope.content;
-                //debugger;
-                $charge.product().store(req).success(function (data) {
-                  if (data.id) {
-                    //console.log(data);
-                    notifications.toast("Record Inserted, Product Code " + req.code, "success");
-                    $scope.isAdded = true;
-                    $scope.spinnerAdd = false;
-                    $scope.clearFields();
-                    $rootScope.isCleared = true;
-                    var product = {}
-                    product.code = req.code;
-                    product.product_name = req.product_name;
-                    product.price_of_unit = req.price_of_unit;
-                    product.status = req.status;
-                    vm.products.unshift(product);
-                    vm.productLst.unshift(product);
-
+                  if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
+                    $scope.content.quantity_of_unit = 0;
+                  if ($scope.content.cost_price == null || $scope.content.cost_price == "")
+                    $scope.content.cost_price = 0;
+                  //if($scope.content.tax==null ||$scope.content.tax=="")
+                  //    $scope.content.tax="0";
+                  //debugger;
+                  if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
+                    $scope.content.apply_tax = false;
+                    $scope.content.tax = "0";
                   }
-                }).error(function (data) {
-                  //console.log(data);
-                })
-              }
+                  else {
+                    var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+                    //debugger;
+                    $scope.content.tax = taxgrp.taxgroupid;
+                  }
+                  //debugger;
+                  if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
+                    $scope.content.sku = false;
+                    $scope.content.minimun_stock_level = 0;
+                  }
+                  //if($scope.content.files !=null) {
+                  //$scope.content.attachment = $scope.content.files;
+                  // }
+                  $scope.content.attachment = "app/core/cloudcharge/img/noimage.png";
+                  var req = $scope.content;
+                  //debugger;
+                  $charge.product().store(req).success(function (data) {
+                    if (data.id) {
+                      //console.log(data);
+                      notifications.toast("Record Inserted, Product Code " + req.code, "success");
+                      $scope.isAdded = true;
+                      $scope.spinnerAdd = false;
+                      $scope.clearFields();
+                      $rootScope.isCleared = true;
+                      var product = {}
+                      product.code = req.code;
+                      product.product_name = req.product_name;
+                      product.price_of_unit = req.price_of_unit;
+                      product.status = req.status;
+                      vm.products.unshift(product);
+                      vm.productLst.unshift(product);
 
+                    }
+                  }).error(function (data) {
+                    //console.log(data);
+                  })
+                }
+
+              }
+              else {
+                $scope.chkProductCode($scope.content.code);
+              }
             }
             else {
-              $scope.chkProductCode($scope.content.code);
+              notifications.toast("Please add base currency before creating products.", "error");
             }
           }
-          else
-          {
-            notifications.toast("Please add base currency before creating products.", "error");
+          else {
+            notifications.toast("Please fill all the details", "error");
           }
         }
-        else
+        else//This is done because the HTML simple validation might work and enter the submit, however the form can still be invalid
         {
           notifications.toast("Please fill all the details", "error");
         }
-      }
-      else//This is done because the HTML simple validation might work and enter the submit, however the form can still be invalid
-      {
-        notifications.toast("Please fill all the details", "error");
       }
 
     }

@@ -1,5 +1,8 @@
 <div id="product" class="page-layout carded left-sidenav" layout="row" ng-switch="vm.appInnerState">
-
+  <meta name="updatedBy" content="suvethan">
+  <meta name="modifiedDate" content="03-11-2016">
+  <meta name="version" content="6.0.0.1">
+  <meta name="view" content="product.html">
   <!-- TOP BACKGROUND -->
   <div class="top-bg md-accent-bg"></div>
   <!-- / TOP BACKGROUND -->
@@ -203,16 +206,17 @@
         <div class="content-wrapper fill-wrap" flex>
 
           <md-content style="width:100%;height: 100%;background-color: #fbfdfd" ms-scroll>
-            <form name="editForm" ng-submit="saveProduct(content)">
+            <form name="vm.editForm" ng-submit="saveProduct(content)">
 
               <div class="fill-wrapper">
                 <div class="content-block-wrapper">
                   <div layout="row" class="content-block sample-row">
                     <md-input-container class="bottom" flex>
                       <label>Product Name</label>
-                      <input ng-required="true" minlength="null"  md-maxlength="null" type="" name="productName" ng-pattern="" ng-model="content.product_name"  autofocus>
-                      <div ng-messages="editForm.productName.$error">
+                      <input ng-required="true" type="" name="productName" ng-pattern="" ng-maxlength="35" ng-model="content.product_name"  autofocus>
+                      <div ng-messages="vm.editForm.productName.$error">
                         <div ng-message="required">Product Name is required.</div>
+                        <div ng-message="maxlength">Product Name has to be less than 35 characters long</div>
                       </div>
                     </md-input-container>
 
@@ -222,9 +226,10 @@
 
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Code</label>
-                      <input ng-required="true" minlength="null" md-maxlength="null" type="" name="productCode" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
-                      <div ng-messages="editForm.productCode.$error">
+                      <input ng-required="true" type="" name="productCode" ng-maxlength="20" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
+                      <div ng-messages="vm.editForm.productCode.$error">
                         <div ng-message="required">Product Code is required.</div>
+                        <div ng-message="maxlength">Product Code has to be less than 20 characters long</div>
                       </div>
                     </md-input-container>
                   </div>

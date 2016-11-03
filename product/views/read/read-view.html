@@ -96,9 +96,15 @@
 <!-- / MAIL CONTENT -->
 
 <!-- Edit Content -->
+<form name="vm.updateForm" ng-submit="saveEdit(changeProduct)">
+
 <div class="product-update-header" flex layout="row" layout-align="start start" ng-show="editOff">
   <md-input-container flex>
-    <input class="productname-ctrl" ng-model="changeProduct.product_name" type="">
+    <input ng-required="true" ng-maxlength="35" name="editProductName" class="productname-ctrl" ng-model="changeProduct.product_name" type="">
+    <div ng-messages="vm.updateForm.editProductName.$error">
+      <div ng-message="required">Product Name is required.</div>
+      <div ng-message="maxlength">Product Name has to be less than 35 characters long</div>
+    </div>
     <span class="code">Code : {{vm.selectedProduct.code}}</span>
   </md-input-container>
 
@@ -249,9 +255,10 @@
 
       <div layout="row" class="layout-row">
         <md-button ng-click="toggleEdit()">Cancel</md-button>
-        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn" ng-click="saveEdit(changeProduct)">Update</md-button>
+        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn">Update</md-button>
       </div>
   </div>
 </div>
+</form>
 <!-- / Edit Content -->
 

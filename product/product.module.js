@@ -12,8 +12,8 @@
       ////////////////////////////////
       // App : Product
       // Owner  : Suvethan
-      // Last changed date : 2016/10/26
-      // Version : 6.0.0.6
+      // Last changed date : 2016/11/03
+      // Version : 6.0.0.7
       // Updated By : Suvethan
       /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
@@ -46,7 +46,7 @@
         msNavigationServiceProvider.saveItem('product', {
             title    : 'product',
             state    : 'app.product',
-            weight   : 2
+            weight   : 9
         });
     }
 })();
