@@ -5,8 +5,8 @@
 // App : Product
 // File : Product Controller
 // Owner  : Suvethan
-// Last changed date : 2016/11/03
-// Version : 6.0.0.2
+// Last changed date : 2016/11/08
+// Version : 6.0.0.3
 // Updated By : Suvethan
 /////////////////////////////////
 
@@ -15,7 +15,7 @@
     .controller('ProductController', ProductController);
 
   /** @ngInject */
-  function ProductController($scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage)
+  function ProductController($scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location)
   {
     var vm = this;
 
@@ -634,7 +634,6 @@
 
     $scope.saveEdit = function(model)
     {
-      debugger;
       if(vm.updateForm.$valid == true) {
         $rootScope.UnitSize = "flex-85";
         $rootScope.unitMeasure = "flex-15";
@@ -652,6 +651,7 @@
           editReq.status = true;
         }
         if (editReq.files.length > 0) {
+          window.scrollTo(0,0);
           angular.forEach(editReq.files, function (obj) {
             $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
@@ -685,7 +685,10 @@
                   else
                     vm.selectedProduct.inventoryStock = "";
                   notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+                  $window.scrollTo(0, angular.element('product').offsetTop);
+                  debugger;
                 }
+
               }).error(function (data) {
                 console.log(data);
                 notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
@@ -729,7 +732,9 @@
               }
               else
                 vm.selectedProduct.inventoryStock = "";
+
               notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+              $anchorScroll();
             }
           }).error(function (data) {
             console.log(data);
@@ -737,6 +742,11 @@
           })
         }
       }
+    }
+
+    $scope.toTop = function () {
+      $location.hash('product');
+      $anchorScroll();
     }
 
 
@@ -846,7 +856,9 @@
     $scope.searchKeyPressProduct = function (event,keyword){
       if(event.keyCode === 13)
       {
-        $scope.getNextProducts(keyword);
+        if(!$scope.lastSet) {
+          $scope.getNextProducts(keyword);
+        }
       }
     }
     //custom filter orderby start
@@ -1213,6 +1225,9 @@
                       vm.productLst.unshift(product);
 
                     }
+
+                    window.scrollTo(0, 0);
+                    debugger;
                   }).error(function (data) {
                     //console.log(data);
                   })

@@ -13,7 +13,7 @@
       // App : Product
       // Owner  : Suvethan
       // Last changed date : 2016/11/03
-      // Version : 6.0.0.8
+      // Version : 6.0.0.9
       // Updated By : Suvethan
       /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
@@ -32,12 +32,29 @@
                   {
 
                   },
-                    security: ['$q','mesentitlement', function($q,mesentitlement){
+                    security: ['$q','mesentitlement','$timeout','$rootScope','$state', function($q,mesentitlement,$timeout,$rootScope,$state){
                         var entitledStatesReturn = mesentitlement.stateDepResolver('product');
 
                         if(entitledStatesReturn !== true){
                               return $q.reject("unauthorized");
-                        };
+                        }
+                        else
+                        {
+                          //debugger;
+                          $timeout(function() {
+                            var firstLogin=localStorage.getItem("firstLogin");
+                            if(firstLogin==null ||firstLogin=="") {
+                              console.log('Product First Login null');
+                              //localStorage.removeItem('firstLogin');
+                              $state.go('app.settings', {}, {location: 'settings'});
+                              //return $q.reject("settings");
+                            }
+                            else
+                            {
+                              //localStorage.removeItem('firstLogin');
+                            }
+                          }, 50);
+                        }
                     }]
                 },
                 bodyClass: 'product'
