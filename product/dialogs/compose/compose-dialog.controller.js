@@ -12,7 +12,6 @@
     {
         var vm = this;
 
-
         vm.hiddenCC = true;
         vm.hiddenBCC = true;
 

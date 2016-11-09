@@ -193,7 +193,7 @@
               </md-input-container>
             </span>
           </div>
-          <div class="column_cell" layout="row" layout-align="start start">
+          <div class="column_cell" layout="row" layout-align="start start" style="margin-bottom: 20px">
             <div flex>
             <input type="checkbox" ng-hide="editTax" ng-model="changeProduct.apply_tax" ng-true-value="true" ng-false-value="false" ng-checked="enableTaxCode(changeProduct.apply_tax)"/><span ng-hide="editTax" style="font-weight: 700">Apply Tax</span>
             </div>
@@ -212,6 +212,7 @@
             </div>
             <span flex>
               <md-input-container style="margin-top: -10px">
+                <label>Minimum Length</label>
                 <input id="txtMinStock" class="width-control"  ng-model="changeProduct.minimun_stock_level" type="number">
               </md-input-container>
             </span>

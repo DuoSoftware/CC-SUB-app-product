@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="client" flex="20" layout="column" layout-align="center start">
+    <div class="client" flex="15" layout="column" layout-align="center start">
     {{product.category}}
     </div>
 
@@ -35,7 +35,7 @@
       <span class="ammount">{{product.price_of_unit | isoCurrency:content.selectCurrency}}</span>
     </div>
 
-    <div flex="15"></div>
+    <div flex="10"></div>
 
     <div class="status" flex="10" layout="column" layout-align="center end">
       <span ng-if="product.status == true" class="pill paid">Active </span>

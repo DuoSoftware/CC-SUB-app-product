@@ -570,6 +570,21 @@
       }
       //debugger;
       if($rootScope.editOff==true) {
+        $timeout(function ()
+        {
+          // If responsive read pane is
+          // active, navigate to it
+          //if ( angular.isDefined(vm.responsiveReadPane) && vm.responsiveReadPane )
+          {
+            vm.activeProductPaneIndex = 1;
+          }
+
+          // Store the current scrollPos
+          vm.scrollPos = vm.scrollEl.scrollTop();
+
+          // Scroll to the top
+          vm.scrollEl.scrollTop(0);
+        });
         //$rootScope.UnitSize="flex-85";
         //$rootScope.unitMeasure="flex-15";
         //debugger;
@@ -632,8 +647,11 @@
     }
 
 
+
     $scope.saveEdit = function(model)
     {
+      var prodCont = document.getElementById('editProdContainer');
+
       if(vm.updateForm.$valid == true) {
         $rootScope.UnitSize = "flex-85";
         $rootScope.unitMeasure = "flex-15";
@@ -651,7 +669,6 @@
           editReq.status = true;
         }
         if (editReq.files.length > 0) {
-          window.scrollTo(0,0);
           angular.forEach(editReq.files, function (obj) {
             $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
@@ -682,15 +699,17 @@
                   if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
                     $rootScope.editInv = !$rootScope.editInv;
                   }
-                  else
+                  else{
                     vm.selectedProduct.inventoryStock = "";
-                  notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-                  $window.scrollTo(0, angular.element('product').offsetTop);
+                    notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+                  }
+                  prodCont.scrollTop=0;
                   debugger;
                 }
 
               }).error(function (data) {
                 console.log(data);
+                prodCont.scrollTop=0;
                 notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
               })
             });
@@ -703,6 +722,7 @@
               $mdToast.show(toast).then(function () {
                 //whatever
               });
+
             });
           });
         }
@@ -730,23 +750,20 @@
               if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
                 $rootScope.editInv = !$rootScope.editInv;
               }
-              else
+              else {
                 vm.selectedProduct.inventoryStock = "";
-
+              }
+              prodCont.scrollTop=0;
               notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-              $anchorScroll();
             }
           }).error(function (data) {
             console.log(data);
+            prodCont.scrollTop=0;
             notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+
           })
         }
       }
-    }
-
-    $scope.toTop = function () {
-      $location.hash('product');
-      $anchorScroll();
     }
 
 
@@ -1003,7 +1020,6 @@
     $scope.isAdded=false;
     $scope.buttonName="Browse";
 
-
     $scope.addCat = function(ev)
     {
       $scope.content.category = "";
@@ -1018,8 +1034,6 @@
         .targetEvent(ev)
         .ok('Add')
         .cancel('Cancel');
-
-      debugger;
 
       $mdDialog.show(confirm).then(function(result) {
         $scope.saveCategory(result);

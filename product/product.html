@@ -70,7 +70,7 @@
               </div>
             </div>
 
-            <div class="promoMainInfo" layout="column" layout-align="center start" flex="20">
+            <div class="promoMainInfo" layout="column" layout-align="center start" flex="15">
               <div layout="row">
                 <span layout="column" layout-align="center center">Category</span>
                 <div layout="column" layout="center center">
@@ -118,7 +118,7 @@
               </div>
             </div>
 
-            <div flex="10"></div>
+            <div flex="5"></div>
 
             <div class="date" flex="10" layout="column" layout-align="center start">
               <div layout="row">
@@ -164,7 +164,7 @@
             <md-tab-label>Product Display Pane</md-tab-label>
             <md-tab-body>
               <div class="content product-display-pane"
-                   ng-include="'app/main/product/views/read/read-view.html'" ms-scroll>
+                   ng-include="'app/main/product/views/read/read-view.html'" id="editProdContainer" ms-scroll>
               </div>
             </md-tab-body>
           </md-tab>
@@ -213,10 +213,10 @@
                   <div layout="row" class="content-block sample-row">
                     <md-input-container class="bottom" flex>
                       <label>Product Name</label>
-                      <input ng-required="true" type="" name="productName" ng-pattern="" ng-maxlength="35" ng-model="content.product_name"  autofocus>
+                      <input ng-required="true" type="" name="productName" ng-pattern="" ng-maxlength="20" ng-model="content.product_name"  autofocus>
                       <div ng-messages="vm.editForm.productName.$error">
                         <div ng-message="required">Product Name is required.</div>
-                        <div ng-message="maxlength">Product Name has to be less than 35 characters long</div>
+                        <div ng-message="maxlength">Product Name has to be less than 20 characters long</div>
                       </div>
                     </md-input-container>
 
@@ -226,10 +226,10 @@
 
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Code</label>
-                      <input ng-required="true" type="" name="productCode" ng-maxlength="20" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
+                      <input ng-required="true" type="" name="productCode" ng-maxlength="10" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
                       <div ng-messages="vm.editForm.productCode.$error">
                         <div ng-message="required">Product Code is required.</div>
-                        <div ng-message="maxlength">Product Code has to be less than 20 characters long</div>
+                        <div ng-message="maxlength">Product Code has to be less than 10 characters long</div>
                       </div>
                     </md-input-container>
                   </div>
