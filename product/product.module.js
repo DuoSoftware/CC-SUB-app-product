@@ -12,9 +12,9 @@
       ////////////////////////////////
       // App : Product
       // Owner  : Suvethan
-      // Last changed date : 2016/11/08
-      // Version : 6.0.0.11
-      // Updated By : Kasun
+      // Last changed date : 2016/11/10
+      // Version : 6.0.0.12
+      // Updated By : Suvethan
       /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 
@@ -43,7 +43,7 @@
                           //debugger;
                           $timeout(function() {
                             var firstLogin=localStorage.getItem("firstLogin");
-                            if(firstLogin==null ||firstLogin=="") {
+                            if(firstLogin==null ||firstLogin=="" || firstLogin==undefined) {
                               console.log('Product First Login null');
                               //localStorage.removeItem('firstLogin');
                               $state.go('app.settings', {}, {location: 'settings'});

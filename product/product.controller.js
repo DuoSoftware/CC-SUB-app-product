@@ -718,7 +718,7 @@
                 .content('There was an error, please upload!')
                 .action('OK')
                 .highlightAction(false)
-                .position("bottom right");
+                .position("top right");
               $mdToast.show(toast).then(function () {
                 //whatever
               });
@@ -874,7 +874,10 @@
       if(event.keyCode === 13)
       {
         if(!$scope.lastSet) {
-          $scope.getNextProducts(keyword);
+          var productObj=$filter('filter')(vm.products, {productId: keyword.trim()})[0];
+          if(productObj==null || productObj ==undefined) {
+            $scope.getNextProducts(keyword);
+          }
         }
       }
     }
@@ -1116,10 +1119,12 @@
 
 
     //debugger;
+    $scope.productSubmit=false;
     $scope.saveProduct = function(){
       debugger;
       $scope.isAdded=false;
       if(vm.editForm.$valid == true) {
+        $scope.productSubmit=true;
         if ($scope.newCat != true && $scope.newUom != true && $scope.newBrand != true) {
           if ($scope.content.category != "" && $scope.content.brand != "" && $scope.content.uom != "") {
             if ($scope.content.selectCurrency != "" || $scope.content.selectCurrency != undefined) {
@@ -1184,7 +1189,8 @@
                         .content('There was an error, please upload!')
                         .action('OK')
                         .highlightAction(false)
-                        .position("bottom right");
+                        .position("top right");
+                      $scope.productSubmit=false;
                       $mdToast.show(toast).then(function () {
                         //whatever
                       });
@@ -1225,6 +1231,7 @@
                   $charge.product().store(req).success(function (data) {
                     if (data.id) {
                       //console.log(data);
+                      $scope.productSubmit=false;
                       notifications.toast("Record Inserted, Product Code " + req.code, "success");
                       $scope.isAdded = true;
                       $scope.spinnerAdd = false;
@@ -1244,6 +1251,7 @@
                     debugger;
                   }).error(function (data) {
                     //console.log(data);
+                    $scope.productSubmit=false;
                   })
                 }
 
