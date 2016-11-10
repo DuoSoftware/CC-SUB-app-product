@@ -874,7 +874,7 @@
       if(event.keyCode === 13)
       {
         if(!$scope.lastSet) {
-          var productObj=$filter('filter')(vm.products, {productId: keyword.trim()})[0];
+          var productObj=$filter('filter')(vm.products, {code: keyword.trim()})[0];
           if(productObj==null || productObj ==undefined) {
             $scope.getNextProducts(keyword);
           }
