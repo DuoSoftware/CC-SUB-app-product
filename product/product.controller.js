@@ -15,7 +15,7 @@
     .controller('ProductController', ProductController);
 
   /** @ngInject */
-  function ProductController($scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location)
+  function ProductController($mdToast, $scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location)
   {
     var vm = this;
 
@@ -671,8 +671,11 @@
         if (editReq.files.length > 0) {
           angular.forEach(editReq.files, function (obj) {
             $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
+            $scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
+            $scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
 
-            $uploader.onSuccess(function (e, data) {
+            if($scope.imgWidth && $scope.imgHeight <= 200 ) {
+              $uploader.onSuccess(function (e, data) {
               debugger;
               var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
               editReq.attachment = path;
@@ -713,17 +716,20 @@
                 notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
               })
             });
-            $uploader.onError(function (e, data) {
+              $uploader.onError(function (e, data) {
               var toast = $mdToast.simple()
                 .content('There was an error, please upload!')
                 .action('OK')
                 .highlightAction(false)
                 .position("top right");
-              $mdToast.show(toast).then(function () {
+                $mdToast.show(toast).then(function () {
                 //whatever
               });
 
             });
+            }else{
+              notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
+            }
           });
         }
         else {
@@ -754,6 +760,8 @@
                 vm.selectedProduct.inventoryStock = "";
               }
               prodCont.scrollTop=0;
+              $scope.imgWidth = "";
+              $scope.imgHeight = "";
               notifications.toast("Record Updated, Product Code " + editReq.code, "success");
             }
           }).error(function (data) {
@@ -1118,6 +1126,8 @@
 
 
 
+    $scope.imgWidth = "";
+    $scope.imgHeight = "";
     //debugger;
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
@@ -1133,7 +1143,11 @@
                   angular.forEach($scope.content.files, function (obj) {
                     $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
-                    $uploader.onSuccess(function (e, data) {
+                    $scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
+                    $scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
+
+                    if($scope.imgWidth && $scope.imgHeight <= 200 ) {
+                      $uploader.onSuccess(function (e, data) {
                       debugger;
                       var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
 
@@ -1184,7 +1198,7 @@
                       })
                       //scope.removeAllFiles();
                     });
-                    $uploader.onError(function (e, data) {
+                      $uploader.onError(function (e, data) {
                       var toast = $mdToast.simple()
                         .content('There was an error, please upload!')
                         .action('OK')
@@ -1195,6 +1209,9 @@
                         //whatever
                       });
                     });
+                    }else{
+                      notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
+                    }
                   });
                 }
                 else {
@@ -1244,6 +1261,8 @@
                       product.status = req.status;
                       vm.products.unshift(product);
                       vm.productLst.unshift(product);
+                      $scope.imgWidth = "";
+                      $scope.imgHeight = "";
 
                     }
 
