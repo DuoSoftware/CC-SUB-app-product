@@ -1135,8 +1135,8 @@
       $scope.isAdded=false;
       if(vm.editForm.$valid == true) {
         $scope.productSubmit=true;
-        if ($scope.newCat != true && $scope.newUom != true && $scope.newBrand != true) {
-          if ($scope.content.category != "" && $scope.content.brand != "" && $scope.content.uom != "") {
+        //if ($scope.newCat != true && $scope.newUom != true && $scope.newBrand != true) {
+        //  if ($scope.content.category != "" && $scope.content.brand != "" && $scope.content.uom != "") {
             if ($scope.content.selectCurrency != "" || $scope.content.selectCurrency != undefined) {
               if (isAvailable) {
                 if ($scope.content.files.length > 0) {
@@ -1282,15 +1282,15 @@
             else {
               notifications.toast("Please add base currency before creating products.", "error");
             }
-          }
-          else {
-            notifications.toast("Please fill all the details", "error");
-          }
-        }
-        else//This is done because the HTML simple validation might work and enter the submit, however the form can still be invalid
-        {
-          notifications.toast("Please fill all the details", "error");
-        }
+          //}
+          //else {
+          //  notifications.toast("Please fill all the details", "error");
+          //}
+        //}
+        //else//This is done because the HTML simple validation might work and enter the submit, however the form can still be invalid
+        //{
+        //  notifications.toast("Please fill all the details", "error");
+        //}
       }
 
     }

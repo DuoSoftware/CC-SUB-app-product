@@ -247,7 +247,7 @@
                   <div layout="row" class="content-block">
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Category</label>
-                      <md-select ng-required="true" ng-model="content.category" ms-scroll>
+                      <md-select ng-required="false" ng-model="content.category" ms-scroll>
                         <!--<md-option  value="" ng-click="addCat($event)">Add Category</md-option>-->
                         <md-divider></md-divider>
                         <md-option ng-repeat="value in categories" value="{{value}}">
@@ -276,7 +276,7 @@
 
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Brand</label>
-                      <md-select ng-required="true" ng-model="content.brand">
+                      <md-select ng-required="false" ng-model="content.brand">
                         <md-divider></md-divider>
                         <md-option ng-repeat="value in brands" value="{{value}}">
                           {{value}}
@@ -316,7 +316,7 @@
 
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Unit of Measures</label>
-                      <md-select ng-required="true"  ng-model="content.uom" ms-scroll>
+                      <md-select ng-required="false"  ng-model="content.uom" ms-scroll>
                         <!--<md-option  value="" ng-click="addUOM($event)">Add UOM</md-option>-->
                         <md-divider></md-divider>
                         <md-option ng-repeat="value in UOMs" value="{{value}}">
