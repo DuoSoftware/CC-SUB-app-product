@@ -674,7 +674,7 @@
             $scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
             $scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
 
-            if($scope.imgWidth && $scope.imgHeight <= 200 ) {
+            if($scope.imgWidth && $scope.imgHeight <= 300 ) {
               $uploader.onSuccess(function (e, data) {
               debugger;
               var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
