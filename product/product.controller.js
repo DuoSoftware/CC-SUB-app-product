@@ -657,7 +657,7 @@
         $rootScope.unitMeasure = "flex-15";
         var editReq = $scope.changeProduct;
         var tempTaxgroup = angular.copy(editReq);
-        var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax.trim()})[0];
+        var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax})[0];
         if (taxgrp != undefined || taxgrp != null)
           editReq.tax = taxgrp = taxgrp.taxgroupid;
         else
