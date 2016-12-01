@@ -316,11 +316,23 @@
       //debugger;
       document.getElementById('txtMinStock').disabled=!chkInv;
     }
+
+    $scope.productReadPaneLoaded = true;
     $scope.openProduct= function (product) {
       //vm.selectedProduct = product;
       //debugger;
+      $scope.productReadPaneLoaded = false;
+      vm.selectedProduct=angular.copy({});
+      //debugger;
       $charge.product().getByID(product.productId).success(function(dataProduct) {
-        vm.selectedProduct=dataProduct[0];
+        //vm.selectedProduct.attachment="";
+        //debugger;
+        vm.selectedProduct=angular.copy(dataProduct[0]);
+        //debugger;
+        //if(vm.selectedProduct.attachment==""){
+        //  var productImg = angular.element(document.querySelector('#product-image'));
+        //  productImg.attr('src','app/core/cloudcharge/img/noimage.png');
+        //}
         vm.selectedProduct.currency=$scope.content.selectCurrency;
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
         $charge.stock().getStock(product.productId).success(function(data) {
@@ -342,6 +354,8 @@
             $rootScope.editInv=false;
           else
             $rootScope.editInv=true;
+
+          $scope.productReadPaneLoaded = true;
         }).error(function(data) {
           vm.selectedProduct = angular.copy(dataProduct[0]);
           vm.selectedProduct.inventoryStock="";
@@ -354,6 +368,7 @@
           {
             $rootScope.editTax=true;
           }
+          $scope.productReadPaneLoaded = true;
 
           //if($rootScope.selectedProduct.sku==0)
           $rootScope.editInv=false;
@@ -362,6 +377,7 @@
         })
       }).error(function(data)
       {
+        $scope.productReadPaneLoaded = true;
 
       })
     }
@@ -423,10 +439,11 @@
         vm.activeProductPaneIndex = 0;
         vm.showFilters=true;
         $rootScope.editOff=false;
-        $timeout(function ()
-        {
+        //vm.selectedProduct={};
+        $timeout(function () {
           vm.scrollEl.scrollTop(vm.scrollPos);
-        }, 650);
+          vm.selectedProduct.attachment="";
+        }, 0);
       }
     }
 
@@ -647,7 +664,6 @@
     }
 
 
-
     $scope.saveEdit = function(model)
     {
       var prodCont = document.getElementById('editProdContainer');
@@ -705,6 +721,7 @@
                   else{
                     vm.selectedProduct.inventoryStock = "";
                     notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+                    elThumbnails.empty();
                   }
                   prodCont.scrollTop=0;
                   debugger;
@@ -714,6 +731,7 @@
                 console.log(data);
                 prodCont.scrollTop=0;
                 notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+                elThumbnails.empty();
               })
             });
               $uploader.onError(function (e, data) {
@@ -725,11 +743,20 @@
                 $mdToast.show(toast).then(function () {
                 //whatever
               });
-
+                $scope.lfApi.removeAll();
             });
             }else{
               notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
               $scope.productSubmit=false;
+              //var elThumbnails = angular.element(document.querySelector('.lf-ng-md-file-input-thumbnails'));
+              //elThumbnails.empty();
+              //var addDragPortion = '<div layout="row" layout-align="center center" class="lf-ng-md-file-input-drag-text-container" ng-show="(isFilesNull || !isPreview) && isDrag"><div class="lf-ng-md-file-input-drag-text">Drag and Drop here!</div></div><div class="lf-ng-md-file-input-thumbnails" ng-show="isPreview"></div><div class="clearfix" style="clear:both"></div></div>';
+              //var dragContainer = angular.element(document.querySelector('.lf-ng-md-file-input-drag'));
+              //dragContainer.append(addDragPortion);
+              //angular.element(document.querySelector('.close')).empty();
+
+              // dragContainer.innerHTML(addDragPortion);
+              debugger;
             }
           });
         }
@@ -764,12 +791,13 @@
               $scope.imgWidth = "";
               $scope.imgHeight = "";
               notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+              elThumbnails.empty();
             }
           }).error(function (data) {
             console.log(data);
             prodCont.scrollTop=0;
             notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-
+            elThumbnails.empty();
           })
         }
       }
@@ -1749,7 +1777,12 @@
       }
     }
 
-
+    $charge.commondata().getDuobaseValuesByTableName("CTS_GeneralAttributes").success(function(data) {
+      //debugger;
+      $rootScope.decimalPoint=parseInt(data[6].RecordFieldData);
+      $rootScope.step=($rootScope.decimalPoint/$rootScope.decimalPoint)/Math.pow(10,$rootScope.decimalPoint);
+    }).error(function(data) {
+    })
 
 
 

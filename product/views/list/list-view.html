@@ -32,7 +32,7 @@
     </div>
 
     <div class="client" flex layout="column" layout-align="center end">
-      <span class="ammount">{{product.price_of_unit | isoCurrency:content.selectCurrency}}</span>
+      <span class="ammount">{{product.price_of_unit | isoCurrency:content.selectCurrency: decimalPoint}}</span>
     </div>
 
     <div style="width: 60px;"></div>

@@ -1,5 +1,12 @@
 <!-- MAIL CONTENT -->
-<div class="product-header" flex layout="row" layout-align="start start" ng-hide="editOff">
+<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1" style="position:fixed;background-color: #fff;width: 100%;z-index: 9999" flex>
+  <md-button class="md-icon-button"
+             ng-click="lfApi.removeAll(); vm.closeReadPane()"
+             aria-label="Back">
+    <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
+  </md-button>
+</div>
+<div class="product-header" flex layout="row" layout-align="start start" ng-if="!editOff" style="padding-top: 60px">
   <div class="summary" layout="column" layout-align="center start" flex>
     <span class="name">{{vm.selectedProduct.product_name}}</span>
     <span class="code">Code : {{vm.selectedProduct.code}}</span>
@@ -46,9 +53,12 @@
   </div>
 </div>
 
-<div class="product-content" layout="column" layout-align="start start" ng-hide="editOff">
-  <div class="image" layout="column" layout-align="center center">
-    <img ng-src="{{vm.selectedProduct.attachment}}" err-src="app/core/cloudcharge/img/noimage.png">
+<div class="product-content" layout="column" layout-align="start start" ng-if="!editOff">
+  <div class="image" id="product-image" layout="column" layout-align="center center">
+    <div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" >
+      <img src="assets/images/142.gif" alt="" style="width: 40px;"/>
+    </div>
+    <img src="{{vm.selectedProduct.attachment}}">
   </div>
   <div class="info" layout="column" layout-align="start start">
     <div class="summary" layout="column" layout-align="start start">
@@ -96,9 +106,9 @@
 <!-- / MAIL CONTENT -->
 
 <!-- Edit Content -->
-<form name="vm.updateForm" ng-submit="saveEdit(changeProduct)">
+<form name="vm.updateForm" ng-submit="saveEdit(changeProduct)" style="padding-top: 60px">
 
-<div class="product-update-header" flex layout="row" layout-align="start start" ng-show="editOff">
+<div class="product-update-header" flex layout="row" layout-align="start start" ng-if="editOff">
   <md-input-container flex>
     <input ng-required="true" ng-maxlength="35" name="editProductName" class="productname-ctrl" ng-model="changeProduct.product_name" type="">
     <div ng-messages="vm.updateForm.editProductName.$error">
@@ -156,10 +166,10 @@
   </div>
 </div>
 
-<div class="product-update-content" layout="column" layout-align="start start" ng-show="editOff">
-  <div layout="row" style="width: 100%;">
-    <div class="image" layout="column" layout-align="center center" flex style="border-right: solid 1px #cccccc">
-      <img ng-src="{{vm.selectedProduct.attachment}}" err-src="app/core/cloudcharge/img/noimage.png">
+<div class="product-update-content" layout="column" layout-align="start start" ng-show="editOff" flex>
+  <div layout="row" layout-align="center center" style="width: 100%;">
+    <div class="image" layout="column" layout-align="center center" flex style="border-right: solid 1px #cccccc;height: 100%;">
+      <img ng-src="{{vm.selectedProduct.attachment}}">
     </div>
 
     <div flex="5"></div>
@@ -167,7 +177,8 @@
     <div class="image" layout="column" layout-align="center center" flex>
       <!--<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" >-->
       <!--</file-up-loader>-->
-      <lf-ng-md-file-input lf-files="changeProduct.files"  lf-on-file-click="onFileClick" lf-path="changeProduct.attachment"  lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" drag preview></lf-ng-md-file-input>
+      <lf-ng-md-file-input lf-files="changeProduct.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" lf-api="lfApi" class="drag-n-drop" drag preview flex style="width: 100%;padding-right: 50px"></lf-ng-md-file-input>
+
     </div>
   </div>
   <div class="info" layout="column" layout-align="start start">
@@ -265,7 +276,7 @@
 
       <div layout="row" class="layout-row">
         <md-button ng-click="toggleEdit()">Cancel</md-button>
-        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn">Update</md-button>
+        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn" ng-click="lfApi.removeAll();">Update</md-button>
       </div>
   </div>
 </div>

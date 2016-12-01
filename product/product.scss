@@ -10,6 +10,15 @@
     left: 45%;
     z-index: 9999;
   }
+  .preloader-dot-auto{
+    height: 10px;
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+    img{
+      width: 40px;
+    }
+  }
   .drag-n-drop{
     .lf-ng-md-file-input-drag-text{
       font-size: 15px;
