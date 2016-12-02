@@ -44,7 +44,7 @@
                           $timeout(function() {
                             var firstLogin=localStorage.getItem("firstLogin");
                             if(firstLogin==null ||firstLogin=="" || firstLogin==undefined) {
-                              console.log('Product First Login null');
+                              $rootScope.firstLoginDitected = true;
                               //localStorage.removeItem('firstLogin');
                               $state.go('app.settings', {}, {location: 'settings'});
                               //return $q.reject("settings");
