@@ -11,7 +11,10 @@
     <span class="name">{{vm.selectedProduct.product_name}}</span>
     <span class="code">Code : {{vm.selectedProduct.code}}</span>
   </div>
-  <div class="cost" layout="column" layout-align="center end">
+  <div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" flex>
+    <img src="assets/images/142.gif" alt="" style="width: 40px;"/>
+  </div>
+  <div class="cost" layout="column" layout-align="center end" flex>
     <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency}}</span>
     <span class="note">(Excluding Tax)</span>
   </div>
@@ -55,9 +58,6 @@
 
 <div class="product-content" layout="column" layout-align="start start" ng-if="!editOff">
   <div class="image" id="product-image" layout="column" layout-align="center center">
-    <div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" >
-      <img src="assets/images/142.gif" alt="" style="width: 40px;"/>
-    </div>
     <img src="{{vm.selectedProduct.attachment}}">
   </div>
   <div class="info" layout="column" layout-align="start start">
@@ -275,8 +275,8 @@
       <div flex></div>
 
       <div layout="row" class="layout-row">
-        <md-button ng-click="toggleEdit()">Cancel</md-button>
-        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn" ng-click="lfApi.removeAll();">Update</md-button>
+        <md-button ng-click="toggleEdit(); lfApi.removeAll();">Cancel</md-button>
+        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn">Update</md-button>
       </div>
   </div>
 </div>
