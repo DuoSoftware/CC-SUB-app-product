@@ -226,10 +226,10 @@
 
                     <md-input-container class="md-block" flex-gt-sm>
                       <label>Code</label>
-                      <input ng-required="true" type="" name="productCode" ng-maxlength="10" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
+                      <input ng-required="true" type="" name="productCode" ng-maxlength="20" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
                       <div ng-messages="vm.editForm.productCode.$error">
                         <div ng-message="required">Product Code is required.</div>
-                        <div ng-message="maxlength">Product Code has to be less than 10 characters long</div>
+                        <div ng-message="maxlength">Product Code has to be less than 20 characters long</div>
                       </div>
                     </md-input-container>
                   </div>
