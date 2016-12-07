@@ -198,9 +198,10 @@
             <span flex>Quantity</span>
             <span flex>
               <md-input-container style="margin-top: -10px">
-                <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
+                <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
                 <div ng-messages="vm.updateForm.UpdateQty.$error">
                   <div ng-message="pattern">Quantity of Unit is invalid</div>
+                  <div ng-message="max">Please enter a less value.</div>
                 </div>
               </md-input-container>
             </span>
@@ -224,8 +225,12 @@
             </div>
             <span flex>
               <md-input-container style="margin-top: -10px">
-                <label>Minimum Length</label>
-                <input id="txtMinStock" class="width-control"  ng-model="changeProduct.minimun_stock_level" type="number">
+                <label>Minimum Level</label>
+                <input id="txtMinStock" class="width-control" min="1" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number">
+                <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
+                  <div ng-message="max">Please enter a less value.</div>
+                  <div ng-message="min">minimum value should be 1.</div>
+                </div>
               </md-input-container>
             </span>
           </div>
