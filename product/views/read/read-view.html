@@ -226,10 +226,10 @@
             <span flex>
               <md-input-container style="margin-top: -10px">
                 <label>Minimum Level</label>
-                <input id="txtMinStock" class="width-control" min="1" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number">
+                <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number">
                 <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
                   <div ng-message="max">Please enter a less value.</div>
-                  <div ng-message="min">minimum value should be 1.</div>
+                  <div ng-message="min">minimum value should be 0.</div>
                 </div>
               </md-input-container>
             </span>
