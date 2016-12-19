@@ -577,6 +577,8 @@
 
     $rootScope.toggleEdit = function()
     {
+      var prodCont = document.getElementById('editProdContainer');
+
       $rootScope.editOff = !$rootScope.editOff;
       if (vm.selectedProduct.apply_tax != 0) {
         $rootScope.editTax = !$rootScope.editTax;
@@ -660,6 +662,7 @@
       }
       $scope.changeProduct=angular.copy(vm.selectedProduct);
       $scope.changeProduct.files=[];
+      prodCont.scrollTop=0;
       //debugger;
     }
 

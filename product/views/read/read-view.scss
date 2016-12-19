@@ -53,43 +53,56 @@
           width:100%;
           padding-left:24px;
           padding-right:24px;
-          border-top:1px solid rgba(0, 0, 0, 0.12);
+          font-size: 14px!important;
+          //border-top:1px solid rgba(0, 0, 0, 0.12);
 
           .info_sup{
             font-weight:700;
             color:rgba(0,0,0,0.54);
             padding:24px 0px 24px 0px;
+            font-size: 14px;
           }
 
           .summary_list{
             width:100%;
 
             .sum_column{
+              >div{
+                width: 100%;
+              }
 
               .column_cell{
                 width:100%;
-                padding-bottom:24px;
+                padding:12px 0;
+                margin-bottom: 3px;
+                margin-right: 5px;
+
                 span:first-child{
                   font-weight:500;
                   text-transform: uppercase;
-                  color: rgba(0, 0, 0, 0.54);
+                  //border-bottom: dotted 1px #e9f3f9;
+                  color: rgba(0,0,0,0.4);
                 }
 
-                span:last-child{
-                  font-weight:400;
-                  color:#000;
+                md-input-container{
+                  margin-top: 0px;
+                  margin-bottom: 0px;
+                  width: 100%;
+                  position: relative;
+                  top: 10px;
+                }
+                md-select-value, md-checkbox{
+                  span{
+                    text-transform: capitalize!important;
+                    color: #000!important;
+                    font-weight: normal!important;
+                  }
                 }
               }
 
-              .column_cell:last-child{
-                padding-bottom:none
+              >div:nth-child(odd) .column_cell{
+                background: rgba(33,150,243,0.03);
               }
-
-              .margin-left-10
-              {
-                margin-left: 10px;
-              }
-
             }
           }
         }
@@ -112,7 +125,7 @@
 
     .product-update-header {
       padding:10px 16px 10px 16px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      //border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
       .summary {
         margin-top: 10px;
@@ -173,7 +186,7 @@
           width:100%;
           padding-left:24px;
           padding-right:24px;
-          border-top:1px solid rgba(0, 0, 0, 0.12);
+          //border-top:1px solid rgba(0, 0, 0, 0.12);
 
           .info_sup{
             font-weight:700;
@@ -191,12 +204,7 @@
                 padding-bottom:24px;
 
                 span:first-child{
-                  font-weight:700;
-
-                  .width-control
-                  {
-                    width:85px;
-                  }
+                  font-weight:500;
                 }
 
                 span:last-child{
@@ -222,10 +230,6 @@
                     white-space: nowrap;
                   }
 
-                  .width-control
-                  {
-                    width:103px;
-                  }
                 }
               }
 
@@ -255,7 +259,7 @@
         width: 100%;
         padding-left: 24px;
         padding-right: 24px;
-        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        //border-top: 1px solid rgba(0, 0, 0, 0.12);
       }
     }
 

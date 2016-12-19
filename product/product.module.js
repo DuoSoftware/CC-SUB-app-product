@@ -12,9 +12,9 @@
       ////////////////////////////////
       // App : Product
       // Owner  : Suvethan
-      // Last changed date : 2016/12/07
-      // Version : 6.0.0.23
-      // Updated By : Suvethan
+      // Last changed date : 2016/12/19
+      // Version : 6.0.0.24
+      // Updated By : Kasun
       /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 
@@ -51,6 +51,7 @@
                             }
                             else
                             {
+                              $rootScope.firstLoginDitected = false;
                               //localStorage.removeItem('firstLogin');
                             }
                           }, 50);
