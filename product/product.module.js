@@ -51,6 +51,7 @@
                             }
                             else
                             {
+                              $rootScope.firstLoginDitected = false;
                               //localStorage.removeItem('firstLogin');
                             }
                           }, 50);
