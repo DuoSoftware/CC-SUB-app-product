@@ -12,11 +12,6 @@
       ////////////////////////////////
       // App : Product
       // Owner  : Suvethan
-<<<<<<< HEAD
-      // Last changed date : 2016/12/07
-=======
-      // Last changed date : 2016/12/19
->>>>>>> 590742e8add1fcf38446497589ebabd307d4e99a
       // Version : 6.0.0.24
       // Updated By : Kasun
       /////////////////////////////////
