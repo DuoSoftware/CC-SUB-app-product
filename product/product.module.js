@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.product', [])
+        .module('app.product', ['ngImgCrop'])
         .config(config);
 
     /** @ngInject */
@@ -13,8 +13,8 @@
       // App : Product
       // Owner  : Suvethan
       // Last changed date : 2016/12/07
-      // Version : 6.0.0.23
-      // Updated By : Suvethan
+      // Version : 6.0.0.24
+      // Updated By : Kasun
       /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 

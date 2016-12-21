@@ -577,6 +577,8 @@
 
     $rootScope.toggleEdit = function()
     {
+      var prodCont = document.getElementById('editProdContainer');
+
       $rootScope.editOff = !$rootScope.editOff;
       if (vm.selectedProduct.apply_tax != 0) {
         $rootScope.editTax = !$rootScope.editTax;
@@ -660,6 +662,7 @@
       }
       $scope.changeProduct=angular.copy(vm.selectedProduct);
       $scope.changeProduct.files=[];
+      prodCont.scrollTop=0;
       //debugger;
     }
 
@@ -1153,6 +1156,37 @@
 
     }
 
+    $scope.triggerImgInput = function () {
+      angular.element(document.querySelector('#fileInput')).trigger('click');
+    }
+
+    $scope.myCroppedImage='';
+    $scope.myImage= '';
+
+    $scope.blockingObject = {block:true};
+    $scope.callTestFuntion = function(){
+      $scope.blockingObject.render(function(dataURL){
+        console.log('via render');
+        console.log(dataURL.length);
+      });
+    }
+    $scope.blockingObject.callback=function(dataURL){
+      console.log('via function');
+      console.log(dataURL.length);
+    }
+
+
+    var handleFileSelect=function(evt) {
+      var file=evt.currentTarget.files[0];
+      var reader = new FileReader();
+      reader.onload = function (evt) {
+        $scope.$apply(function($scope){
+          $scope.myImage=evt.target.result;
+        });
+      };
+      reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
 
 
     $scope.imgWidth = "";

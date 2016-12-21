@@ -9,8 +9,7 @@
 
   <!-- SIDENAV -->
   <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav"
-
-              ng-include="'app/main/product/sidenavs/main/main-sidenav.html'" ms-scroll ms-sidenav-helper>
+       ng-include="'app/main/product/sidenavs/main/main-sidenav.html'" ms-scroll ms-sidenav-helper>
   </md-sidenav>
   <!-- / SIDENAV -->
 
@@ -402,15 +401,30 @@
                       </div>
                     </md-input-container>
                   </div>
-
                 </div>
-
-                <md-divider></md-divider>
 
                 <div class="content-block-wrapper" flex>
                   <div class="heading-lev2 top bottom" layout="row">Product Image</div>
                   <div layout="row" class="content-block" layout-align="center center">
-                    <lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>
+                    <!--<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>-->
+
+                    <table>
+                      <td>
+                        <div>Select an image file:
+                          <md-button ng-click="triggerImgInput()" class="md-raised md-accent">Browse</md-button>
+                          <input type="file" id="fileInput" style="display: none" />
+                        </div>
+                        <md-button ng-click="callTestFuntion()">Show Cropped</md-button>
+                        <div class="cropArea">
+                          <img-crop image="myImage" area-type="rectangle" result-image="myCroppedImage" live-view="blockingObject"></img-crop>
+                        </div>
+                      </td>
+                      <td>
+                        <div>Cropped Image:</div>
+                        <div><img ng-src="{{myCroppedImage}}" /></div>
+                      </td>
+                    </table>
+
                   </div>
                 </div>
               </div>
