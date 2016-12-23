@@ -1183,6 +1183,26 @@
       });
     }
 
+    var dataURItoBlob = function(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+      else
+        byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+    }
+
     //Image Uploader===================================
 
     $scope.imgWidth = "";
@@ -1201,8 +1221,13 @@
               if (isAvailable) {
                 if ($scope.cropper.croppedImage != "") {
                   //angular.forEach($scope.content.files, function (obj) {
-                  var b64 = $scope.cropper.croppedImage.split(',');
-                  var file = new File([window.atob(b64[1])], $scope.productImgFileName, {type: $scope.productImgFileType});
+                  // convert base64/URLEncoded data component to raw binary data held in a string
+
+                  var img_b64 = $scope.cropper.croppedImage;
+                  var img = img_b64.split(',')[1];
+                  var blob = new Blob([window.atob(img)],  {type: $scope.productImgFileType, encoding: 'utf-8'});
+                  var file = new File([blob], $scope.productImgFileName);
+
                     $uploader.uploadMedia("CCProductImage", file, $scope.productImgFileName);
 
                     //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
