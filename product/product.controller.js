@@ -1185,9 +1185,7 @@
 
     $scope.imgWidth = "";
     $scope.imgHeight = "";
-    var b64 = $scope.cropper.croppedImage.split(',');
-    var file = [];
-    file.push(new File([window.atob(b64[1])], 'file.jpeg', {type: 'image/jpeg'}));
+
     //debugger;
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
@@ -1201,7 +1199,10 @@
               if (isAvailable) {
                 if ($scope.cropper.croppedImage != "") {
                   //angular.forEach($scope.content.files, function (obj) {
-                    $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
+                  var b64 = $scope.cropper.croppedImage.split(',');
+                  var file = [];
+                  file.push(new File([window.atob(b64[1])], $scope.productImgFileName, {type: 'image/jpeg'}));
+                    $uploader.uploadMedia("CCProductImage", file, $scope.productImgFileName);
 
                     //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
                     //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
