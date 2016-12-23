@@ -1167,6 +1167,7 @@
     $scope.bounds.top = 0;
     $scope.bounds.bottom = 0;
     $scope.productImgFileName = "";
+    $scope.productImgFileType = "";
     $scope.base64ImgObj = {};
     var files = [];
 
@@ -1177,6 +1178,7 @@
 
         if(files.length > 0) {
           $scope.productImgFileName = files[0].name;
+          $scope.productImgFileType = files[0].type;
         }
       });
     }
@@ -1200,8 +1202,7 @@
                 if ($scope.cropper.croppedImage != "") {
                   //angular.forEach($scope.content.files, function (obj) {
                   var b64 = $scope.cropper.croppedImage.split(',');
-                  var file = [];
-                  file.push(new File([window.atob(b64[1])], $scope.productImgFileName, {type: 'image/jpeg'}));
+                  var file = new File([window.atob(b64[1])], $scope.productImgFileName, {type: $scope.productImgFileType});
                     $uploader.uploadMedia("CCProductImage", file, $scope.productImgFileName);
 
                     //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
