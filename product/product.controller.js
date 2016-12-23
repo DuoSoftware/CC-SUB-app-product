@@ -1167,6 +1167,7 @@
     $scope.bounds.top = 0;
     $scope.bounds.bottom = 0;
     $scope.productImgFileName = "";
+    $scope.base64ImgObj = {};
     var files = [];
 
     $scope.triggerImgInput = function (evt) {
@@ -1184,6 +1185,9 @@
 
     $scope.imgWidth = "";
     $scope.imgHeight = "";
+    var b64 = $scope.cropper.croppedImage.split(',');
+    var file = [];
+    file.push(new File([window.atob(b64[1])], 'file.jpeg', {type: 'image/jpeg'}));
     //debugger;
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
