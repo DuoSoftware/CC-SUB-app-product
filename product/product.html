@@ -405,25 +405,40 @@
 
                 <div class="content-block-wrapper" flex>
                   <div class="heading-lev2 top bottom" layout="row">Product Image</div>
-                  <div layout="row" class="content-block" layout-align="center center">
+                  <div layout="row" class="content-block">
                     <!--<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>-->
 
-                    <table>
-                      <td>
-                        <div>Select an image file:
-                          <md-button ng-click="triggerImgInput()" class="md-raised md-accent">Browse</md-button>
-                          <input type="file" id="fileInput" style="display: none" />
+                    <div flex="40">
+                      <div layout="column" layout-align="center center" class="product-img-cont">
+                        <div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage==null">
+                          <md-icon md-font-icon="icon-image-filter"></md-icon>
+                          <span>Browse an image for the Product</span>
+                          <span class="img-size-msg">[Maximum size : 350px X 350px]</span>
                         </div>
-                        <md-button ng-click="callTestFuntion()">Show Cropped</md-button>
-                        <div class="cropArea">
-                          <img-crop image="myImage" area-type="rectangle" result-image="myCroppedImage" live-view="blockingObject"></img-crop>
+                        <canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+
+                        <div class="input-partial">
+                          <md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>
+                          <input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />
                         </div>
-                      </td>
-                      <td>
-                        <div>Cropped Image:</div>
-                        <div><img ng-src="{{myCroppedImage}}" /></div>
-                      </td>
-                    </table>
+                      </div>
+                    </div>
+
+                    <div flex="5"></div>
+
+                    <div flex layout="column" layout-align="center center" class="product-preview">
+                      <span>Product Preview</span>
+                      <div layout="column" layout-align="center center" md-whiteframe flex="80">
+                        <div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage==null">
+                          <md-icon md-font-icon="icon-information"></md-icon> No image is selected yet
+                        </div>
+                        <div ng-show="cropper.croppedImage!=null">
+                          <img ng-src="{{cropper.croppedImage}}" />
+                        </div>
+                      </div>
+                      <label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>
+                      <span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>
+                    </div>
 
                   </div>
                 </div>

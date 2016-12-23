@@ -1156,38 +1156,31 @@
 
     }
 
-    $scope.triggerImgInput = function () {
-      angular.element(document.querySelector('#fileInput')).trigger('click');
-    }
+    //Image Uploader===================================
 
-    $scope.myCroppedImage='';
-    $scope.myImage= '';
+    $scope.cropper = {};
+    $scope.cropper.sourceImage = null;
+    $scope.cropper.croppedImage = null;
+    $scope.bounds = {};
+    $scope.bounds.left = 0;
+    $scope.bounds.right = 0;
+    $scope.bounds.top = 0;
+    $scope.bounds.bottom = 0;
+    $scope.productImgFileName = "";
+    var files = [];
 
-    $scope.blockingObject = {block:true};
-    $scope.callTestFuntion = function(){
-      $scope.blockingObject.render(function(dataURL){
-        console.log('via render');
-        console.log(dataURL.length);
+    $scope.triggerImgInput = function (evt) {
+      angular.element(document.querySelector('#productImageInput')).trigger('click');
+      angular.element(document.querySelector('#productImageInput')).on('change', function () {
+        files = this.files;
+
+        if(files.length > 0) {
+          $scope.productImgFileName = files[0].name;
+        }
       });
     }
-    $scope.blockingObject.callback=function(dataURL){
-      console.log('via function');
-      console.log(dataURL.length);
-    }
 
-
-    var handleFileSelect=function(evt) {
-      var file=evt.currentTarget.files[0];
-      var reader = new FileReader();
-      reader.onload = function (evt) {
-        $scope.$apply(function($scope){
-          $scope.myImage=evt.target.result;
-        });
-      };
-      reader.readAsDataURL(file);
-    };
-    angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
-
+    //Image Uploader===================================
 
     $scope.imgWidth = "";
     $scope.imgHeight = "";
@@ -1202,17 +1195,17 @@
         //  if ($scope.content.category != "" && $scope.content.brand != "" && $scope.content.uom != "") {
             if ($scope.content.selectCurrency != "" || $scope.content.selectCurrency != undefined) {
               if (isAvailable) {
-                if ($scope.content.files.length > 0) {
-                  angular.forEach($scope.content.files, function (obj) {
-                    $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
+                if ($scope.cropper.croppedImage != "") {
+                  //angular.forEach($scope.content.files, function (obj) {
+                    $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
 
-                    $scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
-                    $scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
+                    //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
+                    //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
 
-                    if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
+                    //if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
                       $uploader.onSuccess(function (e, data) {
                       debugger;
-                      var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
+                      var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
 
                       $scope.spinnerAdd = true;
 
@@ -1272,11 +1265,11 @@
                         //whatever
                       });
                     });
-                    }else{
-                      notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
-                      $scope.productSubmit=false;
-                    }
-                  });
+                    //}else{
+                    //  notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
+                    //  $scope.productSubmit=false;
+                    //}
+                  //});
                 }
                 else {
                   $scope.spinnerAdd = true;

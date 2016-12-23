@@ -1,4 +1,54 @@
 #product {
+  .product-img-cont{
+    padding: 20px;
+    border: dashed 1px #aaaaaa;
+    border-radius: 10px;
+    .img-up-invitation{
+      position: absolute;
+      color: #CCCCCC;
+      md-icon{
+        font-size: 70px;
+        opacity: 0.2;
+        width: 70px;
+        height: 55px;
+      }
+    }
+  }
+  .img-size-msg{
+    margin-top: 10px;
+
+    md-icon{
+      color: rgba(33, 150, 243, 0.66)!important;
+      margin-right: 10px;
+      font-size: 22px;
+    }
+    font-size: 12px!important;
+    color: rgba(33, 150, 243, 0.66);
+    font-weight: 300;
+  }
+  .product-preview{
+    .msg{
+      color: rgba(53, 53, 53, 0.2);
+      font-weight: normal;
+      md-icon{
+        color: rgba(53, 53, 53, 0.2);
+        margin-right: 10px;
+      }
+    }
+    .img-parameters{
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    >div{
+      width: 360px;
+      height: 360px;
+      padding: 10px;
+    }
+    >span{
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  }
   .cropArea {
     background: #E4E4E4;
     overflow: hidden;

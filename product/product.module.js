@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.product', ['ngImgCrop'])
+        .module('app.product', [])
         .config(config);
 
     /** @ngInject */
