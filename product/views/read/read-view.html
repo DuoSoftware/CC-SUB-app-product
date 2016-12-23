@@ -1,4 +1,5 @@
 <!-- MAIL CONTENT -->
+<md-progress-circular ng-show="!productReadPaneLoaded" style="position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;opacity: 0.3;z-index: 9999"></md-progress-circular>
 <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1" style="position:fixed;background-color: #fff;width: 100%;z-index: 9999" flex>
   <md-button class="md-icon-button"
              ng-click="lfApi.removeAll(); vm.closeReadPane()"
@@ -6,6 +7,8 @@
     <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
   </md-button>
 </div>
+
+<div class="prod-info-wrap" ng-class="{'page-setup-cover':!productReadPaneLoaded}" >
 <div class="product-header" flex layout="row" layout-align="start start" ng-if="!editOff" style="padding-top: 60px">
   <div class="summary" layout="column" layout-align="center start" flex>
     <span class="name">{{vm.selectedProduct.product_name}}</span>
@@ -116,11 +119,12 @@
   </div>
 
 </div>
+</div>
 
 <!-- / MAIL CONTENT -->
 
 <!-- Edit Content -->
-<form name="vm.updateForm" ng-submit="saveEdit(changeProduct)" style="padding-top: 60px;font-size: 14px" novalidate>
+<form name="vm.updateForm" ng-submit="saveEdit(changeProduct)" style="padding:60px 0;font-size: 14px" novalidate>
 
 <div class="product-update-header" flex layout="row" layout-align="start start" ng-if="editOff">
   <md-input-container flex>
@@ -308,15 +312,16 @@
       </span>
     </div>
   </div>
-  <div ng-init="submitted=false" class="description" layout="row" layout-align="space-between center">
-      <div flex></div>
-
-      <div layout="row" class="layout-row">
-        <md-button ng-click="toggleEdit(); lfApi.removeAll();">Cancel</md-button>
-        <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn">Update</md-button>
-      </div>
-  </div>
 </div>
+  <div ng-init="submitted=false" class="description" layout="row" md-whiteframe="8dp" layout-align="space-between center" style="position:fixed;bottom: 0;background: #ffffff;width: 100%;z-index: 9999">
+    <div flex></div>
+
+    <div layout="row" class="layout-row">
+      <md-button ng-click="toggleEdit(); lfApi.removeAll();">Cancel</md-button>
+      <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn">Update</md-button>
+    </div>
+  </div>
 </form>
+
 <!-- / Edit Content -->
 

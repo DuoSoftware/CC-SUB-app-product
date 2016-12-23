@@ -1,5 +1,33 @@
 #product {
 
+  .prod-info-wrap.page-setup-cover {
+    pointer-events: none;
+    height: 100%;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    -webkit-transition: filter 0.5s;
+    -moz-transition: filter 0.5s;
+    -ms-transition: filter 0.5s;
+    -o-transition: filter 0.5s;
+    transition: filter 0.5s;
+  }
+
+  .prod-info-wrap {
+    -webkit-filter: none;
+    -moz-filter: none;
+    -o-filter: none;
+    -ms-filter: none;
+    filter: none;
+    -webkit-transition: filter 0.5s;
+    -moz-transition: filter 0.5s;
+    -ms-transition: filter 0.5s;
+    -o-transition: filter 0.5s;
+    transition: filter 0.5s;
+  }
+
   .product-display-pane {
     background: #FFFFFF;
 

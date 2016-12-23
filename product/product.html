@@ -204,9 +204,8 @@
       <div class="content-wrapper" layout="column" flex>
         <div class="content-wrapper fill-wrap" flex>
 
-          <md-content style="width:100%;height: 100%;background-color: #fbfdfd" ms-scroll>
-            <form name="vm.editForm" ng-submit="saveProduct(content)" novalidate>
-
+          <md-content flex style="height: 100%;padding-bottom: 60px" ms-scroll>
+            <form id="addProductForm" name="vm.editForm" ng-submit="saveProduct(content)" novalidate>
               <div class="fill-wrapper">
                 <div class="content-block-wrapper">
                   <div layout="row" class="content-block sample-row">
@@ -443,17 +442,16 @@
                   </div>
                 </div>
               </div>
-
-              <div ng-init="submitted=false" layout="row" layout-align="space-between center" class="md-whiteframe-8dp bottom-fixed-bar">
-                <div layout="row"></div>
-
-                <div layout="row" class="layout-row">
-                  <md-button ng-click="clearFields()">Clear</md-button>
-                  <md-button ng-disabled="productSubmit" type="submit" class="md-raised md-warn">Submit</md-button>
-                </div>
-              </div>
             </form>
           </md-content>
+          <div ng-init="submitted=false" layout="row" layout-align="space-between center" class="md-whiteframe-8dp bottom-fixed-bar" style="position:absolute;bottom: 0;background: #fff;width: 100%;">
+            <div layout="row"></div>
+
+            <div layout="row" class="layout-row">
+              <md-button ng-click="clearFields()">Clear</md-button>
+              <md-button ng-disabled="productSubmit" type="submit" form="addProductForm" class="md-raised md-warn">Submit</md-button>
+            </div>
+          </div>
         </div>
       </div>
       <!-- / CONTENT WRAPPER -->

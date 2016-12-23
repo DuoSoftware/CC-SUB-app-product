@@ -1167,8 +1167,6 @@
     $scope.bounds.top = 0;
     $scope.bounds.bottom = 0;
     $scope.productImgFileName = "";
-    $scope.productImgFileType = "";
-    $scope.base64ImgObj = {};
     var files = [];
 
     $scope.triggerImgInput = function (evt) {
@@ -1178,36 +1176,14 @@
 
         if(files.length > 0) {
           $scope.productImgFileName = files[0].name;
-          $scope.productImgFileType = files[0].type;
         }
       });
-    }
-
-    var dataURItoBlob = function(dataURI) {
-      // convert base64/URLEncoded data component to raw binary data held in a string
-      var byteString;
-      if (dataURI.split(',')[0].indexOf('base64') >= 0)
-        byteString = atob(dataURI.split(',')[1]);
-      else
-        byteString = unescape(dataURI.split(',')[1]);
-
-      // separate out the mime component
-      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-      // write the bytes of the string to a typed array
-      var ia = new Uint8Array(byteString.length);
-      for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-
-      return new Blob([ia], {type:mimeString});
     }
 
     //Image Uploader===================================
 
     $scope.imgWidth = "";
     $scope.imgHeight = "";
-
     //debugger;
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
@@ -1221,14 +1197,7 @@
               if (isAvailable) {
                 if ($scope.cropper.croppedImage != "") {
                   //angular.forEach($scope.content.files, function (obj) {
-                  // convert base64/URLEncoded data component to raw binary data held in a string
-
-                  var img_b64 = $scope.cropper.croppedImage;
-                  var img = img_b64.split(',')[1];
-                  var blob = new Blob([window.atob(img)],  {type: $scope.productImgFileType, encoding: 'utf-8'});
-                  var file = new File([blob], $scope.productImgFileName);
-
-                    $uploader.uploadMedia("CCProductImage", file, $scope.productImgFileName);
+                    $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
 
                     //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
                     //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
@@ -1237,6 +1206,14 @@
                       $uploader.onSuccess(function (e, data) {
                       debugger;
                       var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
+
+                      if(path){
+                        $timeout(function () {
+                          $http.get(path, function (productImage) {
+                            $scope.productImgSrc = productImage;
+                          });
+                        },0)
+                      }
 
                       $scope.spinnerAdd = true;
 
