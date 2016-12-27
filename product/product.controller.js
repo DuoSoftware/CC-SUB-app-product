@@ -150,7 +150,7 @@
             method: 'GET',
             url: data[i].attachment
           }).then(function successCallback(response) {
-            vm.productlist[i].attachment = response.data;
+            vm.productLst[i].attachment = response.data;
           }, function errorCallback(response) {
 
           });
