@@ -145,6 +145,15 @@
         for (var i = 0; i <data.length; i++) {
           //data[i].select=false;
           vm.productLst.push(data[i]);
+
+          $http({
+            method: 'GET',
+            url: data[i].attachment
+          }).then(function successCallback(response) {
+            vm.productlist[i].attachment = response.data;
+          }, function errorCallback(response) {
+
+          });
         }
         //}
         //debugger;
@@ -1213,8 +1222,9 @@
                             method: 'GET',
                             url: path
                           }).then(function successCallback(response) {
-                            $scope.productImgSrc = response;
+                            $scope.productImgSrc = response.data;
                           }, function errorCallback(response) {
+
                           });
                       }
 
@@ -1384,6 +1394,8 @@
       //$scope.content.files=[];
       $scope.content.minimun_stock_level=0;
       //$('#deletebtn').click();
+      $scope.cropper = {};
+      context.clearRect(0, 0, canvas.width, canvas.height);
       $state.go($state.current, {}, {reload: $scope.isAdded});
     }
     $scope.backToMain = function(ev)
