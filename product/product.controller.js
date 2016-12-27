@@ -1167,6 +1167,7 @@
     $scope.bounds.top = 0;
     $scope.bounds.bottom = 0;
     $scope.productImgFileName = "";
+    $scope.productImgSrc = "";
     var files = [];
 
     $scope.triggerImgInput = function () {
