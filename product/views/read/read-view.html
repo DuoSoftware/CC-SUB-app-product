@@ -14,9 +14,9 @@
     <span class="name">{{vm.selectedProduct.product_name}}</span>
     <span class="code">Code : {{vm.selectedProduct.code}}</span>
   </div>
-  <div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" flex>
-    <img src="assets/images/142.gif" alt="" style="width: 40px;"/>
-  </div>
+  <!--<div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" flex>-->
+    <!--<img src="assets/images/142.gif" alt="" style="width: 40px;"/>-->
+  <!--</div>-->
   <div class="cost" layout="column" layout-align="center end" flex>
     <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency}}</span>
     <span class="note">(Excluding Tax)</span>
@@ -239,7 +239,7 @@
             <span flex>
               <md-input-container flex style="margin-top: 5px;width: 100%;">
                 <md-select ng-required="changeProduct.apply_tax" flex class="width-control" id="selectTax" name="productTax" ng-model="changeProduct.tax" ng-disabled="!changeProduct.apply_tax" flex>
-                  <option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</option>
+                  <md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</md-option>
                 </md-select>
                 <div ng-messages="vm.updateForm.productTax.$error">
                   <div ng-message="required">Please select a tax group</div>

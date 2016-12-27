@@ -1169,7 +1169,7 @@
     $scope.productImgFileName = "";
     var files = [];
 
-    $scope.triggerImgInput = function (evt) {
+    $scope.triggerImgInput = function () {
       angular.element(document.querySelector('#productImageInput')).trigger('click');
       angular.element(document.querySelector('#productImageInput')).on('change', function () {
         files = this.files;
@@ -1208,11 +1208,13 @@
                       var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
 
                       if(path){
-                        $timeout(function () {
-                          $http.get(path, function (productImage) {
-                            $scope.productImgSrc = productImage;
+                          $http({
+                            method: 'GET',
+                            url: path
+                          }).then(function successCallback(response) {
+                            $scope.productImgSrc = response;
+                          }, function errorCallback(response) {
                           });
-                        },0)
                       }
 
                       $scope.spinnerAdd = true;
