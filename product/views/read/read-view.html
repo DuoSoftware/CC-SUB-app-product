@@ -1,11 +1,71 @@
+<<<<<<< HEAD
 <md-progress-circular ng-show="!productReadPaneLoaded" style="position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;opacity: 0.7;z-index: 9999"></md-progress-circular>
 <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1" style="position:fixed;width: 100%;z-index: 9999" flex>
+=======
+<!-- MAIL CONTENT -->
+<md-progress-circular ng-show="!productReadPaneLoaded" style="position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;opacity: 0.7;z-index: 9999"></md-progress-circular>
+<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1" style="position:fixed;background-color: #fff;width: 100%;z-index: 9999" flex>
+>>>>>>> 410d397af8a17faf5a5735f4e7fac7b4bcb4f43b
   <md-button class="md-icon-button"
              ng-click="lfApi.removeAll(); vm.closeReadPane()"
              aria-label="Back">
     <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
   </md-button>
 </div>
+<<<<<<< HEAD
+=======
+
+<div class="prod-info-wrap" ng-class="{'page-setup-cover':!productReadPaneLoaded}" >
+<div class="product-header" flex layout="row" layout-align="start start" ng-if="!editOff" style="padding-top: 60px">
+  <div class="summary" layout="column" layout-align="center start" flex>
+    <span class="name">{{vm.selectedProduct.product_name}}</span>
+    <span class="code">Code : {{vm.selectedProduct.code}}</span>
+  </div>
+  <!--<div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" flex>-->
+    <!--<img src="assets/images/142.gif" alt="" style="width: 40px;"/>-->
+  <!--</div>-->
+  <div class="cost" layout="column" layout-align="center end" flex>
+    <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency}}</span>
+    <span class="note">(Excluding Tax)</span>
+  </div>
+  <div class="actions">
+    <!--<md-menu>-->
+    <!--<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
+    <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
+    <!--<md-tooltip>Product Action</md-tooltip>-->
+    <!--</md-button>-->
+
+    <!--<md-menu-content width="3">-->
+    <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-button aria-label="Request Products">&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-icon md-font-icon="icon-reply"></md-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;<span>Request Products</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-button aria-label="Add label">&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-icon md-font-icon="icon-label"></md-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;<span>Add label</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-button aria-label="Edit" ng-click="toggleEdit()">&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-icon md-font-icon="icon-pencil"></md-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;<span>Edit</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-button aria-label="Delete">&ndash;&gt;-->
+    <!--&lt;!&ndash;<md-icon md-font-icon="icon-delete"></md-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;<span>Delete</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+    <!--</md-menu-content>-->
+    <!--</md-menu>-->
+  </div>
+</div>
+>>>>>>> 410d397af8a17faf5a5735f4e7fac7b4bcb4f43b
 
 
 <md-tabs md-dynamic-height md-border-bottom class="read-view-tabs" style="margin-top: 50px">
@@ -188,14 +248,20 @@
         </div>
       </div>
 
+<<<<<<< HEAD
       <div class="product-update-content" layout="column" layout-align="start start" ng-show="editOff" flex>
         <!--<div layout="row" layout-align="center center" style="width: 100%;">-->
         <!--<div class="image" layout="column" layout-align="center center" flex style="border-right: solid 1px #cccccc;height: 100%;">-->
         <!--<img ng-src="{{vm.selectedProduct.attachment}}">-->
         <!--</div>-->
+=======
+</div>
+</div>
+>>>>>>> 410d397af8a17faf5a5735f4e7fac7b4bcb4f43b
 
         <!--<div flex="5"></div>-->
 
+<<<<<<< HEAD
         <!--<div class="image" layout="column" layout-align="center center" flex>-->
         <!--&lt;!&ndash;<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" >&ndash;&gt;-->
         <!--&lt;!&ndash;</file-up-loader>&ndash;&gt;-->
@@ -207,6 +273,20 @@
           <div class="heading-lev2 top bottom" layout="row">Product Image</div>
           <div layout="row" class="content-block">
             <!--<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>-->
+=======
+<!-- Edit Content -->
+<form name="vm.updateForm" ng-submit="saveEdit(changeProduct)" style="padding:60px 0;font-size: 14px" novalidate ng-if="editOff">
+
+<div class="product-update-header" flex layout="row" layout-align="start start">
+  <md-input-container flex>
+    <input ng-required="true" ng-maxlength="35" name="editProductName" class="productname-ctrl" ng-model="changeProduct.product_name" type="">
+    <div ng-messages="vm.updateForm.editProductName.$error">
+      <div ng-message="required">Product Name is required.</div>
+      <div ng-message="maxlength">Product Name has to be less than 35 characters long</div>
+    </div>
+    <span class="code">Code : {{vm.selectedProduct.code}}</span>
+  </md-input-container>
+>>>>>>> 410d397af8a17faf5a5735f4e7fac7b4bcb4f43b
 
             <div flex="40">
               <div layout="column" layout-align="center center" class="product-img-cont">
@@ -224,6 +304,7 @@
               </div>
             </div>
 
+<<<<<<< HEAD
             <div flex="5"></div>
 
             <div flex layout="column" layout-align="center center" class="product-preview">
@@ -246,6 +327,59 @@
           <div class="summary" layout="column" layout-align="start start">
             <span class="info_sup">Summary</span>
             <div class="summary_list" layout="row" layout-align="start start">
+=======
+<div class="product-update-content" layout="column" layout-align="start start" ng-show="editOff" flex>
+  <!--<div layout="row" layout-align="center center" style="width: 100%;">-->
+    <!--<div class="image" layout="column" layout-align="center center" flex style="border-right: solid 1px #cccccc;height: 100%;">-->
+      <!--<img ng-src="{{vm.selectedProduct.attachment}}">-->
+    <!--</div>-->
+
+    <!--<div flex="5"></div>-->
+
+    <!--<div class="image" layout="column" layout-align="center center" flex>-->
+      <!--&lt;!&ndash;<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" >&ndash;&gt;-->
+      <!--&lt;!&ndash;</file-up-loader>&ndash;&gt;-->
+      <!--<lf-ng-md-file-input lf-files="changeProduct.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" lf-api="lfApi" class="drag-n-drop" drag preview flex style="width: 100%;padding-right: 50px"></lf-ng-md-file-input>-->
+
+    <!--</div>-->
+  <!--</div>-->
+  <div class="content-block-wrapper" flex style="width: 100%;">
+    <div class="heading-lev2 top bottom" layout="row">Product Image</div>
+    <div layout="row" class="content-block">
+      <!--<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>-->
+
+      <div flex="40">
+        <div layout="column" layout-align="center center" class="product-img-cont">
+          <div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage==null">
+            <md-icon md-font-icon="icon-image-filter"></md-icon>
+            <span>Change the image of the Product</span>
+            <span class="img-size-msg">[Maximum size : 350px X 350px]</span>
+          </div>
+          <canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+
+          <div class="input-partial">
+            <md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>
+            <input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />
+          </div>
+        </div>
+      </div>
+
+      <div flex="5"></div>
+
+      <div flex layout="column" layout-align="center center" class="product-preview">
+        <span>Product Preview</span>
+        <div layout="column" layout-align="center center" md-whiteframe flex="80">
+          <div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage==null">
+            <md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet
+          </div>
+          <div ng-show="cropper.croppedImage!=null">
+            <img ng-src="{{cropper.croppedImage}}" />
+          </div>
+        </div>
+        <label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>
+        <span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>
+      </div>
+>>>>>>> 410d397af8a17faf5a5735f4e7fac7b4bcb4f43b
 
               <div class="sum_column" flex layout="column" layout-align="center center">
                 <div class="column_cell" layout="row" layout-align="start center">
@@ -352,6 +486,7 @@
           <div ng-message="maxlength" style="color: rgb(213,0,0);font-size: 12px">Product Description has to be less than 450 characters long</div>
         </div>
       </span>
+<<<<<<< HEAD
           </div>
         </div>
       </div>
@@ -411,4 +546,20 @@
     <md-button ng-disabled="submitted" type="submit" form="productEditForm" class="md-raised md-warn">Update</md-button>
   </div>
 </div>
+=======
+    </div>
+  </div>
+</div>
+  <div ng-init="submitted=false" class="description" layout="row" md-whiteframe="8dp" layout-align="space-between center" style="position:fixed;bottom: 0;background: #ffffff;width: 100%;z-index: 9999">
+    <div flex></div>
+
+    <div layout="row" class="layout-row">
+      <md-button ng-click="toggleEdit(); lfApi.removeAll();">Cancel</md-button>
+      <md-button ng-disabled="submitted" type="submit" class="md-raised md-warn">Update</md-button>
+    </div>
+  </div>
+</form>
+
+<!-- / Edit Content -->
+>>>>>>> 410d397af8a17faf5a5735f4e7fac7b4bcb4f43b
 

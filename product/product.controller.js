@@ -145,6 +145,15 @@
         for (var i = 0; i <data.length; i++) {
           //data[i].select=false;
           vm.productLst.push(data[i]);
+
+          $http({
+            method: 'GET',
+            url: data[i].attachment
+          }).then(function successCallback(response) {
+            vm.productLst[i].attachment = response.data;
+          }, function errorCallback(response) {
+
+          });
         }
         //}
         //debugger;
