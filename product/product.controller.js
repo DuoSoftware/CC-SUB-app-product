@@ -15,7 +15,7 @@
     .controller('ProductController', ProductController);
 
   /** @ngInject */
-  function ProductController($mdToast, $scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location, $http)
+  function ProductController($mdToast, $scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location)
   {
     var vm = this;
 
@@ -145,15 +145,6 @@
         for (var i = 0; i <data.length; i++) {
           //data[i].select=false;
           vm.productLst.push(data[i]);
-
-          $http({
-            method: 'GET',
-            url: data[i].attachment
-          }).then(function successCallback(response) {
-            vm.productLst[i].attachment = response.data;
-          }, function errorCallback(response) {
-
-          });
         }
         //}
         //debugger;
@@ -317,6 +308,8 @@
     }
 
 
+
+
     $scope.enableTaxCode = function(chkTax) {
       document.getElementById('selectTax').disabled=!chkTax;
     }
@@ -390,13 +383,6 @@
 
       })
 
-      //Audit trial=========================================================
-      $scope.historyTabIsOn = function (val) {
-        if(val==true)
-          $scope.editOn = false;
-        else
-          $scope.editOn = true;
-      };
       var skipAuditTrails=0;
       var takeAuditTrails=100;
       $scope.auditTrailList=[];
@@ -412,7 +398,7 @@
         $charge.audit().getByAccountId(productId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
         {
           console.log(data);
-         // debugger;
+          debugger;
           skipAuditTrails+=takeAuditTrails;
           //$scope.auditTrailList=data;
           for (var i = 0; i < data.length; i++) {
@@ -425,7 +411,6 @@
 
           if(data.length<takeAuditTrails)
           {
-            debugger;
             vm.isAuditTrailLoaded = false;
           }
           $scope.moreAuditTrailLoaded = true;
@@ -449,7 +434,6 @@
       }
 
       $scope.getAuditTrailDetails(product);
-      //Audit trial=========================================================
     }
     //////
     // Watch screen size to activate responsive read pane
@@ -1226,32 +1210,7 @@
 
     }
 
-    //Image Uploader===================================
 
-    $scope.cropper = {};
-    $scope.cropper.sourceImage = null;
-    $scope.cropper.croppedImage = null;
-    $scope.bounds = {};
-    $scope.bounds.left = 0;
-    $scope.bounds.right = 0;
-    $scope.bounds.top = 0;
-    $scope.bounds.bottom = 0;
-    $scope.productImgFileName = "";
-    $scope.productImgSrc = "";
-    var files = [];
-
-    $scope.triggerImgInput = function () {
-      angular.element(document.querySelector('#productImageInput')).trigger('click');
-      angular.element(document.querySelector('#productImageInput')).on('change', function () {
-        files = this.files;
-
-        if(files.length > 0) {
-          $scope.productImgFileName = files[0].name;
-        }
-      });
-    }
-
-    //Image Uploader===================================
 
     $scope.imgWidth = "";
     $scope.imgHeight = "";
@@ -1266,28 +1225,17 @@
         //  if ($scope.content.category != "" && $scope.content.brand != "" && $scope.content.uom != "") {
             if ($scope.content.selectCurrency != "" || $scope.content.selectCurrency != undefined) {
               if (isAvailable) {
-                if ($scope.cropper.croppedImage != "") {
-                  //angular.forEach($scope.content.files, function (obj) {
-                    $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
+                if ($scope.content.files.length > 0) {
+                  angular.forEach($scope.content.files, function (obj) {
+                    $uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
 
-                    //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
-                    //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
+                    $scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
+                    $scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
 
-                    //if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
+                    if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
                       $uploader.onSuccess(function (e, data) {
                       debugger;
-                      var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
-
-                      if(path){
-                          $http({
-                            method: 'GET',
-                            url: path
-                          }).then(function successCallback(response) {
-                            $scope.productImgSrc = response.data;
-                          }, function errorCallback(response) {
-
-                          });
-                      }
+                      var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
 
                       $scope.spinnerAdd = true;
 
@@ -1347,11 +1295,11 @@
                         //whatever
                       });
                     });
-                    //}else{
-                    //  notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
-                    //  $scope.productSubmit=false;
-                    //}
-                  //});
+                    }else{
+                      notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
+                      $scope.productSubmit=false;
+                    }
+                  });
                 }
                 else {
                   $scope.spinnerAdd = true;
@@ -1455,8 +1403,6 @@
       //$scope.content.files=[];
       $scope.content.minimun_stock_level=0;
       //$('#deletebtn').click();
-      $scope.cropper = {};
-      context.clearRect(0, 0, canvas.width, canvas.height);
       $state.go($state.current, {}, {reload: $scope.isAdded});
     }
     $scope.backToMain = function(ev)
@@ -1469,8 +1415,8 @@
     {
       if(ev!=null) {
         if (ev.length < 3) {
-          notifications.toast("Please enter more than 3 characters", "error");
-          $scope.content.code = "";
+          //notifications.toast("Please enter more than 3 characters", "error");
+          //$scope.content.code = "";
         }
         else {
           $scope.chkProductCode(ev);
@@ -1894,9 +1840,6 @@
       $rootScope.step=($rootScope.decimalPoint/$rootScope.decimalPoint)/Math.pow(10,$rootScope.decimalPoint);
     }).error(function(data) {
     })
-
-
-
 
 
 

@@ -8,7 +8,7 @@
 
     <div class="info" flex="35" layout="row">
       <div class="clientCygil" layout="row" layout-align="start center">
-        <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{productImgSrc}}" src="{{productImgSrc}}"/>
+        <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}"/>
 
         <div class="listMedia" ng-if="!product.attachment" ms-random-class="vm.colors">
           {{product.product_name}}
