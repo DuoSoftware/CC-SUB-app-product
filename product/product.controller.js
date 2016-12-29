@@ -380,67 +380,73 @@
         $scope.productReadPaneLoaded = true;
 
       })
-
-      //Audit trial=========================================================
-      $scope.historyTabIsOn = function (val) {
-        if(val==true)
-          $scope.editOn = false;
-        else
-          $scope.editOn = true;
-      };
-      var skipAuditTrails=0;
-      var takeAuditTrails=100;
-      $scope.auditTrailList=[];
-      vm.isAuditTrailLoaded = true;
-      $scope.moreAuditTrailLoaded = false;
-
-      $scope.getAuditTrailDetails = function (product){
-
-        debugger;
-        var productId=product.productId;
-        $scope.noAuditTrailLabel=false;
+      $scope.loadAuditTrial= function () {
+        //Audit trial=========================================================
+        $scope.historyTabIsOn = function (val) {
+          if(val==true)
+            $scope.editOn = false;
+          else
+            $scope.editOn = true;
+        };
+        var skipAuditTrails=0;
+        var takeAuditTrails=100;
+        $scope.auditTrailList=[];
         vm.isAuditTrailLoaded = true;
-        $charge.audit().getByAccountId(productId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
-        {
-          console.log(data);
-          debugger;
-          skipAuditTrails+=takeAuditTrails;
-          //$scope.auditTrailList=data;
-          for (var i = 0; i < data.length; i++) {
-            var objAuditTrail=data[i];
-            //objAuditTrail.id=i+1;
-            //objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
-            $scope.auditTrailList.push(objAuditTrail);
-
-          }
-
-          if(data.length<takeAuditTrails)
-          {
-            vm.isAuditTrailLoaded = false;
-          }
-          $scope.moreAuditTrailLoaded = true;
-
-        }).error(function(data)
-        {
-          console.log(data);
-          if(data==204)
-          {
-            $scope.noAuditTrailLabel=true;
-          }
-          $scope.moreAuditTrailLoaded = true;
-          vm.isAuditTrailLoaded = false;
-          //$scope.auditTrailList=[];
-        })
-      }
-
-      $scope.searchmoreAuditTrails = function (product){
         $scope.moreAuditTrailLoaded = false;
-        $scope.getAuditTrailDetails(product);
-      }
 
-      $scope.getAuditTrailDetails(product);
-      //Audit trial=========================================================
+        $scope.getAuditTrailDetails = function (product){
+
+          debugger;
+          var productId=product.productId;
+          $scope.noAuditTrailLabel=false;
+          vm.isAuditTrailLoaded = true;
+          $charge.audit().getByAccountId(productId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
+          {
+            console.log(data);
+            debugger;
+            skipAuditTrails+=takeAuditTrails;
+            //$scope.auditTrailList=data;
+            for (var i = 0; i < data.length; i++) {
+              var objAuditTrail=data[i];
+              //objAuditTrail.id=i+1;
+              //objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
+              $scope.auditTrailList.push(objAuditTrail);
+
+            }
+
+            if(data.length<takeAuditTrails)
+            {
+              vm.isAuditTrailLoaded = false;
+            }
+            $scope.moreAuditTrailLoaded = true;
+
+          }).error(function(data)
+          {
+            console.log(data);
+            if(data==204)
+            {
+              $scope.noAuditTrailLabel=true;
+            }
+            $scope.moreAuditTrailLoaded = true;
+            vm.isAuditTrailLoaded = false;
+            //$scope.auditTrailList=[];
+          })
+        }
+
+        $scope.searchmoreAuditTrails = function (product){
+          $scope.moreAuditTrailLoaded = false;
+          $scope.getAuditTrailDetails(product);
+        }
+
+        $scope.getAuditTrailDetails(product);
+        //Audit trial=========================================================
+      }
+      $scope.loadAuditTrial();
+
     }
+
+
+
     //////
     // Watch screen size to activate responsive read pane
     $scope.$watch(function ()
