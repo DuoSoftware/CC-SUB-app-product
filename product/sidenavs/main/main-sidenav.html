@@ -30,12 +30,12 @@
   </div>
 
   <div class="compose-button" ng-if="vm.activeProductPaneIndex === 1">
-    <md-button class="md-accent md-raised" aria-label="compose" ng-hide="editOff"
+    <md-button class="md-accent md-raised" aria-label="compose" ng-hide="editOff || !editOn"
                ng-click="lfApi.removeAll(); toggleEdit()">Edit Product
     </md-button>
-    <!--<md-button class="md-accent md-raised" aria-label="compose" ng-show="editOff"-->
-               <!--ng-click="vm.closeReadPane();">View Products-->
-    <!--</md-button>-->
+    <md-button class="md-accent md-raised" aria-label="compose" ng-show="editOff"
+               ng-click="vm.closeReadPane();">View Products
+    </md-button>
   </div>
 
   <div class="navigation-simple" layout="column" ng-if="vm.showFilters">
