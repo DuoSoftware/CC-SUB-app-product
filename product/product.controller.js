@@ -511,6 +511,7 @@
           vm.selectedProduct.attachment="";
         }, 0);
       }
+      $scope.editOn = true;
     }
 
     /**
