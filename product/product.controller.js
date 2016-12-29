@@ -382,6 +382,8 @@
       })
       $scope.loadAuditTrial= function () {
         //Audit trial=========================================================
+        $scope.editOn=true;
+        
         $scope.historyTabIsOn = function (val) {
           if(val==true)
             $scope.editOn = false;
