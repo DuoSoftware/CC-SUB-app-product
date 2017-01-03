@@ -10,6 +10,7 @@
     }
     md-content{
       max-height: 350px;
+      min-height: 350px;
       overflow-x:hidden;
       .no-sched{
         color: #aaa;

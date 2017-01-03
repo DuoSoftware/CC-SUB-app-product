@@ -328,7 +328,7 @@
         //vm.selectedProduct.attachment="";
         //debugger;
         vm.selectedProduct=angular.copy(dataProduct[0]);
-        //debugger;
+        debugger;
         //if(vm.selectedProduct.attachment==""){
         //  var productImg = angular.element(document.querySelector('#product-image'));
         //  productImg.attr('src','app/core/cloudcharge/img/noimage.png');
@@ -337,7 +337,7 @@
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
         $charge.stock().getStock(product.productId).success(function(data) {
           //debugger;
-          vm.selectedProduct = angular.copy(dataProduct[0]);
+          //vm.selectedProduct = angular.copy(dataProduct[0]);
           //debugger;
           vm.selectedProduct.inventoryStock=vm.selectedProduct.sku!=0?data.qty:"";
           vm.selectedProduct.tax=taxgrp==undefined?"":vm.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";

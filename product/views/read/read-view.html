@@ -22,7 +22,7 @@
         <!--<img src="assets/images/142.gif" alt="" style="width: 40px;"/>-->
         <!--</div>-->
         <div class="cost" layout="column" layout-align="center end" flex>
-          <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency}}</span>
+          <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency: decimalPoint}}</span>
           <span class="note">(Excluding Tax)</span>
         </div>
         <div class="actions">
@@ -142,7 +142,7 @@
         <div flex="5"></div>
 
         <md-input-container flex>
-          <input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="number" step="0.01">
+          <input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="number" step="0.01" valid-number decimal-point="decimalPoint">
           <div ng-messages="vm.updateForm.editpriceOfUnit.$error">
             <div ng-message="required">Price Of Unit is required.</div>
             <div ng-message="max">Please enter a less value.</div>
