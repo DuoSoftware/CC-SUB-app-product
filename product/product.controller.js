@@ -1256,6 +1256,7 @@
     $scope.imgWidth = "";
     $scope.imgHeight = "";
     //debugger;
+    $scope.cropper.croppedImage = "";
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
       debugger;
@@ -1456,7 +1457,7 @@
       $scope.content.minimun_stock_level=0;
       //$('#deletebtn').click();
       $scope.cropper = {};
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      //context.clearRect(0, 0, canvas.width, canvas.height);
       $state.go($state.current, {}, {reload: $scope.isAdded});
     }
     $scope.backToMain = function(ev)
