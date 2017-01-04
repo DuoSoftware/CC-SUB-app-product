@@ -1470,8 +1470,8 @@
     {
       if(ev!=null) {
         if (ev.length < 3) {
-          notifications.toast("Please enter more than 3 characters", "error");
-          $scope.content.code = "";
+          //notifications.toast("Please enter more than 3 characters", "error");
+          //$scope.content.code = "";
         }
         else {
           $scope.chkProductCode(ev);

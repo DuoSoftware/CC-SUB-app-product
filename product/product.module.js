@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.product', [])
+        .module('app.product', ['directivelibrary'])
         .config(config);
 
     /** @ngInject */
