@@ -512,6 +512,7 @@
         $timeout(function () {
           vm.scrollEl.scrollTop(vm.scrollPos);
           vm.selectedProduct.attachment="";
+          vm.productSelectedTab = 0;
         }, 0);
       }
       $scope.editOn = true;
