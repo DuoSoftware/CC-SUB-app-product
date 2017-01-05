@@ -400,7 +400,7 @@
         $scope.getAuditTrailDetails = function (product){
 
           debugger;
-          var productId=product.productId;
+          var productId=product.guproductid;
           $scope.noAuditTrailLabel=false;
           vm.isAuditTrailLoaded = true;
           $charge.audit().getByAccountId(productId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
@@ -746,6 +746,7 @@
         $rootScope.UnitSize = "flex-85";
         $rootScope.unitMeasure = "flex-15";
         var editReq = $scope.changeProduct;
+        editReq.guproductId=editReq.guproductid;
         var tempTaxgroup = angular.copy(editReq);
         var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: editReq.tax})[0];
         if (taxgrp != undefined || taxgrp != null)
