@@ -1733,6 +1733,7 @@
                   //$scope.brands.push(brandval);
                   $scope.newBrand = false;
                   $mdDialog.hide(brandval);
+                  notifications.toast("Brand has been added.", "success");
                   //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
                 }
               }).error(function (data) {
@@ -1774,6 +1775,7 @@
                   //$scope.brands.push(brandval);
                   $scope.newBrand = false;
                   $mdDialog.hide(brandval);
+                  notifications.toast("Brand has been added.", "success");
                   //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
                 }
               }).error(function (data) {
@@ -1818,6 +1820,7 @@
               //$scope.brands.push(brandval);
               $scope.newBrand = false;
               $mdDialog.hide(brandval);
+              notifications.toast("Brand has been added.", "success");
               //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
             }
           }).error(function (data) {
@@ -1947,6 +1950,7 @@
               //$scope.categories.push(cateval);
               $scope.newCat = false;
               $mdDialog.hide(cateval);
+              notifications.toast("Category is added.", "success");
               //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
             }
           }).error(function (data) {
