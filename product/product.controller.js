@@ -15,7 +15,7 @@
     .controller('ProductController', ProductController);
 
   /** @ngInject */
-  function ProductController($mdToast, $scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, Product,$charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location, $http)
+  function ProductController($mdToast, $scope, $document, $timeout, $mdDialog, $mdMedia,$rootScope, $mdSidenav, $charge,$productHandler,$filter,notifications,$state,$uploader,$storage, $anchorScroll, $location, $http)
   {
     var vm = this;
 
@@ -70,7 +70,7 @@
     $scope.pageCount=1;
     $scope.totalCount=0;
     $charge.tax().allgroups(skipGrp,takeGrp,"asc").success(function(data) {
-      //debugger;
+      //
       skipGrp += takeGrp;
       console.log(data);
       //if($scope.loading) {
@@ -85,13 +85,13 @@
 
     $charge.uom().getAllUOM('Product_123').success(function(data) {
       $scope.UOMs=[];
-      //debugger;
+      //
       console.log(data);
       for(var i=0;i<data.length;i++)
       {
-        //debugger;
+        //
         $scope.UOMs.push(data[i][0]["UOMCode"]);
-        //debugger;
+        //
       }
     }).error(function(data) {
       console.log(data);
@@ -103,7 +103,7 @@
       //console.log(data);
       for(var i=0;i<data.length;i++)
       {
-        //debugger;
+        //
         $scope.brands.push(data[i]["RecordFieldData"]);
       }
 
@@ -119,7 +119,7 @@
       //console.log(data);
       for(var i=0;i<data.length;i++)
       {
-        //debugger;
+        //
         $scope.categories.push(data[i]["RecordFieldData"]);
       }
     }).error(function(data) {
@@ -147,7 +147,7 @@
           vm.productLst.push(data[i]);
         }
         //}
-        //debugger;
+        //
         //$scope.loading = false;
         vm.products =vm.productLst;
         $scope.totalCount=vm.products.length;
@@ -288,7 +288,7 @@
     }
 
     $scope.getPreviousProducts= function (startIndex) {
-      debugger;
+
       if(startIndex>100) {
         vm.products=[];
         var end = startIndex - 1;
@@ -313,22 +313,22 @@
     }
 
     $scope.enableStockLevel = function(chkInv) {
-      //debugger;
+      //
       document.getElementById('txtMinStock').disabled=!chkInv;
     }
 
     $scope.productReadPaneLoaded = true;
     $scope.openProduct= function (product) {
       //vm.selectedProduct = product;
-      //debugger;
+      //
       $scope.productReadPaneLoaded = false;
       vm.selectedProduct=angular.copy({});
-      //debugger;
+      //
       $charge.product().getByID(product.productId).success(function(dataProduct) {
         //vm.selectedProduct.attachment="";
-        //debugger;
+        //
         vm.selectedProduct=angular.copy(dataProduct[0]);
-        debugger;
+
         //if(vm.selectedProduct.attachment==""){
         //  var productImg = angular.element(document.querySelector('#product-image'));
         //  productImg.attr('src','app/core/cloudcharge/img/noimage.png');
@@ -336,9 +336,9 @@
         vm.selectedProduct.currency=$scope.content.selectCurrency;
         var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
         $charge.stock().getStock(product.productId).success(function(data) {
-          //debugger;
+          //
           //vm.selectedProduct = angular.copy(dataProduct[0]);
-          //debugger;
+          //
           vm.selectedProduct.inventoryStock=vm.selectedProduct.sku!=0?data.qty:"";
           vm.selectedProduct.tax=taxgrp==undefined?"":vm.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
           if(vm.selectedProduct.apply_tax==0)
@@ -399,14 +399,14 @@
 
         $scope.getAuditTrailDetails = function (product){
 
-          debugger;
+
           var productId=product.guproductid;
           $scope.noAuditTrailLabel=false;
           vm.isAuditTrailLoaded = true;
           $charge.audit().getByAccountId(productId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
           {
             console.log(data);
-            debugger;
+
             skipAuditTrails+=takeAuditTrails;
             //$scope.auditTrailList=data;
             for (var i = 0; i < data.length; i++) {
@@ -476,7 +476,7 @@
      */
     function selectProduct(product)
     {
-      //debugger;
+      //
       $scope.openProduct(product);
       vm.showFilters=false;
       //vm.selectedProduct = product;
@@ -611,7 +611,7 @@
         clickOutsideToClose: true
       });
       //  .then(function(product) {
-      //  debugger;
+      //
       //  if(product!=undefined ||product !="")
       //    vm.productLst.push(product);
       //});
@@ -658,7 +658,7 @@
       if (vm.selectedProduct.sku != 0) {
         $rootScope.editInv = !$rootScope.editInv;
       }
-      //debugger;
+      //
       if($rootScope.editOff==true) {
         $timeout(function ()
         {
@@ -677,14 +677,14 @@
         });
         //$rootScope.UnitSize="flex-85";
         //$rootScope.unitMeasure="flex-15";
-        //debugger;
+        //
         if (vm.selectedProduct.status==1) {
           vm.selectedProduct.status = "true";
         }
         else {
           vm.selectedProduct.status = "false";
         }
-        //debugger;
+        //
         if (vm.selectedProduct.sku == "true") {
           vm.selectedProduct.sku = true
         }
@@ -709,14 +709,14 @@
       {
         $rootScope.UnitSize="flex-70";
         $rootScope.unitMeasure="flex-30";
-        //debugger;
+        //
         if (vm.selectedProduct.status == "true") {
           vm.selectedProduct.status = true
         }
         else {
           vm.selectedProduct.status = false;
         }
-        // debugger;
+        //
         if (vm.selectedProduct.sku == 1) {
           vm.selectedProduct.sku = true
         }
@@ -734,7 +734,7 @@
       $scope.changeProduct=angular.copy(vm.selectedProduct);
       $scope.changeProduct.files=[];
       prodCont.scrollTop=0;
-      //debugger;
+      //
     }
 
 
@@ -767,13 +767,13 @@
 
             if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
               $uploader.onSuccess(function (e, data) {
-              debugger;
+
               var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
               editReq.attachment = path;
               $charge.product().update(editReq).success(function (data) {
-                //debugger;
+                //
                 if (data.count) {
-                  //debugger;
+                  //
                   for (var i = 0; i < vm.products.length; i++) {
                     if (vm.products[i].productId == editReq.productId) {
                       vm.products[i] = angular.copy(editReq);
@@ -782,10 +782,10 @@
                   editReq.tax = tempTaxgroup.tax;
 
                   vm.selectedProduct = editReq;
-                  //debugger;
+                  //
                   $rootScope.editOff = !$rootScope.editOff;
                   if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
-                    //debugger;
+                    //
                     $rootScope.editTax = !$rootScope.editTax;
                   }
                   else
@@ -799,7 +799,7 @@
                     elThumbnails.empty();
                   }
                   prodCont.scrollTop=0;
-                  debugger;
+
                 }
 
               }).error(function (data) {
@@ -831,15 +831,15 @@
               //angular.element(document.querySelector('.close')).empty();
 
               // dragContainer.innerHTML(addDragPortion);
-              debugger;
+
             }
           });
         }
         else {
           $charge.product().update(editReq).success(function (data) {
-            //debugger;
+            //
             if (data.count) {
-              //debugger;
+              //
               for (var i = 0; i < vm.products.length; i++) {
                 if (vm.products[i].productId == editReq.productId) {
                   vm.products[i] = angular.copy(editReq);
@@ -848,10 +848,10 @@
               editReq.tax = tempTaxgroup.tax;
 
               vm.selectedProduct = editReq;
-              //debugger;
+              //
               $rootScope.editOff = !$rootScope.editOff;
               if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
-                //debugger;
+                //
                 $rootScope.editTax = !$rootScope.editTax;
               }
               else
@@ -875,6 +875,8 @@
             elThumbnails.empty();
           })
         }
+      }else{
+        angular.element(document.querySelector('#productEditForm')).find('.ng-invalid:visible:first').focus();
       }
     }
 
@@ -899,17 +901,17 @@
       vm.productLst=[];
       $productHandler.getClient().LoadProductByScroll(skip,take).onComplete(function(data)
       {
-        //debugger;
+        //
         //if($scope.loading) {
         for (var i = 0; i < data.length; i++) {
           //data[i].select=false;
           vm.productLst.push(data[i]);
         }
         //}
-        //debugger;
+        //
         //$scope.loading = false;
         vm.products =vm.productLst;
-        debugger;
+
         $scope.totalCount=vm.products.length;
         $scope.startCount=skip+1;
         skip += take;
@@ -930,7 +932,7 @@
     var skipProduct,takeProduct;
     var tempList;
     $scope.loadByKeyword= function (keyword) {
-      debugger;
+
       if(vm.productLst.length==100) {
         if (keyword.length == 3) {
           skipProduct = 0;
@@ -1003,7 +1005,7 @@
     //$scope.propertyName = 'product_name';
     $scope.sortBy = function(propertyName,status,property) {
       //$scope.reverse =!reverse;
-      //debugger;
+      //
       vm.products=$filter('orderBy')(vm.products, propertyName, $scope.reverse)
       $scope.reverse =!$scope.reverse;
       if(status!=null) {
@@ -1142,19 +1144,51 @@
       $scope.newCat=true;
       $scope.requireCat=true;
 
-      var confirm = $mdDialog.prompt()
-        .title('Enter Category')
-        .placeholder('Category')
-        .ariaLabel('Category')
-        .targetEvent(ev)
-        .ok('Add')
-        .cancel('Cancel');
-
-      $mdDialog.show(confirm).then(function(result) {
-        $scope.saveCategory(result);
+      $mdDialog.show({
+        controller: ProductController,
+        templateUrl: 'app/main/product/dialogs/prompt-dialog-cat.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false
+      })
+      .then(function(result) {
+            if(result != undefined)
+              $scope.categories.push(result);
       }, function() {
-        $scope.newCat=false;
       });
+
+      //var confirm = $mdDialog.prompt()
+      //  .title('Enter Category')
+      //  .placeholder('Category')
+      //  .ariaLabel('Category')
+      //  .targetEvent(ev)
+      //  .ok('Add')
+      //  .cancel('Cancel');
+      //
+      //$mdDialog.show(confirm).then(function(result) {
+      //  $scope.saveCategory(result);
+      //}, function() {
+      //  $scope.newCat=false;
+      //});
+    }
+
+    $scope.promptInput = "";
+    $scope.promptInputSetup = function(form, updateMethod){
+      if(form.$valid){
+        updateMethod($scope.promptInput);
+        //if(!$scope.isDuplicateCat && !$scope.isDuplicateBrand && !$scope.isDuplicate) {
+        //  $mdDialog.hide();
+        //}
+      }else{
+        angular.element(document.querySelector('#promptForm')).find('.ng-invalid:visible:first').focus();
+      }
+    }
+
+    $scope.closeDialog = function () {
+      $scope.newCat=false;
+      $scope.newBrand=false;
+      $scope.newUom=false;
+      $mdDialog.hide();
     }
 
 
@@ -1166,28 +1200,41 @@
 
     $scope.addBrand = function(ev)
     {
-      //debugger;
+      //
       $scope.content.brand = "";
       $scope.content.newBrandVal= "";
       $scope.newBrand=true;
       //$scope.requireBrand=true;
 
-      var confirm = $mdDialog.prompt()
-        .title('Enter Brand Name')
-        .placeholder('Brand Name')
-        .ariaLabel('Brand Name')
-        .targetEvent(ev)
-        .ok('Add')
-        .cancel('Cancel');
-
-      debugger;
-
-      $mdDialog.show(confirm).then(function(result) {
-        $scope.saveBrand(result);
+      $mdDialog.show({
+        controller: ProductController,
+        templateUrl: 'app/main/product/dialogs/prompt-dialog-brand.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false
+      })
+      .then(function(result) {
+            if(result != undefined)
+              $scope.brands.push(result);
       }, function() {
-        $scope.newBrandVal= "";
-        $scope.newBrand=false;
       });
+
+      //var confirm = $mdDialog.prompt()
+      //  .title('Enter Brand Name')
+      //  .placeholder('Brand Name')
+      //  .ariaLabel('Brand Name')
+      //  .targetEvent(ev)
+      //  .ok('Add')
+      //  .cancel('Cancel');
+      //
+      //
+      //
+      //$mdDialog.show(confirm).then(function(result) {
+      //  $scope.saveBrand(result);
+      //}, function() {
+      //  $scope.newBrandVal= "";
+      //  $scope.newBrand=false;
+      //});
     }
 
     $scope.cancelBrand= function () {
@@ -1204,25 +1251,37 @@
       $scope.newUom=true;
       //$scope.requireUOM=true;
 
-      var confirm = $mdDialog.prompt()
-        .title('Enter UOM')
-        .placeholder('UOM')
-        .ariaLabel('UOM')
-        .targetEvent(ev)
-        .ok('Add')
-        .cancel('Cancel');
-
-      debugger;
-
-      $mdDialog.show(confirm).then(function(result) {
-        $scope.saveUOM(result);
+      $mdDialog.show({
+        controller: ProductController,
+        templateUrl: 'app/main/product/dialogs/prompt-dialog-uom.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false
+      })
+      .then(function(result) {
+            if(result != undefined)
+              $scope.UOMs.push(result);
       }, function() {
-        $scope.newUom=false;
       });
+      //var confirm = $mdDialog.prompt()
+      //  .title('Enter UOM')
+      //  .placeholder('UOM')
+      //  .ariaLabel('UOM')
+      //  .targetEvent(ev)
+      //  .ok('Add')
+      //  .cancel('Cancel');
+      //
+      //
+      //
+      //$mdDialog.show(confirm).then(function(result) {
+      //  $scope.saveUOM(result);
+      //}, function() {
+      //  $scope.newUom=false;
+      //});
     }
 
     $scope.cancelUOM= function () {
-      //debugger;
+      //
       $scope.newUom=false;
       //$scope.requireUOM=false;
 
@@ -1257,11 +1316,11 @@
 
     $scope.imgWidth = "";
     $scope.imgHeight = "";
-    //debugger;
+    //
     $scope.cropper.croppedImage = "";
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
-      debugger;
+
       $scope.isAdded=false;
       if(vm.editForm.$valid == true) {
         $scope.productSubmit=true;
@@ -1278,7 +1337,7 @@
 
                     //if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
                       $uploader.onSuccess(function (e, data) {
-                      debugger;
+
                       var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
 
                       if(path){
@@ -1305,10 +1364,10 @@
                       }
                       else {
                         var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
-                        debugger;
+
                         $scope.content.tax = taxgrp.taxgroupid;
                       }
-                      //debugger;
+                      //
                       if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
                         $scope.content.sku = false;
                         $scope.content.minimun_stock_level = 0;
@@ -1317,7 +1376,7 @@
                       $scope.content.attachment = path;
                       // }
                       var req = $scope.content;
-                      //debugger;
+                      //
                       $charge.product().store(req).success(function (data) {
                         if (data.id) {
                           notifications.toast("Record Inserted, Product Code " + req.code, "success");
@@ -1359,24 +1418,24 @@
                 else {
                   $scope.spinnerAdd = true;
                   //$scope.content.product_name=self.searchText;
-                  //debugger;
+                  //
                   if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
                     $scope.content.quantity_of_unit = 0;
                   if ($scope.content.cost_price == null || $scope.content.cost_price == "")
                     $scope.content.cost_price = 0;
                   //if($scope.content.tax==null ||$scope.content.tax=="")
                   //    $scope.content.tax="0";
-                  //debugger;
+                  //
                   if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
                     $scope.content.apply_tax = false;
                     $scope.content.tax = "0";
                   }
                   else {
                     var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
-                    //debugger;
+                    //
                     $scope.content.tax = taxgrp.taxgroupid;
                   }
-                  //debugger;
+                  //
                   if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
                     $scope.content.sku = false;
                     $scope.content.minimun_stock_level = 0;
@@ -1386,7 +1445,7 @@
                   // }
                   $scope.content.attachment = "app/core/cloudcharge/img/noimage.png";
                   var req = $scope.content;
-                  //debugger;
+                  //
                   $charge.product().store(req).success(function (data) {
                     if (data.id) {
                       //console.log(data);
@@ -1409,7 +1468,7 @@
                     }
 
                     window.scrollTo(0, 0);
-                    debugger;
+
                   }).error(function (data) {
                     //console.log(data);
                     $scope.productSubmit=false;
@@ -1433,6 +1492,8 @@
         //{
         //  notifications.toast("Please fill all the details", "error");
         //}
+      }else{
+        angular.element(document.querySelector('#addProductForm')).find('.ng-invalid:visible:first').focus();
       }
 
     }
@@ -1497,7 +1558,7 @@
         notifications.toast(ev +" has been already added" , "error");
         $scope.content.code="";
       }).error(function (status) {
-        //debugger;
+        //
         if(status!=204) {
           notifications.toast("Error occurred while checking product code", "error");
           isAvailable=false;
@@ -1531,7 +1592,7 @@
       //console.log(data);
       for(var i=0;i<data.length;i++)
       {
-        //debugger;
+        //
         $scope.brands.push(data[i]["RecordFieldData"]);
       }
 
@@ -1548,7 +1609,7 @@
       //console.log(data);
       for(var i=0;i<data.length;i++)
       {
-        //debugger;
+        //
         $scope.categories.push(data[i]["RecordFieldData"]);
       }
     }).error(function(data) {
@@ -1561,18 +1622,18 @@
     $scope.UOMs=[];
     $scope.saveUOM = function(uomval)
     {
-      debugger;
+
       if(uomval!=undefined) {
-        var isDuplicate = false;
+        $scope.isDuplicate = false;
         if ($scope.UOMs.length != 0) {
           for (var i = 0; i < $scope.UOMs.length; i++) {
             if ($scope.UOMs[i] == uomval) {
               notifications.toast("UOM Code is already exist.", "error");
-              isDuplicate = true;
+              $scope.isDuplicate = true;
               break;
             }
           }
-          if (!isDuplicate) {
+          if (!$scope.isDuplicate) {
             var req = {
               "GUUOMID": "123",
               "GUUOMTypeID": "supplier1",
@@ -1589,12 +1650,14 @@
               }]
 
             }
-            debugger;
+
             $charge.uom().store(req).success(function (data) {
-              debugger;
+
               if (data.error = "00000") {
-                $scope.UOMs.push(uomval);
+                //$scope.UOMs.push(uomval);
                 $scope.newUom = false;
+                $mdDialog.hide(uomval);
+                notifications.toast("UOM has been added", "success");
               }
             }).error(function (data) {
               console.log(data);
@@ -1620,12 +1683,15 @@
             }]
 
           }
-          debugger;
+
           $charge.uom().store(req).success(function (data) {
-            debugger;
+
             if (data.error = "00000") {
-              $scope.UOMs.push(uomval);
+              //$scope.UOMs.push(uomval);
               $scope.newUom = false;
+              $mdDialog.hide(uomval);
+              notifications.toast("UOM has been added", "success");
+
             }
           }).error(function (data) {
             console.log(data);
@@ -1635,7 +1701,7 @@
       }
       else
       {
-        notifications.toast("UOM Code cannot be empty.", "error");
+        //notifications.toast("UOM Code cannot be empty.", "error");
       }
 
     }
@@ -1644,28 +1710,29 @@
     $scope.saveBrand = function(brandval)
     {
       if(brandval!=undefined) {
-        var isDuplicateBrand = false;
+        $scope.isDuplicateBrand = false;
         if ($scope.brands.length != 0) {
           for (var i = 0; i < $scope.brands.length; i++) {
             if ($scope.brands[i] == brandval) {
-              isDuplicateBrand = true;
+              $scope.isDuplicateBrand = true;
               notifications.toast("Brand is already exist.", "error");
               break;
             }
           }
-          if (!isDuplicateBrand) {
+          if (!$scope.isDuplicateBrand) {
             if ($rootScope.isBrandLoaded) {
               var req = {
                 "RecordName": "CTS_CommonAttributes",
                 "FieldName": "Brand",
                 "RecordFieldData": brandval
               }
-              debugger;
+
               $charge.commondata().insertDuoBaseValuesAddition(req).success(function (data) {
                 //console.log(data);
                 if (data.error == "00000") {
-                  $scope.brands.push(brandval);
+                  //$scope.brands.push(brandval);
                   $scope.newBrand = false;
+                  $mdDialog.hide(brandval);
                   //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
                 }
               }).error(function (data) {
@@ -1704,8 +1771,9 @@
               $charge.commondata().store(req).success(function (data) {
                 $rootScope.isBrandLoaded = true;
                 if (data[0].error == "00000") {
-                  $scope.brands.push(brandval);
+                  //$scope.brands.push(brandval);
                   $scope.newBrand = false;
+                  $mdDialog.hide(brandval);
                   //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
                 }
               }).error(function (data) {
@@ -1747,8 +1815,9 @@
           $charge.commondata().store(req).success(function (data) {
             $rootScope.isBrandLoaded = true;
             if (data[0].error == "00000") {
-              $scope.brands.push(brandval);
+              //$scope.brands.push(brandval);
               $scope.newBrand = false;
+              $mdDialog.hide(brandval);
               //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
             }
           }).error(function (data) {
@@ -1759,25 +1828,25 @@
       }
       else
       {
-        notifications.toast("Brand cannot be empty.", "error");
+        //notifications.toast("Brand cannot be empty.", "error");
       }
     }
 
     //save Category
 
     $scope.saveCategory = function(cateval) {
-      debugger;
+
       if(cateval !=undefined) {
-        var isDuplicateCat = false;
+        $scope.isDuplicateCat = false;
         if ($scope.categories.length != 0) {
           for (var i = 0; i < $scope.categories.length; i++) {
             if ($scope.categories[i] == cateval) {
-              isDuplicateCat = true;
+              $scope.isDuplicateCat = true;
               notifications.toast("Category is already exist.", "error");
               break;
             }
           }
-          if (!isDuplicateCat) {
+          if (!$scope.isDuplicateCat) {
             if ($rootScope.isCategoryLoaded) {
               var req = {
                 "RecordName": "CTS_CommonAttributes",
@@ -1786,13 +1855,13 @@
               }
 
               $charge.commondata().insertDuoBaseValuesAddition(req).success(function (data) {
-                debugger;
+
                 if (data.error == "00000") {
-                  $scope.categories.push(cateval);
+                  //$scope.categories.push(cateval);
                   $scope.newCat = false;
                   //$scope.newProductAdded = true;
                   notifications.toast("Category is added.", "success");
-                  $mdDialog.hide();
+                  $mdDialog.hide(cateval);
                   //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
                 }
               }).error(function (data) {
@@ -1831,10 +1900,10 @@
               $charge.commondata().store(req).success(function (data) {
                 $rootScope.isCategoryLoaded = true;
                 if (data[0].error == "00000") {
-                  $scope.categories.push(cateval);
+                  //$scope.categories.push(cateval);
                   $scope.newCat = false;
                   notifications.toast("Category is added.", "success");
-                  $mdDialog.hide();
+                  $mdDialog.hide(cateval);
                   //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
                 }
               }).error(function (data) {
@@ -1875,8 +1944,9 @@
           $charge.commondata().store(req).success(function (data) {
             $rootScope.isCategoryLoaded = true;
             if (data[0].error == "00000") {
-              $scope.categories.push(cateval);
+              //$scope.categories.push(cateval);
               $scope.newCat = false;
+              $mdDialog.hide(cateval);
               //notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
             }
           }).error(function (data) {
@@ -1887,12 +1957,12 @@
       }
       else
       {
-        notifications.toast("Category cannot be empty.", "error");
+        //notifications.toast("Category cannot be empty.", "error");
       }
     }
 
     $charge.commondata().getDuobaseValuesByTableName("CTS_GeneralAttributes").success(function(data) {
-      //debugger;
+      //
       $rootScope.decimalPoint=parseInt(data[6].RecordFieldData);
       $rootScope.step=($rootScope.decimalPoint/$rootScope.decimalPoint)/Math.pow(10,$rootScope.decimalPoint);
     }).error(function(data) {
