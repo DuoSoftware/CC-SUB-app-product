@@ -1597,8 +1597,17 @@
                   "name":$scope.productImgFileName,
                   "data":$scope.cropper.croppedImage
                 }
+              });
+              var path = response;
+
+              $http({
+                method: 'GET',
+                url: 'http://' + window.location.hostname +'/apis/media/image',
               }).then(function (response) {
-                var path = response;
+                path = response;
+              }, function (response) {
+                console.log(response);
+              });
 
                 $scope.spinnerAdd = true;
 
@@ -1640,11 +1649,8 @@
                     vm.products.unshift(product);
                     vm.productLst.unshift(product);
                     //$rootScope.productlist.push(product);
-
                   }
-                }).error(function (data) {
-                  console.log(data);
-                })
+
                 //scope.removeAllFiles();
               //});
               $uploader.onError(function (e, data) {
