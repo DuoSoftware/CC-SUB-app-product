@@ -1343,7 +1343,7 @@
                   "name":$scope.productImgFileName,
                   "data":$scope.cropper.croppedImage
                 }
-              }).then(function (response) {
+              }).success(function (response) {
                 console.log(response);
                 var path = response;
 
@@ -1401,7 +1401,7 @@
                   console.log(data);
                 })
                 //scope.removeAllFiles();
-              }, function (response) {
+              }).error(function (response) {
               });
 
               //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
@@ -1597,7 +1597,7 @@
                   "name":$scope.productImgFileName,
                   "data":$scope.cropper.croppedImage
                 }
-              }).then(function (response) {
+              }).success(function (response) {
                 console.log(response);
                 var path = response;
 
@@ -1664,7 +1664,8 @@
               //  $scope.productSubmit=false;
               //}
               //});
-            });
+            }).error(function (response) {
+              });
             }
             else {
               $scope.spinnerAdd = true;
