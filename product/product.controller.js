@@ -1332,14 +1332,11 @@
           if (isAvailable) {
             if ($scope.cropper.croppedImage != null) {
               //angular.forEach($scope.content.files, function (obj) {
-              $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
+              //$uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
 
               $http({
                 method: 'POST',
                 url: 'http://' + window.location.hostname +'/apis/media/image',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
                 data:{
                   "type":$scope.productImgFileType,
                   "class":"CCProductImage",
@@ -1569,7 +1566,7 @@
           if (isAvailable) {
             if ($scope.cropper.croppedImage != "") {
               //angular.forEach($scope.content.files, function (obj) {
-              $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
+              //$uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
 
               //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
               //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
@@ -1593,9 +1590,6 @@
               $http({
                 method: 'POST',
                 url: 'http://' + window.location.hostname +'/apis/media/image',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
                 data:{
                   "type":$scope.productImgFileType,
                   "class":"CCProductImage",
