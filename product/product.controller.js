@@ -1343,8 +1343,7 @@
                   "name":$scope.productImgFileName,
                   "data":$scope.cropper.croppedImage
                 }
-              }).success(function (response) {
-                console.log(response);
+              }).then(function (response) {
                 var path = response;
 
                 //$http({
@@ -1401,7 +1400,8 @@
                   console.log(data);
                 })
                 //scope.removeAllFiles();
-              }).error(function (response) {
+              }, function (response) {
+                console.log(response);
               });
 
               //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
@@ -1597,8 +1597,7 @@
                   "name":$scope.productImgFileName,
                   "data":$scope.cropper.croppedImage
                 }
-              }).success(function (response) {
-                console.log(response);
+              }).then(function (response) {
                 var path = response;
 
                 $scope.spinnerAdd = true;
@@ -1664,7 +1663,8 @@
               //  $scope.productSubmit=false;
               //}
               //});
-            }).error(function (response) {
+            }, function (response) {
+                console.log(response);
               });
             }
             else {
@@ -1726,13 +1726,11 @@
                 $scope.productSubmit=false;
               })
             }
-
           }
           else {
             $scope.chkProductCode($scope.content.code);
           }
-        }
-        else {
+        }else {
           notifications.toast("Please add base currency before creating products.", "error");
         }
         //}
