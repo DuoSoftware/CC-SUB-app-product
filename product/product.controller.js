@@ -1308,6 +1308,7 @@
 
         if(files.length > 0) {
           $scope.productImgFileName = files[0].name;
+          $scope.productImgFileType = files[0].type;
         }
       });
     }
@@ -1574,20 +1575,35 @@
               //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
 
               //if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
-              $uploader.onSuccess(function (e, data) {
+              //$uploader.onSuccess(function (e, data) {
 
-                var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
+                //var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
+                //
+                //if(path){
+                //  $http({
+                //    method: 'GET',
+                //    url: path
+                //  }).then(function successCallback(response) {
+                //    $scope.productImgSrc = response.data;
+                //  }, function errorCallback(response) {
+                //
+                //  });
+                //}
 
-                if(path){
-                  $http({
-                    method: 'GET',
-                    url: path
-                  }).then(function successCallback(response) {
-                    $scope.productImgSrc = response.data;
-                  }, function errorCallback(response) {
-
-                  });
+              $http({
+                method: 'POST',
+                url: 'http://' + window.location.hostname +'/apis/media/image',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                data:{
+                  "type":$scope.productImgFileType,
+                  "class":"CCProductImage",
+                  "name":$scope.productImgFileName,
+                  "data":$scope.cropper.croppedImage
                 }
+              }).then(function (response) {
+                var path = response;
 
                 $scope.spinnerAdd = true;
 
@@ -1635,7 +1651,7 @@
                   console.log(data);
                 })
                 //scope.removeAllFiles();
-              });
+              //});
               $uploader.onError(function (e, data) {
                 var toast = $mdToast.simple()
                     .content('There was an error, please upload!')
@@ -1652,6 +1668,7 @@
               //  $scope.productSubmit=false;
               //}
               //});
+            });
             }
             else {
               $scope.spinnerAdd = true;
