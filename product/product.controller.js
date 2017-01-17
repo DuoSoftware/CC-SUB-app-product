@@ -1344,6 +1344,7 @@
                   "data":$scope.cropper.croppedImage
                 }
               }).then(function (response) {
+                console.log(response);
                 var path = response;
 
                 //$http({
@@ -1597,6 +1598,7 @@
                   "data":$scope.cropper.croppedImage
                 }
               }).then(function (response) {
+                console.log(response);
                 var path = response;
 
                 $scope.spinnerAdd = true;
