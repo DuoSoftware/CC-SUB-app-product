@@ -1337,6 +1337,9 @@
               $http({
                 method: 'POST',
                 url: 'http://' + window.location.hostname +'/apis/media/image',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
                 data:{
                   "type":$scope.productImgFileType,
                   "class":"CCProductImage",
@@ -1591,23 +1594,17 @@
               $http({
                 method: 'POST',
                 url: 'http://' + window.location.hostname +'/apis/media/image',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
                 data:{
                   "type":$scope.productImgFileType,
                   "class":"CCProductImage",
                   "name":$scope.productImgFileName,
                   "data":$scope.cropper.croppedImage
                 }
-              });
-              var path = response;
-
-              $http({
-                method: 'GET',
-                url: 'http://' + window.location.hostname +'/apis/media/image',
               }).then(function (response) {
-                path = response;
-              }, function (response) {
-                console.log(response);
-              });
+                var path = response;
 
                 $scope.spinnerAdd = true;
 
@@ -1649,8 +1646,11 @@
                     vm.products.unshift(product);
                     vm.productLst.unshift(product);
                     //$rootScope.productlist.push(product);
-                  }
 
+                  }
+                }).error(function (data) {
+                  console.log(data);
+                })
                 //scope.removeAllFiles();
               //});
               $uploader.onError(function (e, data) {
