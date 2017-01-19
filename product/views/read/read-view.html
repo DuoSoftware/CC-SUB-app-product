@@ -134,7 +134,7 @@
           <label>Product Name</label>
           <input ng-required="true" ng-maxlength="35" name="editProductName" class="productname-ctrl" ng-model="changeProduct.product_name" type="">
           <div ng-messages="vm.updateForm.editProductName.$error">
-            <div ng-message="maxlength">Product name must be less 1-35 characters</div>
+            <div ng-message="maxlength">Product name must be between 1-35 characters</div>
           </div>
           <span class="code">Code : {{vm.selectedProduct.code}}</span>
         </md-input-container>
@@ -145,7 +145,7 @@
           <label>Price</label>
           <input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="number" step="0.01" valid-number decimal-point="decimalPoint">
           <div ng-messages="vm.updateForm.editpriceOfUnit.$error">
-            <div ng-message="max">Please enter a less value</div>
+            <div ng-message="max">Price must be between 1-18 digits</div>
           </div>
           <span class="code">(Excluding Tax)</span>
         </md-input-container>
@@ -250,25 +250,25 @@
               <div class="sum_column" flex layout="column" layout-align="center center">
                 <div class="column_cell" layout="row" layout-align="start center">
                   <span flex="35">Category</span>
-            <span flex>
-              <md-select id="editCatId" class="width-control" ng-change="editCat(changeProduct.category)" ng-model="changeProduct.category" flex>
-                <md-option ng-repeat="value in categories" value="{{value}}">{{value}}</md-option>
-              </md-select>
-            </span>
+                  <span flex>
+                    <md-select id="editCatId" class="width-control" ng-change="editCat(changeProduct.category)" ng-model="changeProduct.category" flex>
+                      <md-option ng-repeat="value in categories" value="{{value}}">{{value}}</md-option>
+                    </md-select>
+                  </span>
                 </div>
                 <div class="column_cell" layout="row" layout-align="start center">
-            <span flex="35">
-              <md-input-container style="margin-top: 5px;">Quantity</md-input-container>
-            </span>
-            <span flex>
-              <md-input-container flex>
-                <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
-                <div ng-messages="vm.updateForm.UpdateQty.$error">
-                  <div ng-message="pattern">Quantity of unit is invalid</div>
-                  <div ng-message="max">Please enter a lesser value</div>
-                </div>
-              </md-input-container>
-            </span>
+                  <span flex="35">
+                    <md-input-container style="margin-top: 5px;">Quantity</md-input-container>
+                  </span>
+                  <span flex>
+                    <md-input-container flex>
+                      <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
+                      <div ng-messages="vm.updateForm.UpdateQty.$error">
+                        <div ng-message="pattern">Quantity of unit is invalid</div>
+                        <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
+                      </div>
+                    </md-input-container>
+                  </span>
                 </div>
                 <div class="column_cell" layout="row" layout-align="start center">
                   <div flex="35">
@@ -278,31 +278,31 @@
                     </md-input-container>
                   </div>
                   <!--<span flex>Tax Code</span><span flex>-->
-            <span flex>
-              <md-input-container flex style="margin-top: 5px;width: 100%;">
-                <md-select ng-required="changeProduct.apply_tax" flex class="width-control" id="selectTax" name="productTax" ng-model="changeProduct.tax" ng-disabled="!changeProduct.apply_tax" flex>
-                  <md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</md-option>
-                </md-select>
-                <div ng-messages="vm.updateForm.productTax.$error">
-                </div>
-              </md-input-container>
-            </span>
+                  <span flex>
+                    <md-input-container flex style="margin-top: 5px;width: 100%;">
+                      <md-select ng-required="changeProduct.apply_tax" flex class="width-control" id="selectTax" name="productTax" ng-model="changeProduct.tax" ng-disabled="!changeProduct.apply_tax" flex>
+                        <md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</md-option>
+                      </md-select>
+                      <div ng-messages="vm.updateForm.productTax.$error">
+                      </div>
+                    </md-input-container>
+                  </span>
                 </div>
                 <div class="column_cell" layout="row" layout-align="start center">
                   <div flex="35">
                     <md-checkbox type="checkbox" ng-show="editOff" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-change="enableStockLevel(changeProduct.sku)" class="md-primary">Track Inventory</md-checkbox>
                     <!--<text class="font-Lato font-weight600" ng-show="editOff">Track Inventory</text>-->
                   </div>
-            <span flex>
-              <md-input-container flex>
-                <label>Minimum Level</label>
-                <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number">
-                <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
-                  <div ng-message="max">Please enter a lesser value</div>
-                  <div ng-message="min">Minimum level must be 0 or higher</div>
-                </div>
-              </md-input-container>
-            </span>
+                  <span flex>
+                    <md-input-container flex>
+                      <label>Minimum Level</label>
+                      <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number" ng-required="changeProduct.sku">
+                      <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
+                        <div ng-message="max">Please enter a lesser value</div>
+                        <div ng-message="min">Minimum stock level must be between 1-16 characters</div>
+                      </div>
+                    </md-input-container>
+                  </span>
                 </div>
               </div>
 
@@ -311,46 +311,46 @@
               <div class="sum_column" flex layout="column" layout-align="center center">
                 <div class="column_cell" layout="row" layout-align="start center">
                   <span flex="35">Brand</span>
-            <span flex>
-              <md-select class="width-control" ng-change="editBrand(changeProduct.brand)" ng-model="changeProduct.brand">
-                <md-option ng-repeat="value in brands" value="{{value}}">{{value}}</md-option>
-              </md-select>
-            </span>
+                  <span flex>
+                    <md-select class="width-control" ng-change="editBrand(changeProduct.brand)" ng-model="changeProduct.brand">
+                      <md-option ng-repeat="value in brands" value="{{value}}">{{value}}</md-option>
+                    </md-select>
+                  </span>
                 </div>
                 <div class="column_cell" layout="row" layout-align="start center">
                   <span flex="35">Unit of Messure</span>
-            <span flex>
-              <md-select class="width-control" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom">
-                <md-option ng-repeat="value in UOMs" value="{{value}}">{{value}}</md-option>
-              </md-select>
-            </span>
+                  <span flex>
+                    <md-select class="width-control" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom">
+                      <md-option ng-repeat="value in UOMs" value="{{value}}">{{value}}</md-option>
+                    </md-select>
+                  </span>
                 </div>
                 <div class="column_cell" layout="row" layout-align="start center">
                   <span flex="35">Status</span>
-            <span flex>
-              <md-select class="width-control"  ng-model="changeProduct.status">
-                <md-option value="true">Active</md-option>
-                <md-option value="false">Inactive</md-option>
-              </md-select>
-            </span>
+                  <span flex>
+                    <md-select class="width-control"  ng-model="changeProduct.status">
+                      <md-option value="true">Active</md-option>
+                      <md-option value="false">Inactive</md-option>
+                    </md-select>
+                  </span>
                 </div>
                 <div class="column_cell" layout="row" layout-align="start center">
                   <span flex="35">Inventory Stock</span>
-            <span flex>
-              <md-input-container>{{vm.selectedProduct.inventoryStock}}</md-input-container>
-            </span>
+                  <span flex>
+                    <md-input-container>{{vm.selectedProduct.inventoryStock}}</md-input-container>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
           <div class="description" layout="column" layout-align="start start">
             <span class="info_sup">Description</span>
-      <span style="width: 100%;">
-        <textarea name="updateDesc" ng-maxlength="450" ng-model="changeProduct.descroption" type="" style="width: 100%;border: solid 1px #cccccc;margin-bottom: 20px;padding: 10px;"/>
-        <div ng-messages="vm.updateForm.updateDesc.$error">
-          <div ng-message="maxlength" style="color: rgb(213,0,0);font-size: 12px">Product description must be 1-450 characters</div>
-        </div>
-      </span>
+            <span style="width: 100%;">
+              <textarea name="updateDesc" ng-maxlength="450" ng-model="changeProduct.descroption" type="" style="width: 100%;border: solid 1px #cccccc;margin-bottom: 20px;padding: 10px;"/>
+              <div ng-messages="vm.updateForm.updateDesc.$error">
+                <div ng-message="maxlength" style="color: rgb(213,0,0);font-size: 12px">Product description must be 1-450 characters</div>
+              </div>
+            </span>
           </div>
         </div>
       </div>

@@ -214,7 +214,7 @@
                       <input ng-required="true" type="" name="productName" ng-pattern="" ng-maxlength="20" ng-model="content.product_name"  autofocus>
                       <div ng-messages="vm.editForm.productName.$error">
                         <!--<div ng-message="required">Product Name is required.</div>-->
-                        <div ng-message="maxlength">Product name must be 1-20 characters</div>
+                        <div ng-message="maxlength">Product name must be between 1-20 characters</div>
                       </div>
                     </md-input-container>
 
@@ -227,8 +227,8 @@
                       <input ng-required="true" ng-minlength="3" type="" name="productCode" ng-maxlength="20" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
                       <div ng-messages="vm.editForm.productCode.$error">
                         <!--<div ng-message="required">Product Code is required.</div>-->
-                        <div ng-message="maxlength">Product code must be 1-20 characters</div>
-                        <div ng-message="minlength">Please enter more than 3 characters</div>
+                        <div ng-message="maxlength">Product code must be between 3-20 characters</div>
+                        <div ng-message="minlength">Product code must be between 3-20 characters</div>
                       </div>
                     </md-input-container>
                   </div>
@@ -238,7 +238,7 @@
                       <label>Description</label>
                       <input ng-required="false" ng-maxlength="450" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption">
                       <div ng-messages="vm.editForm.ProductDesc.$error">
-                        <div ng-message="maxlength">Product description must 1-450 characters</div>
+                        <div ng-message="maxlength">Product description must be between 1-450 characters</div>
                       </div>
                     </md-input-container>
                   </div>
@@ -304,7 +304,7 @@
                       <input ng-required="false" name="ProdQty" min="0" max="1000000000000000" type="number" name="Qty" ng-pattern="/^-?[0-9][^\.]*$/" ng-model="content.quantity_of_unit">
                       <div ng-messages="vm.editForm.ProdQty.$error">
                         <div ng-message="pattern">Quantity of Unit is invalid</div>
-                        <div ng-message="max">Please enter a lesser value</div>
+                        <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
                       </div>
                     </md-input-container>
 
@@ -347,7 +347,7 @@
                       <input ng-required="true" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01"  type="number" name="Price" ng-model="content.price_of_unit" valid-number decimal-point="decimalPoint">
                       <div ng-messages="vm.editForm.Price.$error">
                         <!--<div ng-message="required">Price is required.</div>-->
-                        <div ng-message="max">Please enter a lesser value</div>
+                        <div ng-message="max">Price must be between 1-18 digits</div>
                       </div>
                     </md-input-container>
                   </div>
@@ -357,7 +357,7 @@
                       <label>Cost of Price</label>
                       <input ng-required="false" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
                       <div ng-messages="vm.editForm.CostPrice.$error">
-                        <div ng-message="max">Please enter a lesser value</div>
+                        <div ng-message="max">Cost of price must be between 1-18 digits</div>
                       </div>
                     </md-input-container>
                   </div>
@@ -394,7 +394,7 @@
                       <label>Minimum Stock Level</label>
                       <input ng-required="content.sku" minlength="null" min="0" max="1000000000000000" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
                       <div ng-messages="vm.editForm.MinStockLevel.$error">
-                        <div ng-message="max">Please enter a lesser value</div>
+                        <div ng-message="max">Minimum stock level must be between 1-16 digits</div>
                       </div>
                     </md-input-container>
                   </div>
