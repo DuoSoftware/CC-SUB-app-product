@@ -1308,6 +1308,7 @@
 
         if(files.length > 0) {
           $scope.productImgFileName = files[0].name;
+          $scope.productImgFileType = files[0].type;
         }
       });
     }
@@ -1330,7 +1331,7 @@
               if (isAvailable) {
                 if ($scope.cropper.croppedImage != "") {
                   //angular.forEach($scope.content.files, function (obj) {
-                    $uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
+                    //$uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
 
                     //$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
                     //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
@@ -1338,82 +1339,89 @@
                     //if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
                       $uploader.onSuccess(function (e, data) {
 
-                      var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
+                        //var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
 
-                      if(path){
-                          $http({
-                            method: 'GET',
-                            url: path
-                          }).then(function successCallback(response) {
-                            $scope.productImgSrc = response.data;
-                          }, function errorCallback(response) {
+                        $http({
+                          method: 'POST',
+                          url: 'http://' + window.location.hostname + '/apis/media/image',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          },
+                          data: {
+                            "type": $scope.productImgFileType,
+                            "class": "CCProductImage",
+                            "name": $scope.productImgFileName,
+                            "data": $scope.cropper.croppedImage
+                          }
+                        }).then(function (response) {
+                          var path = response;
 
+                          $scope.spinnerAdd = true;
+
+                          if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
+                            $scope.content.quantity_of_unit = 0;
+                          if ($scope.content.cost_price == null || $scope.content.cost_price == "")
+                            $scope.content.cost_price = 0;
+
+                          if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
+                            $scope.content.apply_tax = false;
+                            $scope.content.tax = "0";
+                          }
+                          else {
+                            var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
+
+                            $scope.content.tax = taxgrp.taxgroupid;
+                          }
+                          //
+                          if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
+                            $scope.content.sku = false;
+                            $scope.content.minimun_stock_level = 0;
+                          }
+                          //if($scope.content.files !=null) {
+                          $scope.content.attachment = path;
+                          // }
+                          var req = $scope.content;
+                          //
+                          $charge.product().store(req).success(function (data) {
+                            if (data.id) {
+                              notifications.toast("Record Inserted, Product Code " + req.code, "success");
+                              $scope.isAdded = true;
+                              $scope.clearFields();
+                              $rootScope.isCleared = true;
+                              var product = {}
+                              product.code = req.code;
+                              product.product_name = req.product_name;
+                              product.price_of_unit = req.price_of_unit;
+                              product.status = req.status;
+                              vm.products.unshift(product);
+                              vm.productLst.unshift(product);
+                              //$rootScope.productlist.push(product);
+
+                            }
+                          }).error(function (data) {
+                            console.log(data);
+                          })
+                          //scope.removeAllFiles();
+                        }, function (response) {
+                          console.log(response);
+                        });
+                        $uploader.onError(function (e, data) {
+                          var toast = $mdToast.simple()
+                              .content('There was an error, please upload!')
+                              .action('OK')
+                              .highlightAction(false)
+                              .position("top right");
+                          $scope.productSubmit = false;
+                          $mdToast.show(toast).then(function () {
+                            //whatever
                           });
-                      }
-
-                      $scope.spinnerAdd = true;
-
-                      if ($scope.content.quantity_of_unit == null || $scope.content.quantity_of_unit == "")
-                        $scope.content.quantity_of_unit = 0;
-                      if ($scope.content.cost_price == null || $scope.content.cost_price == "")
-                        $scope.content.cost_price = 0;
-
-                      if ($scope.content.apply_tax == undefined || $scope.content.apply_tax == null || $scope.content.apply_tax == "false" || $scope.content.apply_tax == false) {
-                        $scope.content.apply_tax = false;
-                        $scope.content.tax = "0";
-                      }
-                      else {
-                        var taxgrp = $filter('filter')($scope.taxGroup, {taxgroupcode: $scope.content.tax.trim()})[0];
-
-                        $scope.content.tax = taxgrp.taxgroupid;
-                      }
-                      //
-                      if ($scope.content.sku == undefined || $scope.content.sku == null || $scope.content.sku == "false" || $scope.content.sku == false) {
-                        $scope.content.sku = false;
-                        $scope.content.minimun_stock_level = 0;
-                      }
-                      //if($scope.content.files !=null) {
-                      $scope.content.attachment = path;
-                      // }
-                      var req = $scope.content;
-                      //
-                      $charge.product().store(req).success(function (data) {
-                        if (data.id) {
-                          notifications.toast("Record Inserted, Product Code " + req.code, "success");
-                          $scope.isAdded = true;
-                          $scope.clearFields();
-                          $rootScope.isCleared = true;
-                          var product = {}
-                          product.code = req.code;
-                          product.product_name = req.product_name;
-                          product.price_of_unit = req.price_of_unit;
-                          product.status = req.status;
-                          vm.products.unshift(product);
-                          vm.productLst.unshift(product);
-                          //$rootScope.productlist.push(product);
-
-                        }
-                      }).error(function (data) {
-                        console.log(data);
-                      })
-                      //scope.removeAllFiles();
-                    });
-                      $uploader.onError(function (e, data) {
-                      var toast = $mdToast.simple()
-                        .content('There was an error, please upload!')
-                        .action('OK')
-                        .highlightAction(false)
-                        .position("top right");
-                      $scope.productSubmit=false;
-                      $mdToast.show(toast).then(function () {
-                        //whatever
-                      });
-                    });
-                    //}else{
-                    //  notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
-                    //  $scope.productSubmit=false;
-                    //}
-                  //});
+                        });
+                        //}else{
+                        //  notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
+                        //  $scope.productSubmit=false;
+                        //}
+                        //});
+                   });
                 }
                 else {
                   $scope.spinnerAdd = true;
