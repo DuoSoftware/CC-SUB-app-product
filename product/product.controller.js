@@ -1323,6 +1323,8 @@
     $scope.productSubmit=false;
     $scope.saveProduct = function(){
 
+      console.log($scope.cropper.croppedImage);
+
       $scope.isAdded=false;
       if(vm.editForm.$valid == true) {
         $scope.productSubmit=true;
