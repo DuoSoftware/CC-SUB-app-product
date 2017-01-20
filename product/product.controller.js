@@ -1337,7 +1337,7 @@
                     //$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
 
                     //if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
-                      $uploader.onSuccess(function (e, data) {
+                      //$uploader.onSuccess(function (e, data) {
 
                         //var path = $storage.getMediaUrl("CCProductImage", $scope.productImgFileName);
 
@@ -1421,7 +1421,7 @@
                         //  $scope.productSubmit=false;
                         //}
                         //});
-                   });
+                   //});
                 }
                 else {
                   $scope.spinnerAdd = true;
