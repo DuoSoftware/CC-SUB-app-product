@@ -1355,7 +1355,7 @@
                             "data": $scope.cropper.croppedImage
                           }
                         }).then(function (response) {
-                          var path = response;
+                          var path = response.data.data;
 
                           $scope.spinnerAdd = true;
 
@@ -1406,17 +1406,17 @@
                         }, function (response) {
                           console.log(response);
                         });
-                        $uploader.onError(function (e, data) {
-                          var toast = $mdToast.simple()
-                              .content('There was an error, please upload!')
-                              .action('OK')
-                              .highlightAction(false)
-                              .position("top right");
-                          $scope.productSubmit = false;
-                          $mdToast.show(toast).then(function () {
-                            //whatever
-                          });
-                        });
+                        //$uploader.onError(function (e, data) {
+                        //  var toast = $mdToast.simple()
+                        //      .content('There was an error, please upload!')
+                        //      .action('OK')
+                        //      .highlightAction(false)
+                        //      .position("top right");
+                        //  $scope.productSubmit = false;
+                        //  $mdToast.show(toast).then(function () {
+                        //    //whatever
+                        //  });
+                        //});
                         //}else{
                         //  notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
                         //  $scope.productSubmit=false;
