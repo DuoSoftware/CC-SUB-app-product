@@ -1309,6 +1309,7 @@
         if(files.length > 0) {
           $scope.productImgFileName = files[0].name;
           $scope.productImgFileType = files[0].type.split("/")[1];
+          if($scope.productImgFileType == 'jpeg'){$scope.productImgFileType = "jpg";}
         }
       });
     }
