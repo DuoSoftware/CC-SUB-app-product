@@ -648,6 +648,8 @@
 
     $rootScope.toggleEdit = function()
     {
+      $scope.cropper.croppedImage = "";
+
       var prodCont = document.getElementById('editProdContainer');
 
       $rootScope.editOff = !$rootScope.editOff;
