@@ -76,6 +76,26 @@
       md-select, md-autocomplete{
         font-size: 14px!important;
       }
+      .dep-checkbox{
+        width: 120px;
+        top:-10px;
+        margin-bottom: 0;
+        color: #aaa;
+        .md-icon{
+          width: 18px;
+          height: 18px;
+          border-color: #aaaaaa;
+          &:after{
+            left: 3.66667px;
+            top: 0.22222px;
+            width: 6.66667px;
+            height: 11.33333px;
+          }
+        }
+        &.md-checked .md-icon {
+          border-color: transparent;
+        }
+      }
     }
     md-card-actions{
       margin: 0;
