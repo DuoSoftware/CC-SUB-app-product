@@ -41,7 +41,7 @@
   <div class="navigation-simple" layout="column" ng-if="vm.showFilters">
     <md-button class="item" aria-label="inbox" ng-click="getAllProductsFilter()">
       <div layout="row" layout-align="start center">
-        <md-icon md-font-icon="icon-inbox" class="s16"></md-icon>
+        <img src="app/core/app_icons/product_app_icon_black.png" class="sidenav-img-ico" alt=""/>
         <span class="title">All Products</span>
       </div>
     </md-button>
@@ -49,21 +49,21 @@
     <div class="item subheader">Filters</div>
     <md-button class="item" aria-label="starred" ng-click="getProductByStatus(1)">
       <div layout="row" layout-align="start center">
-        <md-icon md-font-icon="icon-star" class="s16"></md-icon>
+        <md-icon md-font-icon="icon-label" class="active s16"></md-icon>
         <span class="title" flex>Active</span>
       </div>
     </md-button>
 
     <md-button class="item" aria-label="important" ng-click="getProductByStatus(0)">
       <div layout="row" layout-align="start center">
-        <md-icon md-font-icon="icon-alert-circle" class="s16"></md-icon>
+        <md-icon md-font-icon="icon-label" class="inactive s16"></md-icon>
         <span class="title" flex>Inactive</span>
       </div>
     </md-button>
 
     <md-button class="item" aria-label="starred" ng-click="getLowOnStockProducts()">
       <div layout="row" layout-align="start center">
-        <md-icon md-font-icon="icon-star" class="s16"></md-icon>
+        <md-icon md-font-icon="icon-thumb-down" class="s16"></md-icon>
         <span class="title" flex>Low on Stock</span>
       </div>
     </md-button>

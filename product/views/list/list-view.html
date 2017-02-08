@@ -6,7 +6,7 @@
 
   <div layout="row" layout-align="start center">
 
-    <div class="info" flex="35" layout="row">
+    <div class="info" flex="35" layout="row" layout-align="start center">
       <div class="clientCygil" layout="row" layout-align="start center">
         <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}" src="http://{{product.attachment}}"/>
 
@@ -15,31 +15,31 @@
         </div>
       </div>
 
-      <div class="productMainInfo" layout="column" layout-align="center start">
-        <span class="caps" style="font-weight: 400">{{product.product_name}}</span>
-        <div class="productCode">
+      <div class="invoiceMainInfo" layout="column" layout-align="center start">
+        <span>{{product.product_name}}</span>
+        <div class="invoiceType">
           {{product.code}}
         </div>
       </div>
     </div>
 
-    <div class="client" flex="20" layout="column" layout-align="center start">
+    <div class="client" flex layout="row" layout-align="start center">
     {{product.category}}
     </div>
 
-    <div class="client" flex="20" layout="column" layout-align="center start">
+    <div class="client" flex layout="row" layout-align="start center">
       {{product.brand}}
     </div>
 
-    <div class="client" flex layout="column" layout-align="center end">
-      <span class="ammount">{{product.price_of_unit | isoCurrency:content.selectCurrency: decimalPoint}}</span>
+    <div class="client" flex layout="row" layout-align="end center">
+      <span>{{product.price_of_unit | isoCurrency:content.selectCurrency: decimalPoint}}</span>
     </div>
 
-    <div style="width: 60px;"></div>
+    <div style="width: 15px;"></div>
 
-    <div class="status" layout="column" layout-align="center end">
-      <span ng-if="product.status == true" class="pill paid">Active </span>
-      <span ng-if="product.status == false" class="pill unpaid">Inactive</span>
+    <div class="status" layout="row" layout-align="end center" flex="10">
+      <span ng-if="product.status == true" class="pill active" layout="row" layout-align="center center">Active </span>
+      <span ng-if="product.status == false" class="pill inactive" layout="row" layout-align="center center">Inactive</span>
     </div>
 
   </div>

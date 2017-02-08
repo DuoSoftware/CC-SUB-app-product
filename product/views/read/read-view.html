@@ -598,43 +598,33 @@
 
   <md-tab label="History" ng-disabled="editOff" md-on-select="historyTabIsOn(true)" ng-click="loadAuditTrial()">
     <md-content class="md-padding">
-      <md-card class="carded-list-wrap" md-whiteframe="2dp">
-        <md-card-header>
-          <md-card-header-text layout="row">
-            <span flex>ID</span>
-            <span flex>CREATED DATE</span>
-            <span flex>MODULE</span>
-            <span flex>REMARK</span>
-          </md-card-header-text>
-        </md-card-header>
-        <md-divider></md-divider>
-
-        <md-content ms-scroll style="background-color: #ffffff">
-          <div layout="column" layout-align="center center" class="preloader-dot-auto" ng-show="vm.isAuditTrailLoaded" >
-            <img src="assets/images/142.gif" alt=""/>
+      <div md-whiteframe="1dp" flex>
+        <div class="inv-list-header" layout="row" flex>
+          <span flex>ID</span>
+          <span flex>Created Date</span>
+          <span flex>Module</span>
+          <span flex>Remark</span>
+        </div>
+        <md-content ms-scroll class="payment-list-body" flex>
+          <div layout="row" layout-align="center center" class="state-checker" ng-if="vm.isAuditTrailLoaded">
+            <img src="assets/images/142.gif" alt="" class="preloader-dot"/>
           </div>
-          <div layout="row" class="carded-list-row" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel" style="background-color: #ffffff">
-            <div flex>
-              {{$index + 1}}
-            </div>
-            <div flex>
-              {{detail.createdDate}}
-            </div>
-            <div flex>
-              {{detail.module}}
-            </div>
-            <div flex>
-              {{detail.remark}}
-            </div>
+
+          <div layout="row" layout-align="center center" style="height: 100%;" class="state-checker" ng-if="noAuditTrailLabel">
+            <span><md-icon md-font-icon="icon-information-outline"></md-icon>No audit trials for this user</span>
+          </div>
+
+          <div layout="row" class="payment-list-item" ng-if="isInvoiceLoaded" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="auditTrailList.length == 0">
+            <span flex>{{$index + 1}}</span>
+            <span flex>{{detail.createdDate}}</span>
+            <span flex>{{detail.module}}</span>
+            <span flex>{{detail.remark}}</span>
           </div>
           <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
             <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
           </div>
-          <div ng-show="noAuditTrailLabel" layout="column" layout-align="center center" style="height: 200px">
-            <span class="no-sched"><md-icon md-font-icon="icon-information-outline"></md-icon> No Audit Trails for this User!</span>
-          </div>
         </md-content>
-      </md-card>
+      </div>
     </md-content>
   </md-tab>
 

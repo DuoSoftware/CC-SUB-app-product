@@ -1,4 +1,20 @@
 #product {
+  .sidenav-img-ico{
+    width: 14px;
+    opacity: 0.7;
+    margin-right: 10px;
+  }
+  .inactive{
+    color:#ff7522;
+  }
+
+  .active{
+    color: #31b136;
+  }
+
+  .low-on-stock{
+    color: #039be5;
+  }
 
   // Sidenav
   .sidenav {

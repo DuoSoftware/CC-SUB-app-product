@@ -137,6 +137,36 @@
       }
     }
   }
+  .payment-list-body{
+    max-height: 200px;
+    min-height: 40px;
+    .state-checker{
+      height: 100%;
+      margin-top: 10px;
+      span{
+        md-icon{
+          font-size: 19px;
+          color: rgba(76, 76, 76, 0.17);
+        }
+        font-size: 13px;
+        color: rgba(76, 76, 76, 0.21);
+      }
+    }
+    .payment-list-item{
+      padding: 10px 16px;
+      &:not(:last-child){
+        border-bottom: solid 1px #f1f1f1;
+      }
+    }
+  }
+  .inv-list-header{
+    padding: 10px 16px!important;
+    background: #fafafa;
+    font-weight: 400;
+    color: #aaa;
+    font-size: 14px;
+    // border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+  }
   .img-size-msg{
     margin-top: 10px;
 

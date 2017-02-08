@@ -51,9 +51,8 @@
 
         <div layout="row" flex layout-align="start center" style="padding-left: 0px;">
           <div class="info" flex layout="row" style="height: 40px">
-            <div style="width: 135px;"></div>
 
-            <div class="productName" layout="column" layout-align="center start" flex="20">
+            <div class="productName" layout="column" layout-align="center start" flex="35" style="padding-left: 120px">
               <div layout="row">
                 <span layout="column" layout-align="center center">Name</span>
                 <div layout="column" layout="center center">
@@ -69,7 +68,7 @@
               </div>
             </div>
 
-            <div class="promoMainInfo" layout="column" layout-align="center start" flex="20" style="padding-left: 20px">
+            <div class="promoMainInfo" layout="column" layout-align="center start" flex>
               <div layout="row">
                 <span layout="column" layout-align="center center">Category</span>
                 <div layout="column" layout="center center">
@@ -85,7 +84,7 @@
               </div>
             </div>
 
-            <div class="promoMainInfo" layout="column" layout-align="center start" flex="20" style="padding-left: 20px">
+            <div class="promoMainInfo" layout="column" layout-align="center start" flex>
               <div layout="row">
                 <span layout="column" layout-align="center center">Brand</span>
                 <div layout="column" layout="center center">
@@ -117,9 +116,9 @@
               </div>
             </div>
 
-            <div style="width: 30px;"></div>
+            <div style="width: 15px;"></div>
 
-            <div class="date" layout="column" layout-align="center start">
+            <div class="date" layout="column" layout-align="end center" flex="10">
               <div layout="row">
                 <span layout="column" layout-align="center center">Status</span>
                 <div layout="column" layout="center center">
@@ -176,29 +175,13 @@
     </div>
     <!-- / CONTENT CARD -->
   </div>
-
   <!-- / CENTER -->
 
   <!-- CENTER -->
   <div ng-switch-when="add" class="center" layout="column" flex>
-    <!-- CONTENT HEADER -->
-    <!-- / CONTENT HEADER -->
 
     <!-- CONTENT CARD -->
     <div class="content-card" layout="column" flex>
-
-      <!-- PRODUCT VIEW PANE TOOLBAR -->
-      <!--<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1">-->
-      <!--<md-button class="md-icon-button"-->
-      <!--ng-click="vm.closeReadPane()"-->
-      <!--aria-label="Back">-->
-      <!--<md-icon md-font-icon="icon-keyboard-backspace"></md-icon>-->
-      <!--</md-button>-->
-      <!--</div>-->
-      <!-- / PRODUCT VIEW PANE TOOLBAR -->
-
-      <!-- CONTENT TOOLBAR -->
-      <!-- / CONTENT TOOLBAR -->
 
       <!-- CONTENT WRAPPER - NEW PRODUCT -->
       <div class="content-wrapper" layout="column" flex>
@@ -883,7 +866,6 @@
     </div>
     <!-- / CONTENT CARD -->
   </div>
-
   <!-- / CENTER -->
 
 </div>
