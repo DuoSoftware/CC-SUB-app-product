@@ -31,7 +31,7 @@
 
   <div class="compose-button" ng-if="vm.activeProductPaneIndex === 1">
     <md-button class="md-accent md-raised" aria-label="compose" ng-hide="editOff || !editOn"
-               ng-click="lfApi.removeAll(); toggleEdit()">Edit Product
+               ng-click="toggleEdit()">Edit Product
     </md-button>
     <md-button class="md-accent md-raised" aria-label="compose" ng-show="editOff"
                ng-click="vm.closeReadPane();">View Products

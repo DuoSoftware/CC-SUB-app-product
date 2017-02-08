@@ -503,8 +503,34 @@
      */
     function closeReadPane()
     {
-      //if ( angular.isDefined(vm.responsiveReadPane) && vm.responsiveReadPane )
-      {
+      if(vm.updateForm != undefined && vm.updateForm.$dirty) {
+        var confirm = $mdDialog.confirm()
+          .title('Are you sure?')
+          .textContent('Fields have changed and you might have unsaved data. Are you sure you want to leave this page?')
+          .ariaLabel('Are you sure?')
+          .targetEvent()
+          .ok('Yes')
+          .cancel('Stay');
+
+        $mdDialog.show(confirm).then(function () {
+          vm.updateForm.$pristine = false;
+          vm.updateForm.$dirty = false;
+          $scope.clearFields();
+          vm.activeProductPaneIndex = 0;
+          vm.showFilters=true;
+          $rootScope.editOff=false;
+          //vm.selectedProduct={};
+          $timeout(function () {
+            vm.scrollEl.scrollTop(vm.scrollPos);
+            vm.selectedProduct.attachment="";
+            vm.productSelectedTab = 0;
+          }, 0);
+
+          $scope.editOn = true;
+          vm.showFilters = true;
+        }, function () {
+        });
+      }else{
         vm.activeProductPaneIndex = 0;
         vm.showFilters=true;
         $rootScope.editOff=false;
@@ -514,8 +540,9 @@
           vm.selectedProduct.attachment="";
           vm.productSelectedTab = 0;
         }, 0);
+
+        $scope.editOn = true;
       }
-      $scope.editOn = true;
     }
 
     /**
@@ -630,9 +657,29 @@
         vm.pageTitle="View Products";
         vm.showFilters=false;
       }else{
-        vm.appInnerState = "default";
-        vm.pageTitle="Create New";
-        vm.showFilters=true;
+        if(vm.editForm != undefined && vm.editForm.$dirty ) {
+          var confirm = $mdDialog.confirm()
+            .title('Are you sure?')
+            .textContent('Fields have changed and you might have unsaved data. Are you sure you want to leave this page?')
+            .ariaLabel('Are you sure?')
+            .targetEvent()
+            .ok('Yes')
+            .cancel('Stay');
+
+          $mdDialog.show(confirm).then(function () {
+            vm.editForm.$pristine = false;
+            vm.editForm.$dirty = false;
+            $scope.clearFields();
+            vm.appInnerState = "default";
+            vm.pageTitle = "Create New";
+            vm.showFilters = true;
+          }, function () {
+          });
+        }else {
+          vm.appInnerState = "default";
+          vm.pageTitle="Create New";
+          vm.showFilters=true;
+        }
       }
     }
 
@@ -662,6 +709,7 @@
       }
       //
       if($rootScope.editOff==true) {
+
         $timeout(function ()
         {
           // If responsive read pane is
