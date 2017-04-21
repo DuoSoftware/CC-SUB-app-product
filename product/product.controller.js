@@ -1383,7 +1383,7 @@
             if ($scope.content.selectCurrency != "" || $scope.content.selectCurrency != undefined) {
 				if (isAvailable) {
 					angular.forEach($scope.content.files, function (obj) {
-						$uploader.uploadMedia("CCProductImage", $scope.cropper.croppedImage, $scope.productImgFileName);
+						$uploader.uploadMedia("CCProductImage", obj, obj.fileName);
 
 						$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
 						$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
