@@ -386,7 +386,7 @@
                 <!--<div class="content-block-wrapper" flex>-->
                   <!--<div class="heading-lev2 top bottom" layout="row">Product Image</div>-->
                   <!--<div layout="row" class="content-block">-->
-                    <!--&lt;!&ndash;<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>&ndash;&gt;-->
+                    <!--<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>-->
 
                     <!--<div flex="40">-->
                       <!--<div layout="column" layout-align="center center" class="product-img-cont">-->
@@ -606,39 +606,44 @@
                     <md-icon md-font-icon="icon-image-area"></md-icon> <h3>Product Image</h3>
                   </div>
                 </md-card-title>
+                <!--<md-card-content>-->
+                  <!--<div layout="row" style="height: auto;">-->
+                    <!--<div flex="5"></div>-->
+                    <!--<div flex="40">-->
+                      <!--<div layout="column" layout-align="center center" class="product-img-cont">-->
+                        <!--<div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">-->
+                          <!--<md-icon md-font-icon="icon-image-filter"></md-icon>-->
+                          <!--<span>Browse an image for the Product</span>-->
+                          <!--<span class="img-size-msg">[Maximum size : 350px X 350px]</span>-->
+                        <!--</div>-->
+                        <!--<canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>-->
+
+                        <!--<div class="input-partial">-->
+                          <!--<md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>-->
+                          <!--<input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div flex="5"></div>-->
+                    <!--<div flex layout="column" layout-align="center center" class="product-preview">-->
+                        <!--<span>Product Preview</span>-->
+                        <!--<div layout="column" layout-align="center center" md-whiteframe flex="80">-->
+                          <!--<div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">-->
+                            <!--<md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet-->
+                          <!--</div>-->
+                          <!--<div ng-show="cropper.croppedImage!=null">-->
+                            <!--<img ng-src="{{cropper.croppedImage}}" />-->
+                          <!--</div>-->
+                        <!--</div>-->
+                        <!--<label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>-->
+                        <!--<span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>-->
+                      <!--</div>-->
+                    <!--<div flex="5"></div>-->
+                  <!--</div>-->
+                <!--</md-card-content>-->
                 <md-card-content>
                   <div layout="row" style="height: auto;">
-                    <div flex="5"></div>
-                    <div flex="40">
-                      <div layout="column" layout-align="center center" class="product-img-cont">
-                        <div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
-                          <md-icon md-font-icon="icon-image-filter"></md-icon>
-                          <span>Browse an image for the Product</span>
-                          <span class="img-size-msg">[Maximum size : 350px X 350px]</span>
-                        </div>
-                        <canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
-
-                        <div class="input-partial">
-                          <md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>
-                          <input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />
-                        </div>
-                      </div>
-                    </div>
-                    <div flex="5"></div>
-                    <div flex layout="column" layout-align="center center" class="product-preview">
-                        <span>Product Preview</span>
-                        <div layout="column" layout-align="center center" md-whiteframe flex="80">
-                          <div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
-                            <md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet
-                          </div>
-                          <div ng-show="cropper.croppedImage!=null">
-                            <img ng-src="{{cropper.croppedImage}}" />
-                          </div>
-                        </div>
-                        <label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>
-                        <span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>
-                      </div>
-                    <div flex="5"></div>
+                    <lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>
                   </div>
                 </md-card-content>
               </md-card>
