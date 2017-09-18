@@ -86,7 +86,7 @@
                     <span flex>Tax code</span><span flex>{{vm.selectedProduct.tax}}</span>
                   </div>
                   <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Minimum stock level</span><span flex>{{vm.selectedProduct.minimun_stock_level}}</span>
+                    <span flex>Minimum stock level</span><span flex>{{vm.selectedProduct.minimum_stock_level}}</span>
                   </div>
                 </div>
 
@@ -101,7 +101,7 @@
 
                 <div layout="row" layout-align="center center">
                   <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Price</span><span flex>{{vm.selectedProduct.price}}</span>
+                    <span flex>Price</span><span flex>{{vm.selectedProduct.price_of_unit}}</span>
                   </div>
                   <div class="column_cell" layout="row" layout-align="start start" flex>
                     <span flex>Cost of product</span><span flex>{{vm.selectedProduct.cost_price}}</span>
@@ -305,7 +305,7 @@
                   <!--<span flex>-->
                     <!--<md-input-container flex>-->
                       <!--<label>Minimum Level</label>-->
-                      <!--<input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number" ng-required="changeProduct.sku">-->
+                      <!--<input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimum_stock_level" type="number" ng-required="changeProduct.sku">-->
                       <!--<div ng-messages="vm.updateForm.UpdateMinLevel.$error">-->
                         <!--<div ng-message="max">Please enter a lesser value</div>-->
                         <!--<div ng-message="min">Minimum stock level must be between 1-16 characters</div>-->
@@ -458,7 +458,7 @@
           <div layout="row" style="height: 95px;">
             <md-input-container flex="30">
               <label>Price</label>
-              <input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="number" step="0.01" valid-number decimal-point="decimalPoint">
+              <input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="text" step="0.01" valid-number decimal-point="decimalPoint">
               <div ng-messages="vm.updateForm.editpriceOfUnit.$error">
                 <div ng-message="max">Price must be between 1-18 digits</div>
               </div>
@@ -468,7 +468,7 @@
 
             <md-input-container flex="30">
               <label>Cost of Product</label>
-              <input ng-required="false" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="changeProduct.cost_price">
+              <input ng-required="false" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01" type="text" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="changeProduct.cost_price">
               <div ng-messages="vm.updateForm.CostPrice.$error">
                 <div ng-message="max">Cost of product must be between 1-18 digits</div>
               </div>
@@ -503,7 +503,7 @@
           <div layout="row" style="height: 95px;">
             <md-input-container flex="30">
               <label>Quantity of Unit</label>
-              <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
+              <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="text">
               <div ng-messages="vm.updateForm.UpdateQty.$error">
                 <div ng-message="pattern">Quantity of unit is invalid</div>
                 <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
@@ -530,7 +530,7 @@
               <div layout="column" flex>
                 <md-input-container style="margin-bottom: 0">
                   <label>Minimum Stock Level</label>
-                  <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number" ng-required="changeProduct.sku">
+                  <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimum_stock_level" type="text" ng-required="changeProduct.sku">
                   <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
                     <div ng-message="max">Please enter a lesser value</div>
                     <div ng-message="min">Minimum stock level must be between 1-16 characters</div>
@@ -596,37 +596,37 @@
     <!-- / EDIT CONTENT -->
   </md-tab>
 
-  <md-tab label="History" ng-disabled="editOff" md-on-select="historyTabIsOn(true)" ng-click="loadAuditTrial()">
-    <md-content class="md-padding">
-      <div md-whiteframe="1dp" flex>
-        <div class="inv-list-header" layout="row" flex>
-          <span flex>ID</span>
-          <span flex>Created Date</span>
-          <span flex>Module</span>
-          <span flex>Remark</span>
-        </div>
-        <md-content ms-scroll class="payment-list-body" flex>
-          <div layout="row" layout-align="center center" class="state-checker" ng-if="vm.isAuditTrailLoaded">
-            <img src="assets/images/142.gif" alt="" class="preloader-dot"/>
-          </div>
+  <!--<md-tab label="History" ng-disabled="editOff" md-on-select="historyTabIsOn(true)" ng-click="loadAuditTrial()">-->
+    <!--<md-content class="md-padding">-->
+      <!--<div md-whiteframe="1dp" flex>-->
+        <!--<div class="inv-list-header" layout="row" flex>-->
+          <!--<span flex>ID</span>-->
+          <!--<span flex>Created Date</span>-->
+          <!--<span flex>Module</span>-->
+          <!--<span flex>Remark</span>-->
+        <!--</div>-->
+        <!--<md-content ms-scroll class="payment-list-body" flex>-->
+          <!--<div layout="row" layout-align="center center" class="state-checker" ng-if="vm.isAuditTrailLoaded">-->
+            <!--<img src="assets/images/142.gif" alt="" class="preloader-dot"/>-->
+          <!--</div>-->
 
-          <div layout="row" layout-align="center center" style="height: 100%;" class="state-checker" ng-if="noAuditTrailLabel">
-            <span><md-icon md-font-icon="icon-information-outline"></md-icon>No audit trials for this user</span>
-          </div>
+          <!--<div layout="row" layout-align="center center" style="height: 100%;" class="state-checker" ng-if="noAuditTrailLabel">-->
+            <!--<span><md-icon md-font-icon="icon-information-outline"></md-icon>No audit trials for this user</span>-->
+          <!--</div>-->
 
-          <div layout="row" class="payment-list-item" ng-if="isInvoiceLoaded" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="auditTrailList.length == 0">
-            <span flex>{{$index + 1}}</span>
-            <span flex>{{detail.createdDate}}</span>
-            <span flex>{{detail.module}}</span>
-            <span flex>{{detail.remark}}</span>
-          </div>
-          <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
-            <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
-          </div>
-        </md-content>
-      </div>
-    </md-content>
-  </md-tab>
+          <!--<div layout="row" class="payment-list-item" ng-if="isInvoiceLoaded" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="auditTrailList.length == 0">-->
+            <!--<span flex>{{$index + 1}}</span>-->
+            <!--<span flex>{{detail.createdDate}}</span>-->
+            <!--<span flex>{{detail.module}}</span>-->
+            <!--<span flex>{{detail.remark}}</span>-->
+          <!--</div>-->
+          <!--<div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">-->
+            <!--<md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>-->
+          <!--</div>-->
+        <!--</md-content>-->
+      <!--</div>-->
+    <!--</md-content>-->
+  <!--</md-tab>-->
 
 </md-tabs>
 

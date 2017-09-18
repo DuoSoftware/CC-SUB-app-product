@@ -1,3 +1,11 @@
+// /////////////////////////////////
+// App : Product
+// File : Product
+// Owner  : Ishara
+// Last changed date : 2017-09-13
+// Version : 6.1.0.1
+// Updated By : ishara
+/////////////////////////////////
 (function ()
 {
     'use strict';

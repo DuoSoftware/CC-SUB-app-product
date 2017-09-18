@@ -375,7 +375,7 @@
 
                     <!--<md-input-container ng-show="content.sku == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm style="margin-top: -8px">-->
                       <!--<label>Minimum Stock Level</label>-->
-                      <!--<input ng-required="content.sku" minlength="null" min="0" max="1000000000000000" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">-->
+                      <!--<input ng-required="content.sku" minlength="null" min="0" max="1000000000000000" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimum_stock_level">-->
                       <!--<div ng-messages="vm.editForm.MinStockLevel.$error">-->
                         <!--<div ng-message="max">Minimum stock level must be between 1-16 digits</div>-->
                       <!--</div>-->
@@ -386,7 +386,7 @@
                 <!--<div class="content-block-wrapper" flex>-->
                   <!--<div class="heading-lev2 top bottom" layout="row">Product Image</div>-->
                   <!--<div layout="row" class="content-block">-->
-                    <!--<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>-->
+                    <!--&lt;!&ndash;<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>&ndash;&gt;-->
 
                     <!--<div flex="40">-->
                       <!--<div layout="column" layout-align="center center" class="product-img-cont">-->
@@ -588,7 +588,7 @@
                       <div layout="column" flex>
                         <md-input-container style="margin-bottom: 0">
                           <label>Minimum Stock Level</label>
-                          <input ng-disabled="!content.sku" ng-required="content.sku" minlength="null" min="0" max="1000000000000000" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">
+                          <input ng-disabled="!content.sku" ng-required="content.sku" minlength="null" min="0" max="1000000000000000" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimum_stock_level">
                           <div ng-messages="vm.editForm.MinStockLevel.$error">
                             <div ng-message="max">Minimum stock level must be between 1-16 digits</div>
                           </div>
@@ -606,44 +606,39 @@
                     <md-icon md-font-icon="icon-image-area"></md-icon> <h3>Product Image</h3>
                   </div>
                 </md-card-title>
-                <!--<md-card-content>-->
-                  <!--<div layout="row" style="height: auto;">-->
-                    <!--<div flex="5"></div>-->
-                    <!--<div flex="40">-->
-                      <!--<div layout="column" layout-align="center center" class="product-img-cont">-->
-                        <!--<div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">-->
-                          <!--<md-icon md-font-icon="icon-image-filter"></md-icon>-->
-                          <!--<span>Browse an image for the Product</span>-->
-                          <!--<span class="img-size-msg">[Maximum size : 350px X 350px]</span>-->
-                        <!--</div>-->
-                        <!--<canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>-->
-
-                        <!--<div class="input-partial">-->
-                          <!--<md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>-->
-                          <!--<input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                    <!--<div flex="5"></div>-->
-                    <!--<div flex layout="column" layout-align="center center" class="product-preview">-->
-                        <!--<span>Product Preview</span>-->
-                        <!--<div layout="column" layout-align="center center" md-whiteframe flex="80">-->
-                          <!--<div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">-->
-                            <!--<md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet-->
-                          <!--</div>-->
-                          <!--<div ng-show="cropper.croppedImage!=null">-->
-                            <!--<img ng-src="{{cropper.croppedImage}}" />-->
-                          <!--</div>-->
-                        <!--</div>-->
-                        <!--<label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>-->
-                        <!--<span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>-->
-                      <!--</div>-->
-                    <!--<div flex="5"></div>-->
-                  <!--</div>-->
-                <!--</md-card-content>-->
                 <md-card-content>
                   <div layout="row" style="height: auto;">
-                    <lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>
+                    <div flex="5"></div>
+                    <div flex="40">
+                      <div layout="column" layout-align="center center" class="product-img-cont">
+                        <div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
+                          <md-icon md-font-icon="icon-image-filter"></md-icon>
+                          <span>Browse an image for the Product</span>
+                          <span class="img-size-msg">[Maximum size : 350px X 350px]</span>
+                        </div>
+                        <canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+
+                        <div class="input-partial">
+                          <md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>
+                          <input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />
+                        </div>
+                      </div>
+                    </div>
+                    <div flex="5"></div>
+                    <div flex layout="column" layout-align="center center" class="product-preview">
+                        <span>Product Preview</span>
+                        <div layout="column" layout-align="center center" md-whiteframe flex="80">
+                          <div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
+                            <md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet
+                          </div>
+                          <div ng-show="cropper.croppedImage!=null">
+                            <img ng-src="{{cropper.croppedImage}}" />
+                          </div>
+                        </div>
+                        <label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>
+                        <span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>
+                      </div>
+                    <div flex="5"></div>
                   </div>
                 </md-card-content>
               </md-card>
@@ -797,7 +792,7 @@
       <!--</div>-->
       <!--<md-input-container class="md-block" flex-gt-sm>-->
       <!--&lt;!&ndash;<label>MINIMUM STOCK LEVEL</label>&ndash;&gt;-->
-      <!--&lt;!&ndash;<input ng-required="false" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">&ndash;&gt;-->
+      <!--&lt;!&ndash;<input ng-required="false" minlength="null" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimum_stock_level">&ndash;&gt;-->
       <!--</md-input-container>-->
       <!--</div>-->
       <!--<div layout-gt-sm="row" class="h-60">-->
@@ -823,7 +818,7 @@
       <!--</div>-->
       <!--<md-input-container ng-show="content.sku == true" class="md-block m-t-0 h-30 m-b-10" flex-gt-sm>-->
       <!--<label>MINIMUM STOCK LEVEL</label>-->
-      <!--<input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimun_stock_level">-->
+      <!--<input ng-required="content.sku" minlength="null" min="0" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimum_stock_level">-->
       <!--</md-input-container>-->
       <!--</div>-->
       <!--</div>-->
