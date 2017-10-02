@@ -2,9 +2,9 @@
 // App : Product
 // File : Product
 // Owner  : Ishara
-// Last changed date : 2017-09-13
-// Version : 6.1.0.1
-// Updated By : ishara
+// Last changed date : 2017-10-02
+// Version : 6.1.0.2
+// Updated By : Kasun
 /////////////////////////////////
 (function ()
 {
@@ -17,13 +17,6 @@
     /** @ngInject */
     function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider)
     {
-      ////////////////////////////////
-      // App : Product
-      // Owner  : Suvethan
-      // Last changed date : 2017/01/08
-      // Version : 6.0.0.31
-      // Updated By : Kasun
-      /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 
         $stateProvider

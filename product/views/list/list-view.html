@@ -1,49 +1,103 @@
 <!-- PRODUCT LIST ITEMS -->
-<div class="product-list-item" ng-repeat="product in vm.products | filter: vm.search | filter: global.search"
-     md-ink-ripple
-     ng-click="vm.selectProduct(product)"
-     ng-class="{'starred': product.starred, 'selected': vm.selectedProduct === product, 'checked': vm.isChecked(product)}">
-
-  <div layout="row" layout-align="start center">
-
-    <div class="info" flex="35" layout="row" layout-align="start center">
-      <div class="clientCygil" layout="row" layout-align="start center">
-        <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}" src="http://{{product.attachment}}"/>
-
-        <div class="listMedia" ng-if="!product.attachment" ms-random-class="vm.colors">
-          {{product.product_name}}
-        </div>
-      </div>
-
-      <div class="invoiceMainInfo" layout="column" layout-align="center start">
-        <span>{{product.product_name}}</span>
-        <div class="invoiceType">
-          {{product.code}}
-        </div>
-      </div>
-    </div>
-
-    <div class="client" flex layout="row" layout-align="start center">
-    {{product.category}}
-    </div>
-
-    <div class="client" flex layout="row" layout-align="start center">
-      {{product.brand}}
-    </div>
-
-    <div class="client" flex layout="row" layout-align="end center">
-      <span>{{product.price_of_unit | isoCurrency:content.selectCurrency: decimalPoint}}</span>
-    </div>
-
-    <div style="width: 15px;"></div>
-
-    <div class="status" layout="row" layout-align="end center" flex="10">
-      <span ng-if="product.status == true" class="pill active" layout="row" layout-align="center center">Active </span>
-      <span ng-if="product.status == false" class="pill inactive" layout="row" layout-align="center center">Inactive</span>
-    </div>
-
-  </div>
+<div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-if="productReadPaneLoaded">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
+<div class="msg-empty-list full animate-fade-in-out" layout="column" layout-align="center center" ng-if="vm.products.length == 0">
+    <img src="app/core/app_icons/plan_app_icon_list.svg" alt="No adjustments">
+    <div class="mt-20">You have'nt added any product yet</div>
+</div>
+
+<!-- INVOICE LIST ITEMS -->
+<div class="list-item h-85" layout-align="center center" layout="row" flex ng-repeat="product in vm.products | filter: vm.search | filter: global.search"
+     md-ink-ripple
+     ng-click="switchInfoPane('show', product)"
+     ng-class="{'selected': vm.selectedProduct.product_name === product.product_name && showInpageReadpane}">
+
+    <div class="info {{showInpageReadpane ? 'flex' : 'flex-30'}}" layout="row" layout-align="start center">
+        <div class="clientCygil" layout="row" layout-align="start center" >
+            <img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}" src="{{product.attachment}}"/>
+            <!--<img class="listMedia" ng-src="assets/images/logos/cc-cygil.png" src="assets/images/logos/cc-cygil.png"/>-->
+        </div>
+
+        <div class="dual-info" layout="column" layout-align="center start">
+            <span>{{product.product_name}}</span>
+            <!--<span>Product name</span>-->
+            <div class="dual-info-sub">
+                {{product.code}}
+                <!--Product code-->
+            </div>
+        </div>
+    </div>
+
+    <div flex layout="column" layout-align="center start" ng-if="!showInpageReadpane">
+        {{product.category}}
+        <!--Product category-->
+    </div>
+
+    <div flex layout="column" layout-align="center start" ng-if="!showInpageReadpane">
+        <span>{{product.brand}}</span>
+        <!--Product brand-->
+    </div>
+
+    <div flex layout="column" layout-align="center end" ng-if="!showInpageReadpane">
+        <span>{{product.price_of_unit | isoCurrency:content.selectCurrency: decimalPoint}}</span>
+        <!--100.00-->
+    </div>
+
+    <div flex="5"></div>
+
+    <div class="status" layout="column" layout-align="center start" ng-class="{'flex-30':showInpageReadpane == true,'flex-10': showInpageReadpane == false}">
+        <span class="pill" layout="row" layout-align="center center" ng-class="{'negative':product.status == 0,'positive':product.status == 1}">{{product.status == 1 ? 'Active' : 'Innactive'}}</span>
+        <!--<span class="pill positive" layout="row" layout-align="center center" ng-class="{'negative':product.status===false,'positive':product.status===true}">Active</span>-->
+    </div>
+</div>
+
+
+<!--<div class="product-list-item" ng-repeat="product in vm.products | filter: vm.search | filter: global.search"-->
+     <!--md-ink-ripple-->
+     <!--ng-click="vm.selectProduct(product)"-->
+     <!--ng-class="{'starred': product.starred, 'selected': vm.selectedProduct === product, 'checked': vm.isChecked(product)}">-->
+
+  <!--<div layout="row" layout-align="start center">-->
+
+    <!--<div class="info" flex="35" layout="row" layout-align="start center">-->
+      <!--<div class="clientCygil" layout="row" layout-align="start center">-->
+        <!--<img class="listMedia" ng-if="product.attachment" alt="{{product.product_name}}" ng-src="{{product.attachment}}" src="http://{{product.attachment}}"/>-->
+
+        <!--<div class="listMedia" ng-if="!product.attachment" ms-random-class="vm.colors">-->
+          <!--{{product.product_name}}-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="invoiceMainInfo" layout="column" layout-align="center start">-->
+        <!--<span>{{product.product_name}}</span>-->
+        <!--<div class="invoiceType">-->
+          <!--{{product.code}}-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="client" flex layout="row" layout-align="start center">-->
+    <!--{{product.category}}-->
+    <!--</div>-->
+
+    <!--<div class="client" flex layout="row" layout-align="start center">-->
+      <!--{{product.brand}}-->
+    <!--</div>-->
+
+    <!--<div class="client" flex layout="row" layout-align="end center">-->
+      <!--<span>{{product.price_of_unit | isoCurrency:content.selectCurrency: decimalPoint}}</span>-->
+    <!--</div>-->
+
+    <!--<div style="width: 15px;"></div>-->
+
+    <!--<div class="status" layout="row" layout-align="end center" flex="10">-->
+      <!--<span ng-if="product.status == true" class="pill active" layout="row" layout-align="center center">Active </span>-->
+      <!--<span ng-if="product.status == false" class="pill inactive" layout="row" layout-align="center center">Inactive</span>-->
+    <!--</div>-->
+
+  <!--</div>-->
+<!--</div>-->
 <div class="product-list-item" layout-align="center center" layout="row" ng-hide="lastSet || initial">
   <md-button class="md-primary" ng-click="getNextProducts(vm.search);" type="button">Search More</md-button>
 </div>
