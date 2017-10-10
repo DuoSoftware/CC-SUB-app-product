@@ -421,10 +421,10 @@
 			document.getElementById('txtMinStock').disabled=!chkInv;
 		};
 
-		$scope.productReadPaneLoaded = true;
+
 		$scope.openProduct= function (product) {
 			//vm.selectedProduct = product;
-			//
+			$scope.productReadPaneLoaded = true;
 			vm.selectedProduct=angular.copy({});
 			//
 			$charge.product().getByID(product.guproductID).success(function(dataProduct) {
@@ -1044,7 +1044,9 @@
 			vm.products=$scope.depleatedProducts;
 		}
 
+		$scope.isProductListLoaded = true;
 		$scope.getAllProducts= function () {
+			$scope.isProductListLoaded = false;
 			var skip=0;
 			var take=100;
 			vm.productLst=[];
@@ -1066,13 +1068,15 @@
 				skip += take;
 				$scope.pageCount=($scope.totalCount<100)?$scope.totalCount:100;
 				//product data getter !
-				$scope.openProduct(vm.products[0]);
+				// $scope.openProduct(vm.products[0]);
+				$scope.isProductListLoaded = true;
 				//vm.selectedProduct = vm.products[0];
 			}).onError(function(data)
 			{
 				//$scope.isSpinnerShown=false;
 				//$scope.lastSet=true;
 
+				$scope.isProductListLoaded = true;
 
 			});
 		}

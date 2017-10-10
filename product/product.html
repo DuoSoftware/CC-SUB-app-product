@@ -155,8 +155,11 @@
             </div>
 
             <div flex class="inpage-readpane" layout="column" md-whiteframe="4dp" ng-if="showInpageReadpane">
+                <div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-if="productReadPaneLoaded">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
                 <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar">
-                    <h3 class="group-sub-head" layout="row" layout-align="start center">Plan Info</h3>
+                    <h3 class="group-sub-head" layout="row" layout-align="start center">Product info</h3>
                     <div layout="row">
                         <md-menu>
                             <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -289,7 +292,7 @@
                                 <div flex="40" class="iconed-label">
                                     <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Minimum stock level</span>
                                 </div>
-                                <div flex>{{vm.selectedProduct.tax}}</div>
+                                <div flex>{{vm.selectedProduct.minimum_stock_level}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
                                 <div flex="40" class="iconed-label">
