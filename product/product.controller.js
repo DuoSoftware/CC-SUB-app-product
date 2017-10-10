@@ -888,17 +888,17 @@
 				else if (editReq.status == "true") {
 					editReq.status = true;
 				}
-				if ($scope.cropper.croppedImage != 'assets/images/no-preview.jpg') {
+				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg') {
 
 					var uploadImageObj = {
 						"base64Image": $scope.cropper.croppedImage,
-						"fileName": $scope.productImgFileName,
+						"fileName": $scope.changeProduct.product_name,
 						"format": $scope.productImgFileType,
 						"app": "Company",
 						"fileType": "image"
 					};
 
-					$charge.storage().storeImage(uploadImageObj).then(function (data) {
+					$charge.storage().storeImage(uploadImageObj).success(function (data) {
 						var path = data.fileUrl;
 						editReq.attachment = path;
 
@@ -931,7 +931,7 @@
 								else{
 									vm.selectedProduct.inventoryStock = "";
 									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-									elThumbnails.empty();
+									$scope.inpageReadPaneEdit = false;
 								}
 								prodCont.scrollTop=0;
 
@@ -941,9 +941,8 @@
 							console.log(data);
 							prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-							elThumbnails.empty();
 						})
-					}, function (res) {
+					}).error(function (res) {
 						console.log(res);
 					});
 				}
@@ -1568,7 +1567,7 @@
 						if($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg'){
 							var uploadImageObj = {
 								"base64Image": $scope.cropper.croppedImage,
-								"fileName": $scope.productImgFileName,
+								"fileName": $scope.content.product_name,
 								"format": $scope.productImgFileType,
 								"app": "Company",
 								"fileType": "image"
