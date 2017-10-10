@@ -1,641 +1,234 @@
-<md-progress-circular ng-show="!productReadPaneLoaded" style="position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;opacity: 0.7;z-index: 9999"></md-progress-circular>
-<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeProductPaneIndex === 1" style="position:fixed;width: 100%;z-index: 9999" flex>
-  <md-button class="md-icon-button"
-             ng-click="lfApi.removeAll(); vm.closeReadPane()"
-             aria-label="Back">
-    <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
-  </md-button>
-</div>
-
-
-<md-tabs md-dynamic-height md-border-bottom class="read-view-tabs" style="margin-top: 50px" md-selected="vm.productSelectedTab">
-
-  <md-tab label="Product" md-on-select="historyTabIsOn(false)">
-    <!-- READ CONTENT -->
-    <div class="prod-info-wrap" ng-class="{'page-setup-cover':!productReadPaneLoaded}" >
-      <div class="product-header" flex layout="row" layout-align="start start" ng-if="!editOff" style="padding-top: 60px">
-        <div class="summary" layout="column" layout-align="center start" flex>
-          <span class="name">{{vm.selectedProduct.product_name}}</span>
-          <span class="code">Code : {{vm.selectedProduct.code}}</span>
-        </div>
-        <!--<div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" flex>-->
-        <!--<img src="assets/images/142.gif" alt="" style="width: 40px;"/>-->
-        <!--</div>-->
-        <div class="cost" layout="column" layout-align="center end" flex>
-          <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency: decimalPoint}}</span>
-          <span class="note">(Excluding Tax)</span>
-        </div>
-        <div class="actions">
-          <!--<md-menu>-->
-          <!--<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
-          <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
-          <!--<md-tooltip>Product Action</md-tooltip>-->
-          <!--</md-button>-->
-
-          <!--<md-menu-content width="3">-->
-          <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="Request Products">&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-reply"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<span>Request Products</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-
-          <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="Add label">&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-label"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<span>Add label</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="Edit" ng-click="toggleEdit()">&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-pencil"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<span>Edit</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="Delete">&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-delete"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<span>Delete</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-          <!--</md-menu-content>-->
-          <!--</md-menu>-->
-        </div>
-      </div>
-
-      <div class="product-content" layout="column" layout-align="start start" ng-if="!editOff">
-        <div class="image" id="product-image" layout="column" layout-align="center center">
-          <img src="http://{{vm.selectedProduct.attachment}}">
-        </div>
-        <div class="info" layout="column" layout-align="start start">
-          <div class="summary" layout="column" layout-align="start start">
-            <span class="info_sup">Summary</span>
-            <div class="summary_list" layout="row" layout-align="start start">
-              <div class="sum_column" flex layout="column" layout-align="start start">
-                <div layout="row" layout-align="center center" flex>
-                  <div class="column_cell" layout="row" layout-align="center center" flex>
-                    <span flex>Category</span><span flex>{{vm.selectedProduct.category}}</span>
-                  </div>
-                  <div class="column_cell" layout="row" layout-align="center center" flex>
-                    <span flex>Quantity</span><span flex>{{vm.selectedProduct.quantity_of_unit}}</span>
-                  </div>
-                </div>
-
-                <div layout="row" layout-align="center center">
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Tax code</span><span flex>{{vm.selectedProduct.tax}}</span>
-                  </div>
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Minimum stock level</span><span flex>{{vm.selectedProduct.minimun_stock_level}}</span>
-                  </div>
-                </div>
-
-                <div layout="row" layout-align="center center">
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Brand</span><span flex>{{vm.selectedProduct.brand}}</span>
-                  </div>
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Unit of measure</span><span flex>{{vm.selectedProduct.uom}}</span>
-                  </div>
-                </div>
-
-                <div layout="row" layout-align="center center">
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Price</span><span flex>{{vm.selectedProduct.price}}</span>
-                  </div>
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Cost of product</span><span flex>{{vm.selectedProduct.cost_price}}</span>
-                  </div>
-                </div>
-
-                <div layout="row" layout-align="center center">
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span ng-if="vm.selectedProduct.status == true" flex>Status</span><span flex ng-if="vm.selectedProduct.status == true">Active</span>
-                    <span ng-if="vm.selectedProduct.status == false" flex>Status</span><span flex ng-if="vm.selectedProduct.status == false">Inactive</span>
-                  </div>
-                  <div class="column_cell" layout="row" layout-align="start start" flex>
-                    <span flex>Inventory stock level</span><span flex>{{vm.selectedProduct.inventoryStock}}</span>
-                  </div>
-                </div>
-                <!--<div class="column_cell" layout="row" layout-align="start start">-->
-                <!--<span flex>Status</span>-->
-                <!--<span flex ng-if="vm.selectedProfile.status == 'Active'" style="color: #05a3ec">Active</span>-->
-                <!--<span flex ng-if="vm.selectedProfile.status == 'Inactive'" style="color: #BD362F">Inactive</span>-->
-                <!--</div>-->
-              </div>
-            </div>
-          </div>
-          <div class="description" layout="column" layout-align="start start">
-            <span class="info_sup">Description</span>
-            <span>{{vm.selectedProduct.descroption}}</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <!-- / READ CONTENT -->
-
-    <!-- EDIT CONTENT -->
-    <!--<form name="vm.updateForm" id="productEditForm" ng-submit="saveEdit(changeProduct)" style="padding:60px 0;font-size: 14px" novalidate ng-if="editOff">-->
-
-      <!--<div class="product-update-header" flex layout="row" layout-align="start start">-->
-        <!--<md-input-container flex>-->
-          <!--<label>Product Name</label>-->
-          <!--<input ng-required="true" ng-maxlength="35" name="editProductName" class="productname-ctrl" ng-model="changeProduct.product_name" type="">-->
-          <!--<div ng-messages="vm.updateForm.editProductName.$error">-->
-            <!--<div ng-message="maxlength">Product name must be between 1-35 characters</div>-->
-          <!--</div>-->
-          <!--<span class="code">Code : {{vm.selectedProduct.code}}</span>-->
-        <!--</md-input-container>-->
-
-        <!--<div flex="5"></div>-->
-
-        <!--<md-input-container flex>-->
-          <!--<label>Price</label>-->
-          <!--<input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="number" step="0.01" valid-number decimal-point="decimalPoint">-->
-          <!--<div ng-messages="vm.updateForm.editpriceOfUnit.$error">-->
-            <!--<div ng-message="max">Price must be between 1-18 digits</div>-->
-          <!--</div>-->
-          <!--<span class="code">(Excluding Tax)</span>-->
-        <!--</md-input-container>-->
-
-        <!--<div class="actions">-->
-          <!--&lt;!&ndash;<md-menu>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-dots-vertical"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-tooltip>Product Action</md-tooltip>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-
-          <!--&lt;!&ndash;<md-menu-content width="3">&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Request Products">&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-reply"></md-icon>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<span>Request Products</span>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
-
-          <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Add label">&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-label"></md-icon>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<span>Add label</span>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="Update" ng-click="saveEdit(changeProduct)" >&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-refresh"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<span>Update</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-button aria-label="Cancel" ng-click="toggleEdit()">&ndash;&gt;-->
-          <!--&lt;!&ndash;<md-icon md-font-icon="icon-cancel"></md-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;<span>Cancel</span>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
-          <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class="product-update-content" layout="column" layout-align="start start" ng-show="editOff" flex>-->
-        <!--&lt;!&ndash;<div layout="row" layout-align="center center" style="width: 100%;">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="image" layout="column" layout-align="center center" flex style="border-right: solid 1px #cccccc;height: 100%;">&ndash;&gt;-->
-        <!--&lt;!&ndash;<img ng-src="{{vm.selectedProduct.attachment}}">&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<div flex="5"></div>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<div class="image" layout="column" layout-align="center center" flex>&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<file-up-loader id="uploadbtn"  os-class="testupload" label="Drag a file here or browse for a file to upload" model="content.files" >&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;</file-up-loader>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;<lf-ng-md-file-input lf-files="changeProduct.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here!" lf-api="lfApi" class="drag-n-drop" drag preview flex style="width: 100%;padding-right: 50px"></lf-ng-md-file-input>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--<div class="content-block-wrapper" flex style="width: 100%;">-->
-          <!--<div class="heading-lev2 top bottom" layout="row">Product Image</div>-->
-          <!--<div layout="row" class="content-block">-->
-            <!--&lt;!&ndash;<lf-ng-md-file-input lf-files="content.files" lf-on-file-click="onFileClick" lf-remove-label="Delete" lf-drag-and-drop-label="Drag and Drop here! (Maximum size : 300px X 300px)" drag preview flex class="drag-n-drop"></lf-ng-md-file-input>&ndash;&gt;-->
-
-            <!--<div flex="40">-->
-              <!--<div layout="column" layout-align="center center" class="product-img-cont">-->
-                <!--<div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage==null">-->
-                  <!--<md-icon md-font-icon="icon-image-filter"></md-icon>-->
-                  <!--<span>Change the image of the Product</span>-->
-                  <!--<span class="img-size-msg">[Maximum size : 350px X 350px]</span>-->
-                <!--</div>-->
-                <!--<canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>-->
-
-                <!--<div class="input-partial">-->
-                  <!--<md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>-->
-                  <!--<input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div flex="5"></div>-->
-
-            <!--<div flex layout="column" layout-align="center center" class="product-preview">-->
-              <!--<span>Product Preview</span>-->
-              <!--<div layout="column" layout-align="center center" md-whiteframe flex="80">-->
-                <!--<div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage==null">-->
-                  <!--<md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet-->
-                <!--</div>-->
-                <!--<div ng-show="cropper.croppedImage!=null">-->
-                  <!--<img ng-src="{{cropper.croppedImage}}" />-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 350px X 350px]</label>-->
-              <!--<span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>-->
-            <!--</div>-->
-
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="info" layout="column" layout-align="start start">-->
-          <!--<div class="summary" layout="column" layout-align="start start">-->
-            <!--<span class="info_sup">Summary</span>-->
-            <!--<div class="summary_list" layout="row" layout-align="start start">-->
-
-              <!--<div class="sum_column" flex layout="column" layout-align="center center">-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<span flex="35">Category</span>-->
-                  <!--<span flex>-->
-                    <!--<md-select id="editCatId" class="width-control" ng-change="editCat(changeProduct.category)" ng-model="changeProduct.category" flex>-->
-                      <!--<md-option ng-repeat="value in categories" value="{{value}}">{{value}}</md-option>-->
-                    <!--</md-select>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<span flex="35">-->
-                    <!--<md-input-container style="margin-top: 5px;">Quantity</md-input-container>-->
-                  <!--</span>-->
-                  <!--<span flex>-->
-                    <!--<md-input-container flex>-->
-                      <!--<input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">-->
-                      <!--<div ng-messages="vm.updateForm.UpdateQty.$error">-->
-                        <!--<div ng-message="pattern">Quantity of unit is invalid</div>-->
-                        <!--<div ng-message="max">Quantity of unit must be between 1-16 digits</div>-->
-                      <!--</div>-->
-                    <!--</md-input-container>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<div flex="35">-->
-                    <!--<md-input-container>-->
-                      <!--<md-checkbox ng-hide="editTax" ng-model="changeProduct.apply_tax" class="md-primary" ng-change="enableTaxCode(changeProduct.apply_tax)">Apply Tax</md-checkbox>-->
-                      <!--&lt;!&ndash;<input type="checkbox" ng-hide="editTax" ng-model="changeProduct.apply_tax" ng-true-value="true" ng-false-value="false" ng-checked="enableTaxCode(changeProduct.apply_tax)"/><span ng-hide="editTax" style="font-weight: 700">Apply Tax</span>&ndash;&gt;-->
-                    <!--</md-input-container>-->
-                  <!--</div>-->
-                  <!--&lt;!&ndash;<span flex>Tax Code</span><span flex>&ndash;&gt;-->
-                  <!--<span flex>-->
-                    <!--<md-input-container flex style="margin-top: 5px;width: 100%;">-->
-                      <!--<md-select ng-required="changeProduct.apply_tax" flex class="width-control" id="selectTax" name="productTax" ng-model="changeProduct.tax" ng-disabled="!changeProduct.apply_tax" flex>-->
-                        <!--<md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</md-option>-->
-                      <!--</md-select>-->
-                      <!--<div ng-messages="vm.updateForm.productTax.$error">-->
-                      <!--</div>-->
-                    <!--</md-input-container>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<div flex="35">-->
-                    <!--<md-checkbox type="checkbox" ng-show="editOff" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-change="enableStockLevel(changeProduct.sku)" class="md-primary">Track Inventory</md-checkbox>-->
-                    <!--&lt;!&ndash;<text class="font-Lato font-weight600" ng-show="editOff">Track Inventory</text>&ndash;&gt;-->
-                  <!--</div>-->
-                  <!--<span flex>-->
-                    <!--<md-input-container flex>-->
-                      <!--<label>Minimum Level</label>-->
-                      <!--<input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number" ng-required="changeProduct.sku">-->
-                      <!--<div ng-messages="vm.updateForm.UpdateMinLevel.$error">-->
-                        <!--<div ng-message="max">Please enter a lesser value</div>-->
-                        <!--<div ng-message="min">Minimum stock level must be between 1-16 characters</div>-->
-                      <!--</div>-->
-                    <!--</md-input-container>-->
-                  <!--</span>-->
-                <!--</div>-->
-              <!--</div>-->
-
-              <!--<div flex="10"></div>-->
-
-              <!--<div class="sum_column" flex layout="column" layout-align="center center">-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<span flex="35">Brand</span>-->
-                  <!--<span flex>-->
-                    <!--<md-select class="width-control" ng-change="editBrand(changeProduct.brand)" ng-model="changeProduct.brand">-->
-                      <!--<md-option ng-repeat="value in brands" value="{{value}}">{{value}}</md-option>-->
-                    <!--</md-select>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<span flex="35">Unit of Messure</span>-->
-                  <!--<span flex>-->
-                    <!--<md-select class="width-control" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom">-->
-                      <!--<md-option ng-repeat="value in UOMs" value="{{value}}">{{value}}</md-option>-->
-                    <!--</md-select>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<span flex="35">Status</span>-->
-                  <!--<span flex>-->
-                    <!--<md-select class="width-control"  ng-model="changeProduct.status">-->
-                      <!--<md-option value="true">Active</md-option>-->
-                      <!--<md-option value="false">Inactive</md-option>-->
-                    <!--</md-select>-->
-                  <!--</span>-->
-                <!--</div>-->
-                <!--<div class="column_cell" layout="row" layout-align="start center">-->
-                  <!--<span flex="35">Inventory Stock</span>-->
-                  <!--<span flex>-->
-                    <!--<md-input-container>{{vm.selectedProduct.inventoryStock}}</md-input-container>-->
-                  <!--</span>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="description" layout="column" layout-align="start start">-->
-            <!--<span class="info_sup">Description</span>-->
-            <!--<span style="width: 100%;">-->
-              <!--<textarea name="updateDesc" ng-maxlength="450" ng-model="changeProduct.descroption" type="" style="width: 100%;border: solid 1px #cccccc;margin-bottom: 20px;padding: 10px;"/>-->
-              <!--<div ng-messages="vm.updateForm.updateDesc.$error">-->
-                <!--<div ng-message="maxlength" style="color: rgb(213,0,0);font-size: 12px">Product description must be 1-450 characters</div>-->
-              <!--</div>-->
-            <!--</span>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</form>-->
-    <form name="vm.updateForm" id="productEditForm" ng-submit="saveEdit(changeProduct)" style="padding-bottom:50px;font-size: 14px" novalidate ng-if="editOff">
-      <md-card flex class="input-block-gen">
+<form id="addProductForm" name="vm.editForm" ng-submit="saveProduct(content)" novalidate>
+    <md-card flex class="input-block-gen">
         <md-card-title>
-          <div layout="row" layout-align="start center">
-            <md-icon md-font-icon="icon-cog"></md-icon> <h3>General Details</h3>
-          </div>
+            <div layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-cog"></md-icon> <h3>General details</h3>
+            </div>
         </md-card-title>
         <md-card-content>
-          <div layout="row">
-            <md-input-container flex="30">
-              <label>Product Name</label>
-              <input ng-required="true" ng-maxlength="35" name="editProductName" ng-model="changeProduct.product_name" type="">
-              <div ng-messages="vm.updateForm.editProductName.$error">
-                <div ng-message="maxlength">Product name must be between 1-35 characters</div>
-              </div>
-            </md-input-container>
+            <div class="issuer">
+                <div layout="row" layout-align="space-between start">
+                    <div class="w-400 {{editImageOn ? 'h-455 p-40' : 'h-420 p-20'}} pos-rel" ng-class="{'md-whiteframe-2dp':editImageOn, 'dragOn':divClass,'light-gray':editImageOn}" layout="column" drag-and-drop>
+                        <div class="text-right close-logo" ng-if="editImageOn">
+                            <md-button class="md-icon-button" ng-click="editCompanyCancel()"><md-icon md-font-icon="icon-close"></md-icon> </md-button>
+                        </div>
+                        <div flex layout="column" layout-align="center center" class="product-preview product-preview-product" ng-if="!editImageOn" ng-click="editCompanyLogoInit()">
+                            <span class="op-5">Product image</span>
+                            <div layout="column" layout-align="center center" class="b b-light pos-rel">
+                                <div class="selected animate-fade-in-out">
+                                    <md-icon md-font-icon="icon-camera"></md-icon>
+                                </div>
+                                <!--<div layout="column" layout-align="center center" class="msg" ng-if="cropper.croppedImage==null">-->
+                                <!--<md-icon md-font-icon="icon-information"></md-icon> No image is selected yet-->
+                                <!--</div>-->
+                                <div ng-show="cropper.croppedImage!=null">
+                                    <img ng-src="{{cropper.croppedImage}}" />
+                                </div>
+                            </div>
+                            <label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 180px X 180px]</label>
+                        </div>
+                        <div ng-if="editImageOn" flex layout="column" layout-align="start center" class="product company-logo-preview deadElements" fill-height>
+                            <div layout="column" layout-align="center center" class="img-up-invitation animate-fade-in-out pos-abs" fill-height ng-if="!addedImage" style="top: 0">
+                                <div flex="45"><md-icon md-font-icon="icon-image-filter"></md-icon></div>
+                                <h3 class="font-accent mb-10">Drag and Drop</h3>
+                                <div><i>or</i></div>
+                                <md-button class="md-raised md-accent mt-10" ng-click="triggerImgInput()">Browse</md-button>
+                            </div>
+                            <div ng-if="addedImage" class="animate-fade-in-out">
+                                <image-cropper ng-if="addedImage" id="imageCropElement" class="product-image-cropper"
+                                               image-url="{{addedImage}}"
+                                               width="300"
+                                               height="300"
+                                               show-controls="true"
+                                               fit-on-init="true"
+                                               center-on-init="true"
+                                               api="vm.cropperApi"
+                                               crop-callback="vm.updateResultImage"
+                                               cropped-base="vm.croppedBase64"
+                                               check-cross-origin="false"
+                                               action-labels="vm.myButtonLabels"
+                                ></image-cropper>
+                            </div>
+                            <div ng-if="addedImage" layout="row" layout-align="space-between center" class="mt-10 actions">
+                                <md-button layout="row" layout-align="center center" ng-click="retryImageUpload()" md-ink-ripple><i class="material-icons m-0">undo</i><md-tooltip>Retry</md-tooltip></md-button>
+                                <md-button layout="row" layout-align="center center" class="md-raised md-accent" ng-click="vm.doneImageCropping()"><i class="material-icons m-0">done</i></md-button>
+                            </div>
+                            <input type="file" id="productImageInput" image="cropper.sourceImage" style="display:none" />
+                            <!--<div class="img-size-msg">[Maximum size : 180px X 180px]</div>-->
+                        </div>
+                    </div>
+                    <div class="w-15" ng-if="editImageOn"></div>
+                    <div layout="column" layout-align="start start" flex>
+                        <div layout="row" fill-width>
+                            <md-input-container flex="50">
+                                <label>Product Name</label>
+                                <input ng-required="true" type="" name="productName" ng-pattern="" ng-maxlength="20" ng-model="content.product_name"  autofocus>
+                                <div ng-messages="vm.editForm.productName.$error">
+                                    <div ng-message="maxlength">Product name must be between 1-20 characters</div>
+                                </div>
+                            </md-input-container>
 
-            <div flex="5"></div>
+                            <div flex="5"></div>
 
-            <md-input-container flex="30">
-              <label>Code</label>
-              <input ng-disabled name="productCode" ng-model="vm.selectedProduct.code">
-            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Code</label>
+                                <input ng-required="true" ng-minlength="3" type="" name="productCode" ng-maxlength="20" ng-blur="validateProduct(content.code)" ng-pattern="" ng-model="content.code">
+                                <div ng-messages="vm.editForm.productCode.$error">
+                                    <div ng-message="maxlength">Product code must be between 3-20 characters</div>
+                                    <div ng-message="minlength">Product code must be between 3-20 characters</div>
+                                </div>
+                            </md-input-container>
 
-            <div flex="5"></div>
+                        </div>
 
-            <md-input-container flex="30">
-              <label>Status</label>
-              <md-select class="width-control" ng-model="changeProduct.status">
-                <md-option value="true">Active</md-option>
-                <md-option value="false">Inactive</md-option>
-              </md-select>
-            </md-input-container>
+                        <div layout="row" fill-width>
+                            <div flex="50" layout="row">
+                                <md-input-container flex>
+                                    <label>Category</label>
+                                    <md-select ng-required="false" ng-model="content.category" ms-scroll>
+                                        <md-option ng-repeat="value in categories" value="{{value}}">
+                                            {{value}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container>
+                                    <md-button ng-click="addCat($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>
+                                </md-input-container>
+                            </div>
 
-          </div>
+                            <div flex="5"></div>
 
-          <div layout="row">
-            <div flex="30" layout="row">
-              <md-input-container flex>
-                <label>Category</label>
-                <md-select id="editCatId" ng-change="editCat(changeProduct.category)" ng-model="changeProduct.category" flex>
-                  <md-option ng-repeat="value in categories" value="{{value}}">{{value}}</md-option>
-                </md-select>
-              </md-input-container>
-              <!--<md-input-container>-->
-                <!--<md-button ng-click="addCat($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>-->
-              <!--</md-input-container>-->
+                            <div flex="50" layout="row">
+                                <md-input-container flex>
+                                    <label>Brand</label>
+                                    <md-select ng-required="false" ng-model="content.brand">
+                                        <md-option ng-repeat="value in brands" value="{{value}}">
+                                            {{value}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container>
+                                    <md-button ng-click="addBrand($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" fill-width class="mt-20">
+                            <md-input-container flex>
+                                <label>Description</label>
+                                <textarea ng-required="false" md-maxlength="450" ng-maxlength="450" type="" name="ProductDesc" ng-pattern="" ng-model="content.descroption" class="h-100"></textarea>
+                                <div ng-messages="vm.editForm.ProductDesc.$error">
+                                    <div ng-message="maxlength">Product description must be between 1-450 characters</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div flex="5"></div>
-
-            <div flex="30" layout="row">
-              <md-input-container flex>
-                <label>Brand</label>
-                <md-select class="width-control" ng-change="editBrand(changeProduct.brand)" ng-model="changeProduct.brand">
-                  <md-option ng-repeat="value in brands" value="{{value}}">{{value}}</md-option>
-                </md-select>
-              </md-input-container>
-              <!--<md-input-container>-->
-                <!--<md-button ng-click="addBrand($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>-->
-              <!--</md-input-container>-->
-            </div>
-          </div>
-
-          <div layout="row">
-            <md-input-container flex>
-              <label>Description</label>
-              <input ng-required="false" md-maxlength="450" ng-maxlength="450" name="updateDesc" ng-model="changeProduct.descroption">
-              <div ng-messages="vm.updateForm.ProductDesc.$error">
-                <div ng-message="maxlength">Product description must be between 1-450 characters</div>
-              </div>
-            </md-input-container>
-          </div>
         </md-card-content>
-      </md-card>
+    </md-card>
 
-      <md-card flex class="input-block-gen">
+    <md-card flex class="input-block-gen">
         <md-card-title>
-          <div layout="row" layout-align="start center">
-            <span class="title-icon-custom">$</span> <h3>Price Related Details</h3>
-          </div>
+            <div layout="row" layout-align="start center">
+                <span class="title-icon-custom">$</span> <h3>Price related details</h3>
+            </div>
         </md-card-title>
         <md-card-content>
-          <div layout="row" style="height: 50px;">
-            <div layout="row" layout-align="start center" flex="30" class="state-capsule">
-              <div layout="row">
-                <span>Currency</span>
-                <span>{{content.selectCurrency}}</span>
-              </div>
+            <div layout="row" style="height: 50px;">
+                <div layout="row" layout-align="start center" flex="30" class="state-capsule">
+                    <div layout="row">
+                        <span>Currency</span>
+                        <span>{{content.selectCurrency}}</span>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div layout="row" style="height: 95px;">
-            <md-input-container flex="30">
-              <label>Price</label>
-              <input ng-required="true" name="editpriceOfUnit" min="0" max="1000000000000000000" class="price-control" ng-model="changeProduct.price_of_unit" type="number" step="0.01" valid-number decimal-point="decimalPoint">
-              <div ng-messages="vm.updateForm.editpriceOfUnit.$error">
-                <div ng-message="max">Price must be between 1-18 digits</div>
-              </div>
-            </md-input-container>
-
-            <div flex="5"></div>
-
-            <md-input-container flex="30">
-              <label>Cost of Product</label>
-              <input ng-required="false" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="changeProduct.cost_price">
-              <div ng-messages="vm.updateForm.CostPrice.$error">
-                <div ng-message="max">Cost of product must be between 1-18 digits</div>
-              </div>
-            </md-input-container>
-
-            <div flex="5"></div>
-
-            <div flex="30" layout="row">
-              <div layout="column" flex>
-                <md-input-container>
-                  <label>Tax</label>
-                  <md-select ng-required="changeProduct.apply_tax" flex class="width-control" id="selectTax" name="productTax" ng-model="changeProduct.tax" ng-disabled="!changeProduct.apply_tax" flex>
-                    <md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">{{value.taxgroupcode}}</md-option>
-                  </md-select>
-                  <div ng-messages="vm.updateForm.productTax.$error">
-                  </div>
+            <div layout="row" style="height: 95px;">
+                <md-input-container flex="30">
+                    <label>Price</label>
+                    <input ng-required="true" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01"  type="number" name="Price" ng-model="content.price_of_unit" valid-number decimal-point="decimalPoint">
+                    <div ng-messages="vm.editForm.Price.$error">
+                        <div ng-message="max">Price must be between 1-18 digits</div>
+                    </div>
                 </md-input-container>
-                <md-checkbox ng-hide="editTax" ng-model="changeProduct.apply_tax" ng-change="enableTaxCode(changeProduct.apply_tax)" style="width: 100px;">Apply Tax</md-checkbox>
-              </div>
-            </div>
-          </div>
-        </md-card-content>
-      </md-card>
 
-      <md-card flex class="input-block-gen">
-        <md-card-title>
-          <div layout="row" layout-align="start center">
-            <md-icon md-font-icon="icon-scale"></md-icon> <h3>Quantity Related Details</h3>
-          </div>
-        </md-card-title>
-        <md-card-content>
-          <div layout="row" style="height: 95px;">
-            <md-input-container flex="30">
-              <label>Quantity of Unit</label>
-              <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="number">
-              <div ng-messages="vm.updateForm.UpdateQty.$error">
-                <div ng-message="pattern">Quantity of unit is invalid</div>
-                <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
-              </div>
-            </md-input-container>
+                <div flex="5"></div>
 
-            <div flex="5"></div>
-
-            <div flex="30" layout="row">
-              <md-input-container flex>
-                <label>Unit of Measures</label>
-                <md-select class="width-control" ng-change="editUOM(changeProduct.uom)" ng-model="changeProduct.uom">
-                  <md-option ng-repeat="value in UOMs" value="{{value}}">{{value}}</md-option>
-                </md-select>
-              </md-input-container>
-              <!--<md-input-container>-->
-                <!--<md-button ng-click="addUOM($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>-->
-              <!--</md-input-container>-->
-            </div>
-
-            <div flex="5"></div>
-
-            <div flex="30" layout="row">
-              <div layout="column" flex>
-                <md-input-container style="margin-bottom: 0">
-                  <label>Minimum Stock Level</label>
-                  <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimun_stock_level" type="number" ng-required="changeProduct.sku">
-                  <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
-                    <div ng-message="max">Please enter a lesser value</div>
-                    <div ng-message="min">Minimum stock level must be between 1-16 characters</div>
-                  </div>
+                <md-input-container flex="30">
+                    <label>Cost of product</label>
+                    <input ng-required="false" minlength="null" max="1000000000000000000" md-maxlength="null" min="0" step="0.01" type="number" name="CostPrice" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="content.cost_price">
+                    <div ng-messages="vm.editForm.CostPrice.$error">
+                        <div ng-message="max">Cost of product must be between 1-18 digits</div>
+                    </div>
                 </md-input-container>
-                <md-checkbox type="checkbox" ng-show="editOff" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-change="enableStockLevel(changeProduct.sku)" style="top: -5px;width: 140px;">Track Inventory</md-checkbox>
-              </div>
-            </div>
-          </div>
-        </md-card-content>
-      </md-card>
 
-      <md-card flex class="input-block-gen">
+                <div flex="5"></div>
+
+                <div flex="30" layout="row">
+                    <div layout="column" flex>
+                        <md-input-container>
+                            <label>Tax</label>
+                            <md-select ng-required="content.apply_tax" ng-model="content.tax" ng-disabled="!content.apply_tax">
+                                <md-option ng-repeat="value in taxGroup" value="{{value.taxgroupcode}}">
+                                    {{value.taxgroupcode}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-checkbox ng-model="content.apply_tax" aria-label="Apply Tax" class="md-primary dep-checkbox" style="top:0;width: 100px;">Apply Tax</md-checkbox>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+
+    <md-card flex class="input-block-gen">
         <md-card-title>
-          <div layout="row" layout-align="start center">
-            <md-icon md-font-icon="icon-image-area"></md-icon> <h3>Product Image</h3>
-          </div>
+            <div layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-scale"></md-icon> <h3>Quantity related details</h3>
+            </div>
         </md-card-title>
         <md-card-content>
-          <div layout="row" style="height: auto;">
-            <div flex="5"></div>
-            <div flex="40">
-              <div layout="column" layout-align="center center" class="product-img-cont">
-                <div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
-                  <md-icon md-font-icon="icon-image-filter"></md-icon>
-                  <span>Browse an image for the Product</span>
-                  <span class="img-size-msg">[Maximum size : 350px X 350px]</span>
-                </div>
-                <canvas flex height="350" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="350" crop-height="350" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+            <div layout="row" style="height: 95px;">
+                <md-input-container flex="30">
+                    <label>Quantity of unit</label>
+                    <input ng-required="false" name="ProdQty" min="0" max="1000000000000000" type="number" name="Qty" ng-pattern="/^-?[0-9][^\.]*$/" ng-model="content.quantity_of_unit">
+                    <div ng-messages="vm.editForm.ProdQty.$error">
+                        <div ng-message="pattern">Quantity of Unit is invalid</div>
+                        <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
+                    </div>
+                </md-input-container>
 
-                <div class="input-partial">
-                  <md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>
-                  <input type="file" id="productImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />
+                <div flex="5"></div>
+
+                <div flex="30" layout="row">
+                    <md-input-container flex>
+                        <label>Unit of measures</label>
+                        <md-select ng-required="false"  ng-model="content.uom" ms-scroll>
+                            <md-option ng-repeat="value in UOMs" value="{{value}}">
+                                {{value}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <md-button ng-click="addUOM($event)" class="md-icon-button md-accent"><md-icon md-font-icon="icon-plus-circle"></md-icon><md-tooltip>Add new</md-tooltip> </md-button>
+                    </md-input-container>
                 </div>
-              </div>
+
+                <div flex="5"></div>
+
+                <div flex="30" layout="row">
+                    <div layout="column" flex>
+                        <md-input-container style="margin-bottom: 0">
+                            <label>Minimum stock level</label>
+                            <input ng-disabled="!content.sku" ng-required="content.sku" minlength="null" min="0" max="1000000000000000" md-maxlength="null" type="number" name="MinStockLevel" ng-pattern="/(?:)/" ng-model="content.minimum_stock_level">
+                            <div ng-messages="vm.editForm.MinStockLevel.$error">
+                                <div ng-message="max">Minimum stock level must be between 1-16 digits</div>
+                            </div>
+                        </md-input-container>
+                        <md-checkbox ng-model="content.sku" aria-label="Track Inventory" class="md-primary dep-checkbox" style="top: -5px;width: 140px;">Track inventory</md-checkbox>
+                    </div>
+                </div>
             </div>
-
-            <div flex="5"></div>
-
-            <div flex layout="column" layout-align="center center" class="product-preview">
-              <span>Product Preview</span>
-              <div layout="column" layout-align="center center" md-whiteframe flex="80">
-                <div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' && vm.selectedProduct.attachment == ''">
-                  <md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet
-                </div>
-                <div ng-if="cropper.croppedImage =='' && vm.selectedProduct.attachment != ''">
-                  <img src="http://{{vm.selectedProduct.attachment}}">
-                </div>
-                <div ng-if="cropper.croppedImage !=''">
-                  <img src="{{cropper.croppedImage}}">
-                </div>
-              </div>
-              <label ng-show="cropper.croppedImage =='' && vm.selectedProduct.attachment != ''" class="img-size-msg">[Image size : 350px X 350px]</label>
-              <span class="img-parameters">(Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</span>
-            </div>
-
-            <div flex="5"></div>
-          </div>
         </md-card-content>
-      </md-card>
-
-    </form>
-    <!-- / EDIT CONTENT -->
-  </md-tab>
-
-  <md-tab label="History" ng-disabled="editOff" md-on-select="historyTabIsOn(true)" ng-click="loadAuditTrial()">
-    <md-content class="md-padding">
-      <div md-whiteframe="1dp" flex>
-        <div class="inv-list-header" layout="row" flex>
-          <span flex>ID</span>
-          <span flex>Created Date</span>
-          <span flex>Module</span>
-          <span flex>Remark</span>
-        </div>
-        <md-content ms-scroll class="payment-list-body" flex>
-          <div layout="row" layout-align="center center" class="state-checker" ng-if="vm.isAuditTrailLoaded">
-            <img src="assets/images/142.gif" alt="" class="preloader-dot"/>
-          </div>
-
-          <div layout="row" layout-align="center center" style="height: 100%;" class="state-checker" ng-if="noAuditTrailLabel">
-            <span><md-icon md-font-icon="icon-information-outline"></md-icon>No audit trials for this user</span>
-          </div>
-
-          <div layout="row" class="payment-list-item" ng-if="isInvoiceLoaded" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="auditTrailList.length == 0">
-            <span flex>{{$index + 1}}</span>
-            <span flex>{{detail.createdDate}}</span>
-            <span flex>{{detail.module}}</span>
-            <span flex>{{detail.remark}}</span>
-          </div>
-          <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
-            <md-button ng-click="searchmoreAuditTrails(customer_supplier.profile)" class="md-primary" style="font-size: 12px;font-weight: 400"><md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
-          </div>
-        </md-content>
-      </div>
-    </md-content>
-  </md-tab>
-
-</md-tabs>
-
-<div ng-if="editOff" ng-init="submitted=false" class="description" layout="row" md-whiteframe="8dp" layout-align="space-between center" style="position:fixed;bottom: 0;background: #ffffff;width: 100%;z-index: 9999">
-  <div flex></div>
-
-  <div layout="row" class="layout-row">
-    <md-button ng-click="toggleEdit(); lfApi.removeAll();">Cancel</md-button>
-    <md-button ng-disabled="submitted" type="submit" form="productEditForm" class="md-raised md-warn">Update</md-button>
-  </div>
-</div>
-
+    </md-card>
+</form>

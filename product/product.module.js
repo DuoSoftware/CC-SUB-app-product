@@ -1,3 +1,11 @@
+// /////////////////////////////////
+// App : Product
+// File : Product
+// Owner  : Ishara
+// Last changed date : 2017-10-02
+// Version : 6.1.0.2
+// Updated By : Kasun
+/////////////////////////////////
 (function ()
 {
     'use strict';
@@ -9,13 +17,6 @@
     /** @ngInject */
     function config($stateProvider, msNavigationServiceProvider, mesentitlementProvider)
     {
-      ////////////////////////////////
-      // App : Product
-      // Owner  : Suvethan
-      // Last changed date : 2017/01/08
-      // Version : 6.0.0.31
-      // Updated By : Kasun
-      /////////////////////////////////
         mesentitlementProvider.setStateCheck("product");
 
         $stateProvider
@@ -28,35 +29,25 @@
                     }
                 },
                 resolve: {
-                  Product: function (msApi)
-                  {
+					security: ['$q','mesentitlement','$timeout','$rootScope','$state','$location', function($q,mesentitlement,$timeout,$rootScope,$state, $location){
+						return $q(function(resolve, reject) {
+							$timeout(function() {
+								if ($rootScope.isBaseSet2) {
+									resolve(function () {
+										var entitledStatesReturn = mesentitlement.stateDepResolver('product');
 
-                  },
-                    security: ['$q','mesentitlement','$timeout','$rootScope','$state', function($q,mesentitlement,$timeout,$rootScope,$state){
-                        var entitledStatesReturn = mesentitlement.stateDepResolver('product');
+										mesentitlementProvider.setStateCheck("product");
 
-                        if(entitledStatesReturn !== true){
-                              return $q.reject("unauthorized");
-                        }
-                        else
-                        {
-                          //debugger;
-                          $timeout(function() {
-                            var firstLogin=localStorage.getItem("firstLogin");
-                            if(firstLogin==null ||firstLogin=="" || firstLogin==undefined) {
-                              $rootScope.firstLoginDitected = true;
-                              //localStorage.removeItem('firstLogin');
-                              $state.go('app.settings', {}, {location: 'settings'});
-                              //return $q.reject("settings");
-                            }
-                            else
-                            {
-                              $rootScope.firstLoginDitected = false;
-                              //localStorage.removeItem('firstLogin');
-                            }
-                          }, 50);
-                        }
-                    }]
+										if(entitledStatesReturn !== true){
+											return $q.reject("unauthorized");
+										}
+									});
+								} else {
+									return $location.path('/guide');
+								}
+							});
+						});
+					}]
                 },
                 bodyClass: 'product'
             });
