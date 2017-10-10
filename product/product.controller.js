@@ -896,9 +896,9 @@
 						"format": $scope.productImgFileType,
 						"app": "Company",
 						"fileType": "image"
-					}
+					};
 
-					$charge.storage().storeImage(uploadImageObj).success(function (data) {
+					$charge.storage().storeImage(uploadImageObj).then(function (data) {
 						var path = data.fileUrl;
 						editReq.attachment = path;
 
@@ -943,6 +943,8 @@
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 							elThumbnails.empty();
 						})
+					}, function (res) {
+						console.log(res);
 					});
 				}
 				else {
