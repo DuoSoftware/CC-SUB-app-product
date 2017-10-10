@@ -888,84 +888,61 @@
 				else if (editReq.status == "true") {
 					editReq.status = true;
 				}
-				if (editReq.files.length > 0) {
-					angular.forEach(editReq.files, function (obj) {
-						$uploader.uploadMedia("CCProductImage", obj.lfFile, obj.lfFileName);
-						$scope.imgWidth = obj.element[0].childNodes[1].naturalWidth;
-						$scope.imgHeight = obj.element[0].childNodes[1].naturalHeight;
+				if ($scope.cropper.croppedImage != 'assets/images/no-preview.jpg') {
 
-						if($scope.imgWidth <= 300 && $scope.imgHeight <= 300 ) {
-							$uploader.onSuccess(function (e, data) {
+					var uploadImageObj = {
+						"base64Image": $scope.cropper.croppedImage,
+						"fileName": $scope.productImgFileName,
+						"format": $scope.productImgFileType,
+						"app": "Company",
+						"fileType": "image"
+					}
 
-								var path = $storage.getMediaUrl("CCProductImage", obj.lfFileName);
-								editReq.attachment = path;
+					$charge.storage().storeImage(uploadImageObj).success(function (data) {
+						var path = data.fileUrl;
+						editReq.attachment = path;
 
-								editReq.currency = $scope.content.selectCurrency;
-								editReq.rate = 1;  // need  to be changed
+						editReq.currency = $scope.content.selectCurrency;
+						editReq.rate = 1;  // need  to be changed
 
-								$charge.product().update(editReq).success(function (data) {
-									//
-									if (data.count) {
-										//
-										for (var i = 0; i < vm.products.length; i++) {
-											if (vm.products[i].productId == editReq.productId) {
-												vm.products[i] = angular.copy(editReq);
-											}
-										}
-										editReq.tax = tempTaxgroup.tax;
-
-										vm.selectedProduct = editReq;
-										//
-										$rootScope.editOff = !$rootScope.editOff;
-										if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
-											//
-											$rootScope.editTax = !$rootScope.editTax;
-										}
-										else
-											vm.selectedProduct.tax = "";
-										if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
-											$rootScope.editInv = !$rootScope.editInv;
-										}
-										else{
-											vm.selectedProduct.inventoryStock = "";
-											notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-											elThumbnails.empty();
-										}
-										prodCont.scrollTop=0;
-
+						$charge.product().update(editReq).success(function (data) {
+							//
+							if (data.count) {
+								//
+								for (var i = 0; i < vm.products.length; i++) {
+									if (vm.products[i].productId == editReq.productId) {
+										vm.products[i] = angular.copy(editReq);
 									}
+								}
+								editReq.tax = tempTaxgroup.tax;
 
-								}).error(function (data) {
-									console.log(data);
-									prodCont.scrollTop=0;
-									notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+								vm.selectedProduct = editReq;
+								//
+								$rootScope.editOff = !$rootScope.editOff;
+								if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
+									//
+									$rootScope.editTax = !$rootScope.editTax;
+								}
+								else
+									vm.selectedProduct.tax = "";
+								if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
+									$rootScope.editInv = !$rootScope.editInv;
+								}
+								else{
+									vm.selectedProduct.inventoryStock = "";
+									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
 									elThumbnails.empty();
-								})
-							});
-							$uploader.onError(function (e, data) {
-								var toast = $mdToast.simple()
-									.content('There was an error, please upload!')
-									.action('OK')
-									.highlightAction(false)
-									.position("top right");
-								$mdToast.show(toast).then(function () {
-									//whatever
-								});
-								$scope.lfApi.removeAll();
-							});
-						}else{
-							notifications.toast("Product image is too large to upload (Maxumum size : 200px x 200px)", "error");
-							$scope.productSubmit=false;
-							//var elThumbnails = angular.element(document.querySelector('.lf-ng-md-file-input-thumbnails'));
-							//elThumbnails.empty();
-							//var addDragPortion = '<div layout="row" layout-align="center center" class="lf-ng-md-file-input-drag-text-container" ng-show="(isFilesNull || !isPreview) && isDrag"><div class="lf-ng-md-file-input-drag-text">Drag and Drop here!</div></div><div class="lf-ng-md-file-input-thumbnails" ng-show="isPreview"></div><div class="clearfix" style="clear:both"></div></div>';
-							//var dragContainer = angular.element(document.querySelector('.lf-ng-md-file-input-drag'));
-							//dragContainer.append(addDragPortion);
-							//angular.element(document.querySelector('.close')).empty();
+								}
+								prodCont.scrollTop=0;
 
-							// dragContainer.innerHTML(addDragPortion);
+							}
 
-						}
+						}).error(function (data) {
+							console.log(data);
+							prodCont.scrollTop=0;
+							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+							elThumbnails.empty();
+						})
 					});
 				}
 				else {
