@@ -458,20 +458,21 @@
 
                                     <div flex="5"></div>
 
-                                    <md-input-container flex="30">
-                                        <label>Code</label>
-                                        <input ng-disabled name="productCode" ng-model="vm.selectedProduct.code">
-                                    </md-input-container>
+                                    <div layout="row" layout-align="start center" flex="30" class="state-capsule layout-align-start-center">
+                                        <div layout="row" class="layout-row">
+                                            <span>Product code</span>
+                                            <span>{{vm.selectedProduct.code}}</span>
+                                        </div>
+                                    </div>
 
                                     <div flex="5"></div>
 
-                                    <md-input-container flex="30">
-                                        <label>Status</label>
-                                        <md-select class="width-control" ng-model="changeProduct.status">
-                                            <md-option value="true">Active</md-option>
-                                            <md-option value="false">Inactive</md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                    <div layout="row" layout-align="start center" flex="30" class="state-capsule">
+                                        <div layout="row" class="layout-row">
+                                            <span>Status</span>
+                                            <span>{{vm.selectedProduct.status == true ? 'Active' : 'Inactive'}}</span>
+                                        </div>
+                                    </div>
 
                                 </div>
 

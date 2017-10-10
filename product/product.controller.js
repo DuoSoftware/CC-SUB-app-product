@@ -888,7 +888,7 @@
 				else if (editReq.status == "true") {
 					editReq.status = true;
 				}
-				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg') {
+				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg' && $scope.cropper.croppedImage != editReq.attachment) {
 
 					var uploadImageObj = {
 						"base64Image": $scope.cropper.croppedImage,
@@ -931,9 +931,9 @@
 								else{
 									vm.selectedProduct.inventoryStock = "";
 									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-									$scope.inpageReadPaneEdit = false;
 								}
 								prodCont.scrollTop=0;
+								$scope.switchInfoPane('close', vm.selectedProduct);
 
 							}
 
@@ -944,6 +944,7 @@
 						})
 					}).error(function (res) {
 						console.log(res);
+						$scope.switchInfoPane('close')		;
 					});
 				}
 				else {
@@ -993,14 +994,14 @@
 							$scope.imgWidth = "";
 							$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-							elThumbnails.empty();
+							$scope.switchInfoPane('close')		;
 						}
 					}).error(function (data) {
 						console.log(data);
 						prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-						elThumbnails.empty();
-					})
+						$scope.switchInfoPane('close')		;
+					});
 				}
 			}else{
 				angular.element(document.querySelector('#productEditForm')).find('.ng-invalid:visible:first').focus();
