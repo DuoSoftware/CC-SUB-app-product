@@ -888,7 +888,7 @@
 				else if (editReq.status == "true") {
 					editReq.status = true;
 				}
-				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg') {
+				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg' && $scope.cropper.croppedImage != editReq.attachment) {
 
 					var uploadImageObj = {
 						"base64Image": $scope.cropper.croppedImage,
@@ -917,10 +917,8 @@
 								editReq.tax = tempTaxgroup.tax;
 
 								vm.selectedProduct = editReq;
-								//
 								$rootScope.editOff = !$rootScope.editOff;
 								if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
-									//
 									$rootScope.editTax = !$rootScope.editTax;
 								}
 								else
@@ -931,7 +929,7 @@
 								else{
 									vm.selectedProduct.inventoryStock = "";
 									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-									$scope.inpageReadPaneEdit = false;
+									$scope.inpageReadPaneEdit=false;
 								}
 								prodCont.scrollTop=0;
 
@@ -941,9 +939,11 @@
 							console.log(data);
 							prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+							$scope.inpageReadPaneEdit=false;
 						})
 					}).error(function (res) {
 						console.log(res);
+						$scope.inpageReadPaneEdit=false;
 					});
 				}
 				else {
@@ -993,14 +993,14 @@
 							$scope.imgWidth = "";
 							$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-							elThumbnails.empty();
+							$scope.inpageReadPaneEdit=false;
 						}
 					}).error(function (data) {
 						console.log(data);
 						prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-						elThumbnails.empty();
-					})
+						$scope.inpageReadPaneEdit=false;
+					});
 				}
 			}else{
 				angular.element(document.querySelector('#productEditForm')).find('.ng-invalid:visible:first').focus();
