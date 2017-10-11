@@ -917,10 +917,8 @@
 								editReq.tax = tempTaxgroup.tax;
 
 								vm.selectedProduct = editReq;
-								//
 								$rootScope.editOff = !$rootScope.editOff;
 								if (vm.selectedProduct.apply_tax == true || vm.selectedProduct.apply_tax == "true") {
-									//
 									$rootScope.editTax = !$rootScope.editTax;
 								}
 								else
@@ -931,9 +929,9 @@
 								else{
 									vm.selectedProduct.inventoryStock = "";
 									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+									$scope.inpageReadPaneEdit=false;
 								}
 								prodCont.scrollTop=0;
-								$scope.switchInfoPane('close', vm.selectedProduct);
 
 							}
 
@@ -941,10 +939,11 @@
 							console.log(data);
 							prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+							$scope.inpageReadPaneEdit=false;
 						})
 					}).error(function (res) {
 						console.log(res);
-						$scope.switchInfoPane('close')		;
+						$scope.inpageReadPaneEdit=false;
 					});
 				}
 				else {
@@ -994,13 +993,13 @@
 							$scope.imgWidth = "";
 							$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-							$scope.switchInfoPane('close')		;
+							$scope.inpageReadPaneEdit=false;
 						}
 					}).error(function (data) {
 						console.log(data);
 						prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
-						$scope.switchInfoPane('close')		;
+						$scope.inpageReadPaneEdit=false;
 					});
 				}
 			}else{
