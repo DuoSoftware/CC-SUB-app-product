@@ -678,8 +678,9 @@
                 <div layout="row" layout-align="end center" md-whiteframe="8dp" class="bottom-fixed-bar absolute" ng-if="inpageReadPaneEdit">
                     <div layout="row"></div>
                     <div layout="row" class="layout-row">
+                        <md-progress-circular ng-if="savingEdited" class="gen-save-indicator"></md-progress-circular>
                         <md-button >Reset</md-button>
-                        <md-button ng-disabled="vm.submitted" type="submit" form="productEditForm" class="md-raised md-accent">Update</md-button>
+                        <md-button ng-disabled="savingEdited" type="submit" form="productEditForm" class="md-raised md-accent">Update</md-button>
                     </div>
                 </div>
             </div>
