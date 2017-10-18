@@ -866,12 +866,14 @@
 			//
 		}
 
+		$scope.savingEdited = false;
 
 		$scope.saveEdit = function(model)
 		{
 			var prodCont = document.getElementById('editProdContainer');
 
 			if(vm.updateForm.$valid == true) {
+				$scope.savingEdited = true;
 				$rootScope.UnitSize = "flex-85";
 				$rootScope.unitMeasure = "flex-15";
 				var editReq = $scope.changeProduct;
@@ -888,6 +890,10 @@
 				else if (editReq.status == "true") {
 					editReq.status = true;
 				}
+				editReq.apply_tax ? editReq.apply_tax = 1 : editReq.apply_tax = 0;
+				editReq.sku ? editReq.sku = 1 : editReq.sku = 0;
+				editReq.status ? editReq.status = 1 : editReq.status = 0;
+
 				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg' && $scope.cropper.croppedImage != editReq.attachment) {
 
 					var uploadImageObj = {
@@ -929,6 +935,7 @@
 								else{
 									vm.selectedProduct.inventoryStock = "";
 									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+									$scope.savingEdited = false;
 									$scope.inpageReadPaneEdit=false;
 								}
 								prodCont.scrollTop=0;
@@ -939,11 +946,13 @@
 							console.log(data);
 							prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
+							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
 						})
 					}).error(function (res) {
 						console.log(res);
 						$scope.inpageReadPaneEdit=false;
+						$scope.savingEdited = false;
 					});
 				}
 				else {
@@ -993,6 +1002,7 @@
 							$scope.imgWidth = "";
 							$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
 						}
 					}).error(function (data) {
@@ -1000,6 +1010,7 @@
 						prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 						$scope.inpageReadPaneEdit=false;
+						$scope.savingEdited = false;
 					});
 				}
 			}else{

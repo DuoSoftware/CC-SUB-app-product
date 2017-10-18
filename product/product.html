@@ -398,7 +398,7 @@
                                 </div>
                             </md-card-title>
                             <md-card-content class="issuer">
-                                <div class="w-400 {{editImageOn ? 'h-455 p-40' : 'h-420 p-20'}} pos-rel" ng-class="{'md-whiteframe-2dp':editImageOn, 'dragOn':divClass,'light-gray':editImageOn}" layout="column" drag-and-drop style="margin: 0 auto">
+                                <div class="w-400 {{editImageOn ? 'h-400 p-40' : 'h-420 p-20'}} pos-rel" ng-class="{'md-whiteframe-2dp':editImageOn, 'dragOn':divClass,'light-gray':editImageOn}" layout="column" drag-and-drop style="margin: 0 auto">
                                     <div class="text-right close-logo" ng-if="editImageOn">
                                         <md-button class="md-icon-button" ng-click="editCompanyCancel()"><md-icon md-font-icon="icon-close"></md-icon> </md-button>
                                     </div>
@@ -439,9 +439,13 @@
                                                            action-labels="vm.myButtonLabels"
                                             ></image-cropper>
                                         </div>
-                                        <div ng-if="addedImage" layout="row" layout-align="space-between center" class="mt-10 actions">
-                                            <md-button layout="row" layout-align="center center" ng-click="retryImageUpload()" md-ink-ripple><i class="material-icons m-0">undo</i><md-tooltip>Retry</md-tooltip></md-button>
-                                            <md-button layout="row" layout-align="center center" class="md-raised md-accent" ng-click="vm.doneImageCropping()"><i class="material-icons m-0">done</i></md-button>
+                                        <div ng-if="addedImage" layout="row" layout-align="space-between center" class="h-60 actions">
+
+                                            <md-button ng-click="retryImageUpload()">Cancel</md-button>
+                                            <md-button ng-click="vm.doneImageCropping()" class="md-accent">Save</md-button>
+
+                                            <!--<md-button layout="row" layout-align="center center" ng-click="retryImageUpload()" md-ink-ripple><i class="material-icons m-0">undo</i><md-tooltip>Retry</md-tooltip></md-button>-->
+                                            <!--<md-button layout="row" layout-align="center center" class="md-raised md-accent" ng-click="vm.doneImageCropping()"><i class="material-icons m-0">done</i></md-button>-->
                                         </div>
                                         <input type="file" id="productImageInput" image="cropper.sourceImage" style="display:none" />
                                         <!--<div class="img-size-msg">[Maximum size : 180px X 180px]</div>-->
@@ -674,8 +678,9 @@
                 <div layout="row" layout-align="end center" md-whiteframe="8dp" class="bottom-fixed-bar absolute" ng-if="inpageReadPaneEdit">
                     <div layout="row"></div>
                     <div layout="row" class="layout-row">
+                        <md-progress-circular ng-if="savingEdited" class="gen-save-indicator"></md-progress-circular>
                         <md-button >Reset</md-button>
-                        <md-button ng-disabled="vm.submitted" type="submit" form="productEditForm" class="md-raised md-accent">Update</md-button>
+                        <md-button ng-disabled="savingEdited" type="submit" form="productEditForm" class="md-raised md-accent">Update</md-button>
                     </div>
                 </div>
             </div>
