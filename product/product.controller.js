@@ -888,6 +888,10 @@
 				else if (editReq.status == "true") {
 					editReq.status = true;
 				}
+				editReq.apply_tax ? editReq.apply_tax = 1 : editReq.apply_tax = 0;
+				editReq.sku ? editReq.sku = 1 : editReq.sku = 0;
+				editReq.status ? editReq.status = 1 : editReq.status = 0;
+
 				if ($scope.cropper.croppedImage != 'assets/images/no-image-full.jpg' && $scope.cropper.croppedImage != editReq.attachment) {
 
 					var uploadImageObj = {
