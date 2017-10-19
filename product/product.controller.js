@@ -437,12 +437,15 @@
 				//  productImg.attr('src','app/core/cloudcharge/img/noimage.png');
 				//}
 				vm.selectedProduct.currency=$scope.content.selectCurrency;
-				var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.tax})[0];
+				var taxgrp=$filter('filter')($scope.taxGroup, {taxgroupid: product.taxId})[0];
 				$charge.stock().getStock(product.guproductID).success(function(data) {
 					//
 					//vm.selectedProduct = angular.copy(dataProduct[0]);
 					//
-					vm.selectedProduct.inventoryStock=vm.selectedProduct.sku!=0?data.qty:"";
+					vm.selectedProduct.inventoryStock = vm.selectedProduct.sku!=0 ? data.qty : vm.selectedProduct.quantity_of_unit;
+					
+					vm.selectedProduct.quantity_of_unit = vm.selectedProduct.inventoryStock;
+					
 					vm.selectedProduct.tax=taxgrp==undefined?"":vm.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
 					if(vm.selectedProduct.apply_tax==0)
 					{
