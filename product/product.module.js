@@ -2,8 +2,8 @@
 // App : Product
 // File : Product
 // Owner  : Ishara
-// Last changed date : 2017-10-19
-// Version : 6.1.0.3
+// Last changed date : 2017-10-27
+// Version : 6.1.0.4
 // Updated By : Ishara
 /////////////////////////////////
 (function ()
@@ -32,7 +32,7 @@
 					security: ['$q','mesentitlement','$timeout','$rootScope','$state','$location', function($q,mesentitlement,$timeout,$rootScope,$state, $location){
 						return $q(function(resolve, reject) {
 							$timeout(function() {
-								if ($rootScope.isBaseSet2) {
+								//if ($rootScope.isBaseSet2) {
 									resolve(function () {
 										var entitledStatesReturn = mesentitlement.stateDepResolver('product');
 
@@ -42,9 +42,9 @@
 											return $q.reject("unauthorized");
 										}
 									});
-								} else {
-									return $location.path('/guide');
-								}
+								//} else {
+								//	return $location.path('/guide');
+								//}
 							});
 						});
 					}]
