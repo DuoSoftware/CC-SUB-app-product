@@ -200,7 +200,9 @@
 		}).error(function(data) {
 			console.log(data);
 		})
+
 		$rootScope.isBrandLoaded=false;
+    $scope.brands=[];
 		$charge.settingsapp().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","Brand").success(function(data) {
 			$scope.brands=[];
 			$rootScope.isBrandLoaded=true;
@@ -217,6 +219,7 @@
 		});
 
 		$rootScope.isCategoryLoaded=false;
+    $scope.categories=[];
 		$charge.settingsapp().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","Category").success(function(data) {
 			$scope.categories=[];
 			$rootScope.isCategoryLoaded=true;
@@ -442,8 +445,10 @@
 					//
 					//vm.selectedProduct = angular.copy(dataProduct[0]);
 					//
-					vm.selectedProduct.inventoryStock=vm.selectedProduct.sku!=0?data.qty:vm.selectedProduct.quantity_of_unit;
+					vm.selectedProduct.inventoryStock = vm.selectedProduct.sku!=0 ? data.qty : vm.selectedProduct.quantity_of_unit;
+
 					vm.selectedProduct.quantity_of_unit = vm.selectedProduct.inventoryStock;
+
 					vm.selectedProduct.tax=taxgrp==undefined?"":vm.selectedProduct.apply_tax!=0?taxgrp.taxgroupcode:"";
 					if(vm.selectedProduct.apply_tax==0)
 					{
@@ -1862,45 +1867,6 @@
 			$scope.content.selectCurrency="";
 		})
 
-
-
-
-		///load brand category uom
-
-
-
-		$rootScope.isBrandLoaded=false;
-		$scope.brands=[];
-		$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","Brand").success(function(data) {
-			$scope.brands=[];
-			$rootScope.isBrandLoaded=true;
-			//console.log(data);
-			for(var i=0;i<data.length;i++)
-			{
-				//
-				$scope.brands.push(data[i]["RecordFieldData"]);
-			}
-
-		}).error(function(data) {
-			console.log(data);
-			$rootScope.isBrandLoaded=false;
-		})
-
-		$rootScope.isCategoryLoaded=false;
-		$scope.categories=[];
-		$charge.commondata().getDuobaseFieldDetailsByTableNameAndFieldName("CTS_CommonAttributes","Category").success(function(data) {
-			$scope.categories=[];
-			$rootScope.isCategoryLoaded=true;
-			//console.log(data);
-			for(var i=0;i<data.length;i++)
-			{
-				//
-				$scope.categories.push(data[i]["RecordFieldData"]);
-			}
-		}).error(function(data) {
-			console.log(data);
-			$rootScope.isCategoryLoaded=false;
-		})
 
 
 		//save uom
