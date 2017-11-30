@@ -2,9 +2,11 @@
 <div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-if="!isProductListLoaded">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
-<div class="msg-empty-list full animate-fade-in-out" layout="column" layout-align="center center" ng-if="vm.products.length == 0">
-    <img src="app/core/app_icons/plan_app_icon_list.svg" alt="No adjustments">
-    <div class="mt-20">You have'nt added any product yet</div>
+<div class="main-empty-list" ng-if="vm.products.length == 0 && !isProductListLoaded">
+    <div>
+        <img src="assets/images/empty-list.gif" alt="Nothing to show">
+        <h2>Nothing to Show</h2>
+    </div>
 </div>
 
 <!-- INVOICE LIST ITEMS -->
