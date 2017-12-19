@@ -75,6 +75,9 @@
                   <div class="column_cell" layout="row" layout-align="start start" flex>
                     <span flex>Tax code</span><span flex>{{vm.selectedProduct.tax}}</span>
                   </div>
+                  <div class="column_cell" ng-if="vm.selectedProduct.avaTaxCode" layout="row" layout-align="start start" flex>
+                    <span flex>Avalara tax code</span><span flex>{{vm.selectedProduct.avaTaxode}}</span>
+                  </div>
                   <div class="column_cell" layout="row" layout-align="start start" flex>
                     <span flex>Minimum stock level</span><span flex>{{vm.selectedProduct.minimum_stock_level}}</span>
                   </div>
@@ -479,6 +482,14 @@
                 <md-checkbox ng-hide="editTax" ng-model="changeProduct.apply_tax" ng-change="enableTaxCode(changeProduct.apply_tax)" style="width: 100px;">Apply Tax</md-checkbox>
               </div>
             </div>
+
+            <div flex="5"></div>
+
+            <md-input-container flex="30">
+              <label>Avalara Tax Code</label>
+              <input ng-required="false" ng-minlength="1" type="" name="avaTaxCode" ng-maxlength="20"  ng-pattern="" ng-model="changeProduct.avaTaxCode">
+            </md-input-container>
+
           </div>
         </md-card-content>
       </md-card>
