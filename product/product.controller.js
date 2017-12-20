@@ -868,7 +868,8 @@
 			}
 			$scope.changeProduct=angular.copy(vm.selectedProduct);
 			$scope.changeProduct.files=[];
-			prodCont.scrollTop=0;
+			if(prodCont)
+        prodCont.scrollTop=0;
 			//
 		}
 
@@ -944,13 +945,15 @@
 									$scope.savingEdited = false;
 									$scope.inpageReadPaneEdit=false;
 								}
-								prodCont.scrollTop=0;
+                if(prodCont)
+                  prodCont.scrollTop=0;
 
 							}
 
 						}).error(function (data) {
 							console.log(data);
-							prodCont.scrollTop=0;
+              if(prodCont)
+                prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
@@ -1004,7 +1007,8 @@
 							else {
 								vm.selectedProduct.inventoryStock = "";
 							}
-							prodCont.scrollTop=0;
+              if(prodCont)
+                prodCont.scrollTop=0;
 							$scope.imgWidth = "";
 							$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
@@ -1013,7 +1017,8 @@
 						}
 					}).error(function (data) {
 						console.log(data);
-						prodCont.scrollTop=0;
+            if(prodCont)
+              prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 						$scope.inpageReadPaneEdit=false;
 						$scope.savingEdited = false;
