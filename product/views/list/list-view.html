@@ -2,7 +2,7 @@
 <div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-if="!isProductListLoaded">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
-<div class="main-empty-list" ng-if="vm.products.length == 0 && !isProductListLoaded">
+<div class="main-empty-list" ng-if="vm.products.length == 0 && isProductListLoaded">
     <div>
         <img src="assets/images/empty-list.gif" alt="Nothing to show">
         <h2>Nothing to Show</h2>

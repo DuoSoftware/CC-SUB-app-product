@@ -1,9 +1,9 @@
 // /////////////////////////////////
 // App : Product
 // Owner  : Ishara
-// Last changed date : 2017-12-19
-// Version : 6.1.0.6
-// Updated By : Ishara
+// Last changed date : 2017-11-30
+// Version : 6.1.0.5
+// Updated By : Kasun
 /////////////////////////////////
 (function ()
 {
