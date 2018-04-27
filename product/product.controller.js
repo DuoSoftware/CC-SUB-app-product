@@ -176,7 +176,7 @@
 		$charge.tax().allgroups(skipGrp,takeGrp,"asc").success(function(data) {
 			//
 			skipGrp += takeGrp;
-			console.log(data);
+			//console.log(data);
 			//if($scope.loading) {
 			// returned data contains an array of 2 sentences
 			for (var i = 0; i < data.length; i++) {
@@ -190,7 +190,7 @@
 		$charge.uom().getAllUOM('Product_123').success(function(data) {
 			$scope.UOMs=[];
 			//
-			console.log(data);
+			//console.log(data);
 			for(var i=0;i<data.length;i++)
 			{
 				//
@@ -198,7 +198,7 @@
 				//
 			}
 		}).error(function(data) {
-			console.log(data);
+			//console.log(data);
 		})
 
 		$rootScope.isBrandLoaded=false;
@@ -214,7 +214,7 @@
 			}
 
 		}).error(function(data) {
-			console.log(data);
+			//console.log(data);
 			$rootScope.isBrandLoaded=false;
 		});
 
@@ -230,7 +230,7 @@
 				$scope.categories.push(data[i]["RecordFieldData"]);
 			}
 		}).error(function(data) {
-			console.log(data);
+			//console.log(data);
 			$rootScope.isCategoryLoaded=false;
 		})
 
@@ -718,27 +718,27 @@
 		 *
 		 * @param ev
 		 */
-		function addProductDialog(ev)
-		{
-			$mdDialog.show({
-				controller         : 'AddProductController',
-				controllerAs       : 'vm',
-				locals             : {
-					selectedMail: undefined,
-					taxGroups:$scope.taxGroup,
-					products:vm.products
-				},
-				templateUrl        : 'app/main/product/dialogs/compose/compose-dialog.html',
-				parent             : angular.element($document.body),
-				targetEvent        : ev,
-				clickOutsideToClose: true
-			});
-			//  .then(function(product) {
-			//
-			//  if(product!=undefined ||product !="")
-			//    vm.productLst.push(product);
-			//});
-		}
+		//function addProductDialog(ev)
+		//{
+		//	$mdDialog.show({
+		//		controller         : 'AddProductController',
+		//		controllerAs       : 'vm',
+		//		locals             : {
+		//			selectedMail: undefined,
+		//			taxGroups:$scope.taxGroup,
+		//			products:vm.products
+		//		},
+		//		templateUrl        : 'app/main/product/dialogs/compose/compose-dialog.html',
+		//		parent             : angular.element($document.body),
+		//		targetEvent        : ev,
+		//		clickOutsideToClose: true
+		//	});
+		//	//  .then(function(product) {
+		//	//
+		//	//  if(product!=undefined ||product !="")
+		//	//    vm.productLst.push(product);
+		//	//});
+		//}
 
 		/**
 		 * Toggle sidenav
@@ -949,14 +949,14 @@
 							}
 
 						}).error(function (data) {
-							console.log(data);
+							//console.log(data);
 							prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
 						})
 					}).error(function (res) {
-						console.log(res);
+						//console.log(res);
 						$scope.inpageReadPaneEdit=false;
 						$scope.savingEdited = false;
 					});
@@ -1012,7 +1012,7 @@
 							$scope.inpageReadPaneEdit=false;
 						}
 					}).error(function (data) {
-						console.log(data);
+						//console.log(data);
 						prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 						$scope.inpageReadPaneEdit=false;
@@ -1641,10 +1641,10 @@
 
 									}
 								}).error(function (data) {
-									console.log(data);
+									//console.log(data);
 								})
 							}).error(function (res) {
-								console.log(res);
+								//console.log(res);
 							});
 							// else {
 							// 	$scope.spinnerAdd = true;
@@ -1763,7 +1763,7 @@
 
 								}
 							}).error(function (data) {
-								console.log(data);
+								//console.log(data);
 							})
 						}
 
@@ -1911,7 +1911,7 @@
 								notifications.toast("UOM has been added", "success");
 							}
 						}).error(function (data) {
-							console.log(data);
+							//console.log(data);
 							$scope.newUom = false;
 						})
 					}
@@ -1945,7 +1945,7 @@
 
 						}
 					}).error(function (data) {
-						console.log(data);
+						//console.log(data);
 						$scope.newUom = false;
 					})
 				}
@@ -1988,7 +1988,7 @@
 									//notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
 								}
 							}).error(function (data) {
-								console.log(data);
+								//console.log(data);
 								$scope.newBrand = false;
 							})
 						}
@@ -2030,7 +2030,7 @@
 									//notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
 								}
 							}).error(function (data) {
-								console.log(data);
+								//console.log(data);
 								$scope.newBrand = false;
 							})
 						}
@@ -2075,7 +2075,7 @@
 							//notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
 						}
 					}).error(function (data) {
-						console.log(data);
+						//console.log(data);
 						$scope.newBrand = false;
 					})
 				}
@@ -2137,7 +2137,7 @@
 									//notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
 								}
 							}).error(function (data) {
-								console.log(data);
+								//console.log(data);
 								$scope.newCat = false;
 							})
 						}
@@ -2179,7 +2179,7 @@
 									//notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
 								}
 							}).error(function (data) {
-								console.log(data);
+								//console.log(data);
 								$scope.newCat = false;
 							})
 						}
@@ -2223,7 +2223,7 @@
 							//notifications.toast("Record Inserted, Product ID " + data.Data[0].ID , "success");
 						}
 					}).error(function (data) {
-						console.log(data);
+						//console.log(data);
 						$scope.newCat = false;
 					})
 				}
