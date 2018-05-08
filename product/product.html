@@ -593,7 +593,7 @@
                                 <div layout="row" style="height: 95px;">
                                     <md-input-container flex="30">
                                         <label>Quantity of Unit</label>
-                                        <input class="width-control" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="text">
+                                        <input class="width-control" ng-disabled="changeProduct.sku" ng-pattern="/^-?[0-9][^\.]*$/" max="1000000000000000" name="UpdateQty" ng-model="changeProduct.quantity_of_unit" type="text">
                                         <div ng-messages="vm.updateForm.UpdateQty.$error">
                                             <div ng-message="pattern">Quantity of unit is invalid</div>
                                             <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
@@ -620,13 +620,14 @@
                                         <div layout="column" flex>
                                             <md-input-container style="margin-bottom: 0">
                                                 <label>Minimum Stock Level</label>
-                                                <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000"  ng-model="changeProduct.minimum_stock_level" type="text" ng-required="changeProduct.sku">
+                                                <input id="txtMinStock" class="width-control" min="0" name="UpdateMinLevel" max="1000000000000000" ng-disabled="!changeProduct.sku"  ng-model="changeProduct.minimum_stock_level" type="text" ng-required="changeProduct.sku">
                                                 <div ng-messages="vm.updateForm.UpdateMinLevel.$error">
                                                     <div ng-message="max">Please enter a lesser value</div>
                                                     <div ng-message="min">Minimum stock level must be between 1-16 characters</div>
                                                 </div>
                                             </md-input-container>
-                                            <md-checkbox type="checkbox" ng-show="editOff" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-change="enableStockLevel(changeProduct.sku)" style="top: -5px;width: 140px;">Track Inventory</md-checkbox>
+                                            <md-checkbox type="checkbox" ng-model="changeProduct.sku" ng-true-value="true" ng-false-value="false" ng-change="enableStockLevel(changeProduct.sku)" style="top: -5px;width: 140px;">Track Inventory</md-checkbox>
+                                            <!--ng-show="editOff"-->
                                         </div>
                                     </div>
                                 </div>

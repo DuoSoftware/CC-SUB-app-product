@@ -938,19 +938,20 @@
 								if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
 									$rootScope.editInv = !$rootScope.editInv;
 								}
-								else{
-									vm.selectedProduct.inventoryStock = "";
-									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-									$scope.savingEdited = false;
-									$scope.inpageReadPaneEdit=false;
-								}
-								prodCont.scrollTop=0;
+								else {
+                  vm.selectedProduct.inventoryStock = "";
+                }
+                notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+                $scope.savingEdited = false;
+                $scope.inpageReadPaneEdit=false;
+
+								//prodCont.scrollTop=0;
 
 							}
 
 						}).error(function (data) {
 							//console.log(data);
-							prodCont.scrollTop=0;
+							//prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
@@ -1004,16 +1005,16 @@
 							else {
 								vm.selectedProduct.inventoryStock = "";
 							}
-							prodCont.scrollTop=0;
-							$scope.imgWidth = "";
-							$scope.imgHeight = "";
+							//prodCont.scrollTop=0;
+							//$scope.imgWidth = "";
+							//$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
 							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
 						}
 					}).error(function (data) {
 						//console.log(data);
-						prodCont.scrollTop=0;
+						//prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 						$scope.inpageReadPaneEdit=false;
 						$scope.savingEdited = false;
@@ -1301,7 +1302,10 @@
 			})
 				.then(function(result) {
 					if(result != undefined)
-						$scope.categories.push(result);
+          {
+            $scope.categories.push(result);
+            $scope.content.category=result;
+          }
 				}, function() {
 				});
 
@@ -1363,7 +1367,10 @@
 			})
 				.then(function(result) {
 					if(result != undefined)
-						$scope.brands.push(result);
+          {
+            $scope.brands.push(result);
+            $scope.content.brand=result;
+          }
 				}, function() {
 				});
 
@@ -1408,7 +1415,10 @@
 			})
 				.then(function(result) {
 					if(result != undefined)
-						$scope.UOMs.push(result);
+          {
+            $scope.UOMs.push(result);
+            $scope.content.uom=result;
+          }
 				}, function() {
 				});
 			//var confirm = $mdDialog.prompt()
@@ -1628,7 +1638,6 @@
 									if (data.id) {
 										notifications.toast("Record Inserted, Product Code " + req.code, "success");
 										$scope.isAdded = true;
-										$scope.clearFields();
 										$rootScope.isCleared = true;
 										var product = {}
 										product.code = req.code;
@@ -1637,7 +1646,10 @@
 										product.status = req.status;
 										vm.products.unshift(product);
 										vm.productLst.unshift(product);
+                    $scope.getAllProducts();
+                    vm.closeReadPane();
 										//$rootScope.productlist.push(product);
+                    $scope.clearFields();
 
 									}
 								}).error(function (data) {
@@ -1750,7 +1762,6 @@
 								if (data.id) {
 									notifications.toast("Record Inserted, Product Code " + req.code, "success");
 									$scope.isAdded = true;
-									$scope.clearFields();
 									$rootScope.isCleared = true;
 									var product = {}
 									product.code = req.code;
@@ -1759,7 +1770,10 @@
 									product.status = req.status;
 									vm.products.unshift(product);
 									vm.productLst.unshift(product);
+                  $scope.getAllProducts();
+                  vm.closeReadPane();
 									//$rootScope.productlist.push(product);
+                  $scope.clearFields();
 
 								}
 							}).error(function (data) {
@@ -1811,7 +1825,7 @@
 			//$('#deletebtn').click();
 			$scope.cropper = {};
 			//context.clearRect(0, 0, canvas.width, canvas.height);
-			$state.go($state.current, {}, {reload: $scope.isAdded});
+			//$state.go($state.current, {}, {reload: $scope.isAdded});
 		}
 		$scope.backToMain = function(ev)
 		{
