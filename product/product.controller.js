@@ -868,7 +868,7 @@
 			}
 			$scope.changeProduct=angular.copy(vm.selectedProduct);
 			$scope.changeProduct.files=[];
-			prodCont.scrollTop=0;
+			//prodCont.scrollTop=0;
 			//
 		}
 
