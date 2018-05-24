@@ -203,198 +203,261 @@
                     </div>
                 </div>
                 <div flex layout="column" class="inpage-readpane-body" ng-if="!inpageReadPaneEdit">
-                    <div layout="row" layout-align="space-between center">
-                        <div layout="row" layout-align="start center" flex>
+                  <md-tabs md-border-bottom class="inner-iconed-tabs" flex>
+                    <md-tab label="Overview">
+                      <md-tab-label>
+                        <md-icon md-font-icon="icon-cog"></md-icon> General
+                      </md-tab-label>
+                      <md-tab-body flex>
+                        <div layout="row" layout-align="space-between center">
+                          <div layout="row" layout-align="start center" flex>
                             <div layout="column" layout-align="center start">
-                                <div class="fs-20 font-accent fw-400">{{vm.selectedProduct.product_name}}</div>
-                                <div layout="row" class="op-5 layout-row">
-                                    <span>Code : <b>{{vm.selectedProduct.code}}</b></span>
-                                </div>
+                              <div class="fs-20 font-accent fw-400">{{vm.selectedProduct.product_name}}</div>
+                              <div layout="row" class="op-5 layout-row">
+                                <span>Code : <b>{{vm.selectedProduct.code}}</b></span>
+                              </div>
                             </div>
                             <span class="pill positive ml-20" layout="row" layout-align="center center" ng-class="{'negative':vm.selectedPlan.status==='Inactive','positive':vm.selectedPlan.status==='Active'}">Active</span>
                             <div flex></div>
                             <div class="ml-20">
-                                <div class="cost" layout="column" layout-align="center end" flex>
-                                    <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency: decimalPoint}}</span>
-                                    <span class="note">(excl. Tax)</span>
-                                </div>
+                              <div class="cost" layout="column" layout-align="center end" flex>
+                                <span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency: decimalPoint}}</span>
+                                <span class="note">(excl. Tax)</span>
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    </div>
-                    <!--<div class="product-header" flex layout="row" layout-align="start start" ng-if="!editOff" style="padding-top: 60px">-->
+                        <!--<div class="product-header" flex layout="row" layout-align="start start" ng-if="!editOff" style="padding-top: 60px">-->
                         <!--<div class="summary" layout="column" layout-align="center start" flex>-->
-                            <!--<span class="name">{{vm.selectedProduct.product_name}}</span>-->
-                            <!--<span class="code">Code : {{vm.selectedProduct.code}}</span>-->
+                        <!--<span class="name">{{vm.selectedProduct.product_name}}</span>-->
+                        <!--<span class="code">Code : {{vm.selectedProduct.code}}</span>-->
                         <!--</div>-->
                         <!--&lt;!&ndash;<div layout="row" layout-align="center center" ng-show="!productReadPaneLoaded" flex>&ndash;&gt;-->
                         <!--&lt;!&ndash;<img src="assets/images/142.gif" alt="" style="width: 40px;"/>&ndash;&gt;-->
                         <!--&lt;!&ndash;</div>&ndash;&gt;-->
                         <!--<div class="cost" layout="column" layout-align="center end" flex>-->
-                            <!--<span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency: decimalPoint}}</span>-->
-                            <!--<span class="note">(Excluding Tax)</span>-->
+                        <!--<span class="value">{{vm.selectedProduct.price_of_unit | isoCurrency:vm.selectedProduct.currency: decimalPoint}}</span>-->
+                        <!--<span class="note">(Excluding Tax)</span>-->
                         <!--</div>-->
                         <!--<div class="actions">-->
-                            <!--&lt;!&ndash;<md-menu>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-dots-vertical"></md-icon>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<md-tooltip>Product Action</md-tooltip>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-menu>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-icon md-font-icon="icon-dots-vertical"></md-icon>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-tooltip>Product Action</md-tooltip>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
 
-                            <!--&lt;!&ndash;<md-menu-content width="3">&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Request Products">&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-reply"></md-icon>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<span>Request Products</span>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<md-menu-content width="3">&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Request Products">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-reply"></md-icon>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<span>Request Products</span>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
 
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Add label">&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-label"></md-icon>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<span>Add label</span>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Edit" ng-click="toggleEdit()">&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-pencil"></md-icon>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<span>Edit</span>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Delete">&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-delete"></md-icon>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;<span>Delete</span>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
-                            <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Add label">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-label"></md-icon>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<span>Add label</span>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Edit" ng-click="toggleEdit()">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-pencil"></md-icon>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<span>Edit</span>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-button aria-label="Delete">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<md-icon md-font-icon="icon-delete"></md-icon>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<span>Delete</span>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</md-menu-item>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
                         <!--</div>-->
-                    <!--</div>-->
+                        <!--</div>-->
 
-                    <md-divider class="mt-15"></md-divider>
+                        <md-divider class="mt-15"></md-divider>
 
-                    <div ms-scroll layout="row" layout-align="start start" flex>
-                        <md-content ms-scroll flex class="md-padding light-gray" layout-fill>
+                        <div ms-scroll layout="row" layout-align="start start" flex>
+                          <md-content ms-scroll flex class="md-padding light-gray" layout-fill>
                             <div class="mb-20">
-                                {{vm.selectedProduct.descroption}}
+                              {{vm.selectedProduct.descroption}}
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Category</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.category}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Category</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.category}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Quantity</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.quantity_of_unit}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Quantity</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.quantity_of_unit}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Tax code</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.tax}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Tax code</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.tax}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Minimum stock level</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.minimum_stock_level}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Minimum stock level</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.minimum_stock_level}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Brand</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.brand}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Brand</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.brand}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row bordered-dark">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Unit of measure</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.uom}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Unit of measure</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.uom}}</div>
                             </div>
                             <div layout="row" layout-align="start center" class="info-grid-row">
-                                <div flex="40" class="iconed-label">
-                                    <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Cost of product</span>
-                                </div>
-                                <div flex>{{vm.selectedProduct.cost_price}}</div>
+                              <div flex="40" class="iconed-label">
+                                <md-icon md-font-icon="icon-calendar-today"></md-icon> <span>Cost of product</span>
+                              </div>
+                              <div flex>{{vm.selectedProduct.cost_price}}</div>
                             </div>
-                        </md-content>
-                        <md-divider></md-divider>
-                        <div class="md-padding bg-white w-330" layout-fill layout-align="center center" layout="column">
+                          </md-content>
+                          <md-divider></md-divider>
+                          <div class="md-padding bg-white w-330" layout-fill layout-align="center center" layout="column">
                             <img src="{{vm.selectedProduct.attachment}}" alt="{{vm.selectedProduct.product_name}}" style="width: 300px;">
+                          </div>
                         </div>
-                    </div>
-                    <!--<div class="product-content" layout="column" layout-align="start start" ng-if="!editOff">-->
+                        <!--<div class="product-content" layout="column" layout-align="start start" ng-if="!editOff">-->
                         <!--<div class="image" id="product-image" layout="column" layout-align="center center">-->
-                            <!--<img src="http://{{vm.selectedProduct.attachment}}">-->
+                        <!--<img src="http://{{vm.selectedProduct.attachment}}">-->
                         <!--</div>-->
                         <!--<div class="info" layout="column" layout-align="start start">-->
-                            <!--<div class="summary" layout="column" layout-align="start start">-->
-                                <!--<span class="info_sup">Summary</span>-->
-                                <!--<div class="summary_list" layout="row" layout-align="start start">-->
-                                    <!--<div class="sum_column" flex layout="column" layout-align="start start">-->
-                                        <!--<div layout="row" layout-align="center center" flex>-->
-                                            <!--<div class="column_cell" layout="row" layout-align="center center" flex>-->
-                                                <!--<span flex>Category</span><span flex>{{vm.selectedProduct.category}}</span>-->
-                                            <!--</div>-->
-                                            <!--<div class="column_cell" layout="row" layout-align="center center" flex>-->
-                                                <!--<span flex>Quantity</span><span flex>{{vm.selectedProduct.quantity_of_unit}}</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div layout="row" layout-align="center center">-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Tax code</span><span flex>{{vm.selectedProduct.tax}}</span>-->
-                                            <!--</div>-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Minimum stock level</span><span flex>{{vm.selectedProduct.minimum_stock_level}}</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div layout="row" layout-align="center center">-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Brand</span><span flex>{{vm.selectedProduct.brand}}</span>-->
-                                            <!--</div>-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Unit of measure</span><span flex>{{vm.selectedProduct.uom}}</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div layout="row" layout-align="center center">-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Price</span><span flex>{{vm.selectedProduct.price_of_unit}}</span>-->
-                                            <!--</div>-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Cost of product</span><span flex>{{vm.selectedProduct.cost_price}}</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div layout="row" layout-align="center center">-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span ng-if="vm.selectedProduct.status == true" flex>Status</span><span flex ng-if="vm.selectedProduct.status == true">Active</span>-->
-                                                <!--<span ng-if="vm.selectedProduct.status == false" flex>Status</span><span flex ng-if="vm.selectedProduct.status == false">Inactive</span>-->
-                                            <!--</div>-->
-                                            <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
-                                                <!--<span flex>Inventory stock level</span><span flex>{{vm.selectedProduct.inventoryStock}}</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--&lt;!&ndash;<div class="column_cell" layout="row" layout-align="start start">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<span flex>Status</span>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<span flex ng-if="vm.selectedProfile.status == 'Active'" style="color: #05a3ec">Active</span>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<span flex ng-if="vm.selectedProfile.status == 'Inactive'" style="color: #BD362F">Inactive</span>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="description" layout="column" layout-align="start start">-->
-                                <!--<span class="info_sup">Description</span>-->
-                                <!--<span>{{vm.selectedProduct.descroption}}</span>-->
-                            <!--</div>-->
+                        <!--<div class="summary" layout="column" layout-align="start start">-->
+                        <!--<span class="info_sup">Summary</span>-->
+                        <!--<div class="summary_list" layout="row" layout-align="start start">-->
+                        <!--<div class="sum_column" flex layout="column" layout-align="start start">-->
+                        <!--<div layout="row" layout-align="center center" flex>-->
+                        <!--<div class="column_cell" layout="row" layout-align="center center" flex>-->
+                        <!--<span flex>Category</span><span flex>{{vm.selectedProduct.category}}</span>-->
+                        <!--</div>-->
+                        <!--<div class="column_cell" layout="row" layout-align="center center" flex>-->
+                        <!--<span flex>Quantity</span><span flex>{{vm.selectedProduct.quantity_of_unit}}</span>-->
+                        <!--</div>-->
                         <!--</div>-->
 
-                    <!--</div>-->
+                        <!--<div layout="row" layout-align="center center">-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Tax code</span><span flex>{{vm.selectedProduct.tax}}</span>-->
+                        <!--</div>-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Minimum stock level</span><span flex>{{vm.selectedProduct.minimum_stock_level}}</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div layout="row" layout-align="center center">-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Brand</span><span flex>{{vm.selectedProduct.brand}}</span>-->
+                        <!--</div>-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Unit of measure</span><span flex>{{vm.selectedProduct.uom}}</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div layout="row" layout-align="center center">-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Price</span><span flex>{{vm.selectedProduct.price_of_unit}}</span>-->
+                        <!--</div>-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Cost of product</span><span flex>{{vm.selectedProduct.cost_price}}</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div layout="row" layout-align="center center">-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span ng-if="vm.selectedProduct.status == true" flex>Status</span><span flex ng-if="vm.selectedProduct.status == true">Active</span>-->
+                        <!--<span ng-if="vm.selectedProduct.status == false" flex>Status</span><span flex ng-if="vm.selectedProduct.status == false">Inactive</span>-->
+                        <!--</div>-->
+                        <!--<div class="column_cell" layout="row" layout-align="start start" flex>-->
+                        <!--<span flex>Inventory stock level</span><span flex>{{vm.selectedProduct.inventoryStock}}</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="column_cell" layout="row" layout-align="start start">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span flex>Status</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span flex ng-if="vm.selectedProfile.status == 'Active'" style="color: #05a3ec">Active</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span flex ng-if="vm.selectedProfile.status == 'Inactive'" style="color: #BD362F">Inactive</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="description" layout="column" layout-align="start start">-->
+                        <!--<span class="info_sup">Description</span>-->
+                        <!--<span>{{vm.selectedProduct.descroption}}</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <!--</div>-->
+                      </md-tab-body>
+                    </md-tab>
+                    <md-tab label="History">
+                      <md-tab-label>
+                        <md-icon md-font-icon="icon-history"></md-icon> History
+                      </md-tab-label>
+                      <md-tab-body>
+                        <!--<div class="preloader" ng-hide="isReadLoaded">-->
+                        <!--<md-progress-circular></md-progress-circular>-->
+                        <!--</div>-->
+                        <div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-hide="!productReadPaneLoaded">
+                          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                        </div>
+                        <div class="md-padding">
+                          <div flex class="list-offset sub-list">
+                            <div class="list-header" layout="row" flex md-whiteframe="1dp">
+                              <div flex="10">ID</div>
+                              <div flex="20">Date</div>
+                              <div flex="20">User</div>
+                              <!--<div flex="25">Module</div>-->
+                              <div flex>Remarks</div>
+                            </div>
+                            <md-card-content class="p-0" flex>
+                              <md-content class="list-content" ms-scroll>
+                                <div layout="row" layout-align="center center" class="msg-empty-list" ng-if="auditTrailList.length == 0">
+                                  <span>
+                                  <md-icon md-font-icon="icon-information-outline"></md-icon> No history for audit trail is available</span>
+                                </div>
+                                <div layout="row" flex class="list-item" ng-repeat="detail in auditTrailList|orderBy:'-createdDate'" ng-hide="noAuditTrailLabel">
+                                  <div flex="10">
+                                    <span>{{$index + 1}}</span>
+                                  </div>
+                                  <div flex="20">
+                                    <span>{{detail.createdDate | limitTo:10}}</span>
+                                  </div>
+                                  <div flex="20">
+                                    <span>{{detail.createdUser}}</span>
+                                  </div>
+                                  <!--<div flex="25">-->
+                                  <!--<span>{{detail.module}}</span>-->
+                                  <!--</div>-->
+                                  <div flex>
+                                    <span>{{detail.remark}}</span>
+                                  </div>
+                                </div>
+                                <div class="invoice-list-item" ng-show="vm.isAuditTrailLoaded" layout="row" layout-align="center center">
+                                  <md-button ng-click="searchmoreAuditTrails(vm.selectedProduct)" class="md-primary" style="font-size: 12px;font-weight: 400">
+                                    <md-icon md-font-icon="icon-magnify"></md-icon> More</md-button>
+                                </div>
+                              </md-content>
+                            </md-card-content>
+                          </div>
+                        </div>
+                      </md-tab-body>
+                    </md-tab>
+                  </md-tabs>
+
                 </div>
 
                 <md-content ms-scroll layout="column" class="inpage-readpane-body animate-fade-in-out" id="updatePlanContent" ng-if="inpageReadPaneEdit" ng-style="{'background-color': inpageReadPaneEdit ? '#fff' : ''}" style="padding: 0;margin-bottom: 50px;">

@@ -492,6 +492,11 @@
 
 			$scope.editOn=true;
 
+      skipAuditTrails = 0;
+      $scope.auditTrailList = [];
+      $scope.moreAuditTrailLoaded = false;
+      $scope.loadProductHistory(product);
+
 			//$scope.loadAuditTrial= function () {
 			//  //Audit trial=========================================================
 			//  $scope.historyTabIsOn = function (val) {
@@ -557,6 +562,51 @@
 			// $scope.loadAuditTrial();
 
 		}
+
+    var skipAuditTrails = 0;
+    var takeAuditTrails = 100;
+    $scope.auditTrailList = [];
+    vm.isAuditTrailLoaded = true;
+    $scope.moreAuditTrailLoaded = false;
+
+    $scope.loadProductHistory = function (product) {
+
+
+      var productId = product.guproductID;
+      $scope.noAuditTrailLabel = false;
+      vm.isAuditTrailLoaded = true;
+      $charge.orderhistory().getAuditHistoryByAccID(productId, skipAuditTrails, takeAuditTrails, 'desc').success(function (data) {
+        //console.log(data);
+        skipAuditTrails += takeAuditTrails;
+        //$scope.auditTrailList=data;
+        for (var i = 0; i < data.result.length; i++) {
+          var objAuditTrail = data.result[i];
+          //objAuditTrail.id=i+1;
+          //objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
+          $scope.auditTrailList.push(objAuditTrail);
+
+        }
+
+        if (data.result.length < takeAuditTrails) {
+          vm.isAuditTrailLoaded = false;
+        }
+        $scope.moreAuditTrailLoaded = true;
+
+      }).error(function (data) {
+        //console.log(data);
+        if (data == 204) {
+          $scope.noAuditTrailLabel = true;
+        }
+        $scope.moreAuditTrailLoaded = true;
+        vm.isAuditTrailLoaded = false;
+        //$scope.auditTrailList=[];
+      })
+    }
+
+    $scope.searchmoreAuditTrails = function (product) {
+      $scope.moreAuditTrailLoaded = false;
+      $scope.getAuditTrailDetails(product);
+    }
 
 
 
@@ -912,7 +962,7 @@
 
 					$charge.storage().storeImage(uploadImageObj).success(function (data) {
 						var path = data.fileUrl;
-						editReq.attachment = path + '?' + Math.floor(Date.now() / 1000);
+						editReq.attachment = path;
 
 						editReq.currency = $scope.content.selectCurrency;
 						editReq.rate = 1;  // need  to be changed
