@@ -484,6 +484,12 @@
 					//else
 					//    $rootScope.editInv=true;
 				})
+
+        skipAuditTrails = 0;
+        $scope.auditTrailList = [];
+        $scope.moreAuditTrailLoaded = false;
+        $scope.loadProductHistory(product);
+
 			}).error(function(data)
 			{
 				$scope.productReadPaneLoaded = false;
@@ -492,71 +498,60 @@
 
 			$scope.editOn=true;
 
-			//$scope.loadAuditTrial= function () {
-			//  //Audit trial=========================================================
-			//  $scope.historyTabIsOn = function (val) {
-			//    if(val==true)
-			//      $scope.editOn = false;
-			//    else
-			//      $scope.editOn = true;
-			//  };
-			//
-			//  var skipAuditTrails=0;
-			//  var takeAuditTrails=100;
-			//  $scope.auditTrailList=[];
-			//  vm.isAuditTrailLoaded = true;
-			//  $scope.moreAuditTrailLoaded = false;
-			//
-			//  $scope.getAuditTrailDetails = function (product){
-			//
-			//
-			//    var productId=product.guproductid;
-			//    $scope.noAuditTrailLabel=false;
-			//    vm.isAuditTrailLoaded = true;
-			//    $charge.audit().getByAccountId(productId,skipAuditTrails,takeAuditTrails,'desc').success(function(data)
-			//    {
-			//      console.log(data);
-			//
-			//      skipAuditTrails+=takeAuditTrails;
-			//      //$scope.auditTrailList=data;
-			//      for (var i = 0; i < data.length; i++) {
-			//        var objAuditTrail=data[i];
-			//        //objAuditTrail.id=i+1;
-			//        //objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
-			//        $scope.auditTrailList.push(objAuditTrail);
-			//
-			//      }
-			//
-			//      if(data.length<takeAuditTrails)
-			//      {
-			//        vm.isAuditTrailLoaded = false;
-			//      }
-			//      $scope.moreAuditTrailLoaded = true;
-			//
-			//    }).error(function(data)
-			//    {
-			//      console.log(data);
-			//      if(data==204)
-			//      {
-			//        $scope.noAuditTrailLabel=true;
-			//      }
-			//      $scope.moreAuditTrailLoaded = true;
-			//      vm.isAuditTrailLoaded = false;
-			//      //$scope.auditTrailList=[];
-			//    })
-			//  }
-			//
-			//  $scope.searchmoreAuditTrails = function (product){
-			//    $scope.moreAuditTrailLoaded = false;
-			//    $scope.getAuditTrailDetails(product);
-			//  }
-			//
-			//  $scope.getAuditTrailDetails(product);
-			//  //Audit trial=========================================================
-			//}
-			// $scope.loadAuditTrial();
-
 		}
+
+    var skipAuditTrails = 0;
+    var takeAuditTrails = 100;
+    $scope.auditTrailList = [];
+    vm.isAuditTrailLoaded = true;
+    $scope.moreAuditTrailLoaded = false;
+    vm.productHistryLoading = false;
+
+    $scope.loadProductHistory = function (product) {
+
+      var productId = product.guproductID;
+      $scope.noAuditTrailLabel = false;
+      vm.isAuditTrailLoaded = true;
+      vm.productHistryLoading = true;
+      $charge.orderhistory().getAuditHistoryByAccID(productId, skipAuditTrails, takeAuditTrails, 'desc').success(function (data) {
+        //console.log(data);
+        if(!vm.productHistryLoading){
+          skipAuditTrails = 0;
+          $scope.auditTrailList = [];
+        }
+
+        skipAuditTrails += takeAuditTrails;
+        //$scope.auditTrailList=data;
+        for (var i = 0; i < data.result.length; i++) {
+          var objAuditTrail = data.result[i];
+          //objAuditTrail.id=i+1;
+          //objAuditTrail.createdDate=objAuditTrail.createdDate.split(' ')[0];
+          $scope.auditTrailList.push(objAuditTrail);
+
+        }
+
+        if (data.result.length < takeAuditTrails) {
+          vm.isAuditTrailLoaded = false;
+        }
+        $scope.moreAuditTrailLoaded = true;
+        vm.productHistryLoading = false;
+
+      }).error(function (data) {
+        //console.log(data);
+        if (data == 204) {
+          $scope.noAuditTrailLabel = true;
+        }
+        $scope.moreAuditTrailLoaded = true;
+        vm.isAuditTrailLoaded = false;
+        vm.productHistryLoading = false;
+        //$scope.auditTrailList=[];
+      })
+    }
+
+    $scope.searchmoreAuditTrails = function (product) {
+      $scope.moreAuditTrailLoaded = false;
+      $scope.getAuditTrailDetails(product);
+    }
 
 
 
@@ -868,7 +863,7 @@
 			}
 			$scope.changeProduct=angular.copy(vm.selectedProduct);
 			$scope.changeProduct.files=[];
-			prodCont.scrollTop=0;
+			//prodCont.scrollTop=0;
 			//
 		}
 
@@ -938,19 +933,20 @@
 								if (vm.selectedProduct.sku == true || vm.selectedProduct.sku == "true") {
 									$rootScope.editInv = !$rootScope.editInv;
 								}
-								else{
-									vm.selectedProduct.inventoryStock = "";
-									notifications.toast("Record Updated, Product Code " + editReq.code, "success");
-									$scope.savingEdited = false;
-									$scope.inpageReadPaneEdit=false;
-								}
-								prodCont.scrollTop=0;
+								else {
+                  vm.selectedProduct.inventoryStock = "";
+                }
+                notifications.toast("Record Updated, Product Code " + editReq.code, "success");
+                $scope.savingEdited = false;
+                $scope.inpageReadPaneEdit=false;
+
+								//prodCont.scrollTop=0;
 
 							}
 
 						}).error(function (data) {
 							//console.log(data);
-							prodCont.scrollTop=0;
+							//prodCont.scrollTop=0;
 							notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
@@ -1004,16 +1000,16 @@
 							else {
 								vm.selectedProduct.inventoryStock = "";
 							}
-							prodCont.scrollTop=0;
-							$scope.imgWidth = "";
-							$scope.imgHeight = "";
+							//prodCont.scrollTop=0;
+							//$scope.imgWidth = "";
+							//$scope.imgHeight = "";
 							notifications.toast("Record Updated, Product Code " + editReq.code, "success");
 							$scope.savingEdited = false;
 							$scope.inpageReadPaneEdit=false;
 						}
 					}).error(function (data) {
 						//console.log(data);
-						prodCont.scrollTop=0;
+						//prodCont.scrollTop=0;
 						notifications.toast("Error when updating record, Product Code " + editReq.code, "error");
 						$scope.inpageReadPaneEdit=false;
 						$scope.savingEdited = false;
@@ -1301,7 +1297,10 @@
 			})
 				.then(function(result) {
 					if(result != undefined)
-						$scope.categories.push(result);
+          {
+            $scope.categories.push(result);
+            $scope.content.category=result;
+          }
 				}, function() {
 				});
 
@@ -1363,7 +1362,10 @@
 			})
 				.then(function(result) {
 					if(result != undefined)
-						$scope.brands.push(result);
+          {
+            $scope.brands.push(result);
+            $scope.content.brand=result;
+          }
 				}, function() {
 				});
 
@@ -1408,7 +1410,10 @@
 			})
 				.then(function(result) {
 					if(result != undefined)
-						$scope.UOMs.push(result);
+          {
+            $scope.UOMs.push(result);
+            $scope.content.uom=result;
+          }
 				}, function() {
 				});
 			//var confirm = $mdDialog.prompt()
@@ -1628,7 +1633,6 @@
 									if (data.id) {
 										notifications.toast("Record Inserted, Product Code " + req.code, "success");
 										$scope.isAdded = true;
-										$scope.clearFields();
 										$rootScope.isCleared = true;
 										var product = {}
 										product.code = req.code;
@@ -1637,7 +1641,10 @@
 										product.status = req.status;
 										vm.products.unshift(product);
 										vm.productLst.unshift(product);
+                    $scope.getAllProducts();
+                    vm.closeReadPane();
 										//$rootScope.productlist.push(product);
+                    $scope.clearFields();
 
 									}
 								}).error(function (data) {
@@ -1750,7 +1757,6 @@
 								if (data.id) {
 									notifications.toast("Record Inserted, Product Code " + req.code, "success");
 									$scope.isAdded = true;
-									$scope.clearFields();
 									$rootScope.isCleared = true;
 									var product = {}
 									product.code = req.code;
@@ -1759,7 +1765,10 @@
 									product.status = req.status;
 									vm.products.unshift(product);
 									vm.productLst.unshift(product);
+                  $scope.getAllProducts();
+                  vm.closeReadPane();
 									//$rootScope.productlist.push(product);
+                  $scope.clearFields();
 
 								}
 							}).error(function (data) {
@@ -1811,7 +1820,7 @@
 			//$('#deletebtn').click();
 			$scope.cropper = {};
 			//context.clearRect(0, 0, canvas.width, canvas.height);
-			$state.go($state.current, {}, {reload: $scope.isAdded});
+			//$state.go($state.current, {}, {reload: $scope.isAdded});
 		}
 		$scope.backToMain = function(ev)
 		{

@@ -197,7 +197,7 @@
             <div layout="row" style="height: 95px;">
                 <md-input-container flex="30">
                     <label>Quantity of unit</label>
-                    <input ng-required="false" name="ProdQty" min="0" max="1000000000000000" type="number" name="Qty" ng-pattern="/^-?[0-9][^\.]*$/" ng-model="content.quantity_of_unit">
+                    <input ng-required="false" ng-disabled="content.sku" name="ProdQty" min="0" max="1000000000000000" type="number" name="Qty" ng-pattern="/^-?[0-9][^\.]*$/" ng-model="content.quantity_of_unit">
                     <div ng-messages="vm.editForm.ProdQty.$error">
                         <div ng-message="pattern">Quantity of Unit is invalid</div>
                         <div ng-message="max">Quantity of unit must be between 1-16 digits</div>
