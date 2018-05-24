@@ -2,7 +2,7 @@
 // App : Product
 // Owner  : Ishara
 // Last changed date : 2018-05-24
-// Version : 6.1.0.6
+// Version : 6.1.0.7
 // Updated By : Gihan
 /////////////////////////////////
 (function ()
