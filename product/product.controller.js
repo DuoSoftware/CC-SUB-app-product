@@ -907,7 +907,7 @@
 
 					$charge.storage().storeImage(uploadImageObj).success(function (data) {
 						var path = data.fileUrl;
-						editReq.attachment = path;
+						editReq.attachment = path + '?' + Math.floor(Date.now() / 1000);
 
 						editReq.currency = $scope.content.selectCurrency;
 						editReq.rate = 1;  // need  to be changed
