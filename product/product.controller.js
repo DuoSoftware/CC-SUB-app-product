@@ -1809,8 +1809,8 @@
 			$scope.content.price_of_unit=null;
 			$scope.content.cost_price=null;
 			$scope.content.tax="0";
-			$scope.content.sku="false";
-			$scope.content.apply_tax="false";
+			$scope.content.sku=false;
+			$scope.content.apply_tax=false;
 			$scope.content.status=true;
 			$scope.content.uom="";
 			$scope.content.category="";
