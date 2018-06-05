@@ -1573,6 +1573,13 @@
 		//Image Uploader 15_06_2017
 
 		//Image Uploader===================================
+		
+		$scope.trackInventoryClicked = function(sku){
+		  if(!sku){
+			$scope.content.quantity_of_unit = 0;
+		  }
+		}
+		
 		$scope.productSubmit=false;
 
 
