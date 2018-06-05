@@ -231,7 +231,7 @@
                                 <div ng-message="max">Minimum stock level must be between 1-16 digits</div>
                             </div>
                         </md-input-container>
-                        <md-checkbox ng-model="content.sku" aria-label="Track Inventory" class="md-primary dep-checkbox" style="top: -5px;width: 140px;">Track inventory</md-checkbox>
+                        <md-checkbox ng-model="content.sku" ng-click="trackInventoryClicked(content.sku)" aria-label="Track Inventory" class="md-primary dep-checkbox" style="top: -5px;width: 140px;">Track inventory</md-checkbox>
                     </div>
                 </div>
             </div>
