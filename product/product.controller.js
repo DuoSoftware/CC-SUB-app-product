@@ -1573,13 +1573,13 @@
 		//Image Uploader 15_06_2017
 
 		//Image Uploader===================================
-		
+
 		$scope.trackInventoryClicked = function(sku){
 		  if(!sku){
 			$scope.content.quantity_of_unit = 0;
 		  }
 		}
-		
+
 		$scope.productSubmit=false;
 
 
@@ -1805,8 +1805,6 @@
 		}
 
 		$scope.clearFields= function () {
-			//$scope.editForm.$setPristine();
-			//$scope.editForm.$setUntouched();
 			$scope.content.product_name='';
 			//self.searchText='';
 			$scope.content.files=[];
@@ -1826,6 +1824,8 @@
 			$scope.content.minimum_stock_level=0;
 			//$('#deletebtn').click();
 			$scope.cropper = {};
+      vm.editForm.$setPristine();
+      vm.editForm.$setUntouched();
 			//context.clearRect(0, 0, canvas.width, canvas.height);
 			//$state.go($state.current, {}, {reload: $scope.isAdded});
 		}
